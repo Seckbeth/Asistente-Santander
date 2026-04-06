@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Santander - Luis Caceres</title>
+    <style>
+        :root { --santander-red: #ec1c2d; --dark-grey: #444; --light-grey: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-grey); margin: 0; padding: 10px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); min-height: 95vh; }
+        
+        /* Encabezado Estilo Santander sin Imagen */
+        .header { background-color: var(--santander-red); color: white; text-align: center; padding: 20px; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px; }
+        .header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
+        .header p { margin: 5px 0 0; opacity: 0.9; font-weight: bold; }
+
+        .section { display: none; animation: fadeIn 0.2s; }
+        .active { display: block; }
+
+        /* Botones de Navegación */
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        button { padding: 15px 10px; font-size: 15px; font-weight: bold; cursor: pointer; border: 2px solid var(--santander-red); background: white; color: var(--santander-red); border-radius: 8px; transition: 0.2s; }
+        button:hover { background: var(--santander-red); color: white; }
+        .btn-back { background: #666; color: white; border: none; margin-top: 25px; width: 100%; height: 45px; }
+        .btn-back:hover { background: #555; }
+
+        /* Botones amarillos para No Negociables y Glosario */
+        .btn-yellow { background: #f5c542; border: 2px solid #e6a800; color: #5a3e00; }
+        .btn-yellow:hover { background: #e6b800; color: #3d2a00; border-color: #cc9900; }
+        .btn-grid-yellow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+
+        /* Cajas de Información */
+        .script-box { background: #fffde7; border-left: 5px solid #fbc02d; padding: 15px; margin: 15px 0; font-style: italic; font-size: 0.95rem; }
+        .alert-box { background: #ffebee; border-left: 5px solid #d32f2f; padding: 15px; margin: 10px 0; color: #b71c1c; font-weight: bold; }
+        .step-list { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd; line-height: 1.6; }
+        .info-box { background: #e8f0fe; border-left: 5px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 6px; }
+        
+        /* Advertencia abajo de las opciones */
+        .warning-bottom { background: #fff8e7; border: 1px solid #f0c674; border-radius: 10px; padding: 14px 18px; margin-top: 25px; font-size: 0.85rem; color: #5a4a1a; }
+        .warning-bottom strong { color: #c62828; font-weight: 700; }
+
+        /* Estado de colores SK */
+        .sk-status { display: flex; gap: 20px; flex-wrap: wrap; margin: 15px 0; }
+        .status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; font-weight: bold; }
+        .status-green { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-white { background: #f0f0f0; color: #333; border: 1px solid #ccc; }
+        .status-grey { background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+
+        h3 { color: var(--santander-red); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
+        b { color: #000; }
+        
+        /* Paneles desplegables */
+        .toggle-panel { display: none; background: #fafafa; border-radius: 10px; padding: 15px; margin-top: 15px; border: 1px solid #e0e0e0; }
+        .toggle-panel.show { display: block; }
+
+        /* No negociables lista */
+        .no-negociables-list { margin: 0; padding-left: 20px; line-height: 1.6; }
+        .no-negociables-list li { margin: 5px 0; font-size: 0.85rem; }
+
+        /* Glosario grid */
+        .glosario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+        .glosario-item { font-size: 0.85rem; padding: 6px 0; border-bottom: 1px dotted #ddd; }
+        .glosario-item strong { color: var(--santander-red); min-width: 85px; display: inline-block; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Santander</h1>
+        <p>ASISTENTE OPERATIVO - LUIS CACERES</p>
+    </div>
+
+    <!-- INICIO -->
+    <div id="inicio" class="section active">
+        <div class="script-box">
+            <strong>BIENVENIDA (Excelencia):</strong><br>
+            "Buen día, mi nombre es <b>Luis Caceres</b> de Banco Santander. Quiero disculparme por el tiempo de espera. Dime (Nombre Cliente), ¿Cómo puedo ayudarte con tu consulta de <b>(Etiqueta)</b>?"<br>En caso de que la llamada no entre con etiqueta, preguntar ¿Cómo te puedo ayudar el día de hoy?"
+        </div>
+
+        <h3>Menú de Gestiones:</h3>
+        <div class="btn-grid">
+            <button onclick="show('ca-causas')">🔑 CLAVE DE ACCESO (CA)</button>
+            <button onclick="show('fe-causas')">✍️ FIRMA ELECTRÓNICA (FE)</button>
+            <button onclick="show('sk-causas')">🛡️ SANTANDER KEY (SK)</button>
+            <button onclick="show('cmc-causas')">📱 CONTRATO MULTICANAL</button>
+            <button onclick="show('cita-prev')">📅 CITA PREVIA / OFICINA</button>
+            <button onclick="show('llamadas-cortadas')">📞 LLAMADAS CORTADAS</button>
+            <button onclick="show('otras-gestiones')">⚙️ OTRAS GESTIONES</button>
+        </div>
+
+        <!-- Botones amarillos debajo del menú -->
+        <div class="btn-grid-yellow">
+            <button class="btn-yellow" id="noNegociablesToggle">📋 NO NEGOCIABLES</button>
+            <button class="btn-yellow" id="glosarioToggle">📖 GLOSARIO DE TÉRMINOS</button>
+        </div>
+
+        <!-- Panel No Negociables -->
+        <div id="noNegociablesPanel" class="toggle-panel">
+            <h4 style="margin-top:0; color:#1565c0;">📋 Lista de cosas "No Negociables"</h4>
+            <ol class="no-negociables-list">
+                <li>Pedir disculpas por tiempo de esperas</li>
+                <li>Personalizar bienvenida según el segmento del cliente</li>
+                <li>Si llama desde C2C ponerlo en valor</li>
+                <li>Verbalizar la información que el cliente nos ha dado en pregunta abierta en la IVR</li>
+                <li>Saber, si ha llamado horas o días antes, el motivo de la rellamada y quedarnos la llamada</li>
+                <li>Gestión emociones (aplicación DISC)</li>
+                <li>Tener en cuenta el AHT, los silencios y la música</li>
+                <li>Acompañamiento digital</li>
+                <li>Aplicar protocolo de llamada cortada cuando corresponda</li>
+                <li>Si surge alguna duda, se levanta la mano</li>
+                <li>En caso de traspaso, siempre a 2 pasos</li>
+                <li>En caso de necesidad de abrir helpy, 1º lo reviso con mi supervisor</li>
+                <li>Si resolvemos, lo verbalizamos</li>
+                <li>Informar de la encuesta. NO pedimos el 10. SI damos 10 al cliente</li>
+                <li>Ofrecimiento de productos</li>
+                <li>Venta Institucional + Ventajas y los Beneficios</li>
+            </ol>
+        </div>
+
+        <!-- Panel Glosario -->
+        <div id="glosarioPanel" class="toggle-panel">
+            <h4 style="margin-top:0; color:var(--santander-red);">📚 Glosario Santander</h4>
+            <div class="glosario-grid">
+                <div class="glosario-item"><strong>CA:</strong> Clave de Acceso (8 dígitos numéricos, nivel consultivo N1)</div>
+                <div class="glosario-item"><strong>FE:</strong> Firma Electrónica (8 alfanumérica, nivel operativo N2)</div>
+                <div class="glosario-item"><strong>SK:</strong> Santander Key (firma biométrica con huella/Face ID)</div>
+                <div class="glosario-item"><strong>CMC:</strong> Contrato Multicanal (acceso a canales a distancia)</div>
+                <div class="glosario-item"><strong>N1:</strong> Nivel consultivo (solo piden 2 posiciones de la clave)</div>
+                <div class="glosario-item"><strong>N2:</strong> Nivel operativo (piden 4 posiciones de la firma)</div>
+                <div class="glosario-item"><strong>PIN/PAN:</strong> 4 últimos dígitos de la tarjeta + PIN</div>
+                <div class="glosario-item"><strong>Partenón:</strong> Herramienta para envío de FE provisional por SMS</div>
+                <div class="glosario-item"><strong>ANI:</strong> Número de teléfono registrado en BBDD del cliente</div>
+                <div class="glosario-item"><strong>IVR:</strong> Sistema automático de reasignación de claves</div>
+                <div class="glosario-item"><strong>Superlínea:</strong> Teléfono de atención al cliente</div>
+                <div class="glosario-item"><strong>NHB:</strong> Banca Online (versión web)</div>
+                <div class="glosario-item"><strong>OTP:</strong> Contraseña de un solo uso</div>
+                <div class="glosario-item"><strong>Agente ciego:</strong> Gestor que activa FE sin ver datos completos</div>
+                <div class="glosario-item"><strong>Sango:</strong> Asistente interno para búsqueda de temas y clientes</div>
+                <div class="glosario-item"><strong>TPX:</strong> Comando 9004 para bloqueo/consulta de CMC</div>
+                <div class="glosario-item"><strong>GSI:</strong> Situación de impago (I30, I60, I90)</div>
+                <div class="glosario-item"><strong>C2C:</strong> Cliente que llama por segunda vez</div>
+                <div class="glosario-item"><strong>AHT:</strong> Tiempo promedio de atención</div>
+            </div>
+        </div>
+
+        <div class="script-box" style="margin-top: 20px;">
+            <strong>DESPEDIDA NPS:</strong> "Te recuerdo que recibirás una encuesta por mi atención, mi nombre es Luis Caceres y te doy un 10 por tu tiempo."
+        </div>
+    </div>
+
+    <!-- ==================== CLAVE DE ACCESO ==================== -->
+    <div id="ca-causas" class="section">
+        <h3>🔑 Clave de Acceso (CA) - 8 dígitos numéricos</h3>
+        <div class="btn-grid">
+            <button onclick="show('ca-digital')">Recuperar vía App/Web</button>
+            <button onclick="show('ca-ivr')">Recuperar vía IVR (Quiz)</button>
+            <button onclick="show('ca-bloqueo')">Bloqueos y Normas</button>
+        </div>
+        <div class="warning-bottom">
+            <strong>⚠️ CONSEJOS Y NORMAS:</strong><br>
+            • La CA tiene <b>8 dígitos numéricos</b><br>
+            • No puede ser igual a las <b>6 anteriores</b> | No 12345678 / 11111111 | No DNI/fecha nacimiento<br>
+            • Se bloquea tras <b>5 intentos fallidos</b><br>
+            • <b>NUNCA pedir la clave completa</b> al cliente, solo posiciones aleatorias (2 para N1)
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="ca-digital" class="section">
+        <h3>📱 Recuperar Clave vía App / Web</h3>
+        <div class="step-list">
+            <b>Requisitos:</b> CMC activo + Nivel N1. Cliente debe recordar el <b>PIN de la tarjeta</b>.<br><br>
+            <b>Paso a paso:</b><br>
+            1. "Olvidé mis credenciales" en Web/App<br>
+            2. Introducir <b>documento completo (16 dígitos)</b><br>
+            3. Ingresar el <b>PIN</b> (4 últimos dígitos + PIN)<br>
+            4. Definir <b>nueva clave de 8 dígitos</b>
+        </div>
+        <div class="script-box">"Por tu seguridad, nunca debes facilitar tu clave completa. Solo te solicitaré posiciones aleatorias."</div>
+        <div class="warning-bottom">
+            <strong>⚠️ Si el cliente no recuerda el PIN:</strong> derivar a recuperación por preguntas de seguridad (IVR/Quiz).
+        </div>
+        <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="ca-ivr" class="section">
+        <h3>🎧 Reasignación vía IVR (Quiz)</h3>
+        <div class="step-list">
+            <b>Nivel:</b> CMC activo + N1 + ANI. Cliente con clave bloqueada (5 fallos).<br><br>
+            <b>Preguntas del Quiz:</b><br>
+            • Fecha de nacimiento<br>
+            • 4 últimos dígitos de una cuenta<br>
+            • Saldo aproximado<br>
+            • ¿Tiene préstamo? (cuota) / ¿Tarjeta? (6 últimas cifras)
+        </div>
+        <div class="warning-bottom">
+            <strong>🌍 Excepción extranjero:</strong> documento digitalizado + preguntas reforzadas. Nivel N1.
+        </div>
+        <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="ca-bloqueo" class="section">
+        <h3>📜 Bloqueos y Normas de CA</h3>
+        <div class="step-list">
+            <b>¿Cuándo se bloquea?</b><br>
+            • 5 intentos fallidos | 12 meses sin uso | Por motivos de seguridad<br><br>
+            <b>Requisitos de la nueva CA:</b><br>
+            • No igual a las 6 anteriores<br>
+            • No igual a la FE<br>
+            • No 11111111 / 12345678<br>
+            • No series consecutivas (XXX012XX)<br>
+            • No DNI/fecha nacimiento/teléfono CMC
+        </div>
+        <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== FIRMA ELECTRÓNICA ==================== -->
+    <div id="fe-causas" class="section">
+        <h3>✍️ Firma Electrónica (FE) - 8 caracteres alfanuméricos</h3>
+        <div class="btn-grid">
+            <button onclick="show('fe-partenon')">Envío Provisional (Partenón)</button>
+            <button onclick="show('fe-agente-ciego')">Agente Ciego (Gestor 1 y 2)</button>
+        </div>
+        <div class="warning-bottom">
+            <strong>⚠️ NORMAS DE LA FE:</strong><br>
+            • <b>8 caracteres alfanuméricos</b> | No igual a las 6 anteriores | No igual a CA<br>
+            • Se bloquea tras <b>3 intentos fallidos</b><br>
+            • La <b>firma provisional vence en 24h</b><br>
+            • <b>NUNCA pedir la firma completa</b>, solo posiciones aleatorias (4 para N2)
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="fe-partenon" class="section">
+        <h3>📨 Envío de FE Provisional (Partenón)</h3>
+        <div class="alert-box">Nivel: CMC Activo + N1 + ANI + Preguntas Seguridad</div>
+        <div class="step-list">
+            <b>Preguntas de seguridad:</b><br>
+            • Con DNI: Fecha nacimiento + Fecha vencimiento DNI<br>
+            • Sin DNI: Fecha nacimiento + Nacionalidad + Domicilio completo<br><br>
+            <b>Pasos en Partenón:</b><br>
+            1. Partenón → Contratación → Mantenimiento de contratos<br>
+            2. Buscar por DNI → "Contratos Multicanal"<br>
+            3. Botón "Envío firma electrónica" → SMS provisional
+        </div>
+        <div class="script-box">"¿Me autorizas a enviar por SMS tu firma electrónica provisional al móvil finalizado en XXX?"</div>
+        <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="fe-agente-ciego" class="section">
+        <h3>👤 Protocolo Agente Ciego</h3>
+        <div class="step-list">
+            <b>Gestor 1:</b><br>
+            - Verificar estado FE pendiente<br>
+            - Menú Cliente → Canales Remotos → Activar FE<br>
+            - Confirmar 4 posiciones de la firma SMS<br><br>
+            <b>Gestor 2 (agente ciego):</b><br>
+            - "Indíqueme la nueva firma de 8 caracteres alfanuméricos"<br>
+            - Confirmar y recordar que NUNCA se pide completa
+        </div>
+        <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== SANTANDER KEY ==================== -->
+    <div id="sk-causas" class="section">
+        <h3>🛡️ Santander Key (SK) - Firma Biométrica</h3>
+
+        <div class="btn-grid">
+            <button onclick="show('sk-estado')">📊 Consulta de Estado (Colores)</button>
+            <button onclick="show('sk-activar')">🔓 Activar Santander Key</button>
+            <button onclick="show('sk-autorizar')">✅ Autorizar Operaciones</button>
+            <button onclick="show('sk-desistimiento')">🚫 Desistimiento / Baja</button>
+        </div>
+
+        <div class="warning-bottom">
+            <strong>⚠️ INFORMACIÓN SK:</strong><br>
+            • Reemplaza a la FE tradicional | Funciona con huella/Face ID<br>
+            • Si tiene dispositivo seguro → migración automática (proceso transparente)<br>
+            • <b>No se puede dar de baja</b> (solo por fraude confirmado)<br>
+            • Escaneo de DNI es <b>medida antifraude legítima</b> - transmitir seguridad al cliente<br>
+            • Desde Santander Go podemos consultar el estado pulsando el icono de SK
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="sk-estado" class="section">
+        <h3>📊 Consulta de Estado Santander Key</h3>
+        <div class="info-box">
+            <b>Icono Santander Key en Santander Go:</b>
+            <div class="sk-status" style="margin-top: 10px;">
+                <span class="status-badge status-green">🟢 Verde: Integrado y activo</span>
+                <span class="status-badge status-white">⚪ Blanco: Integrado y no activo (guiar al cliente para activar)</span>
+                <span class="status-badge status-grey">⚫ Gris: No integrado y no activo (cliente sin dispositivo seguro)</span>
+            </div>
+        </div>
+        <div class="step-list">
+            <b>¿Cómo consultarlo?</b><br>
+            1. Acceder a <b>Santander Go</b><br>
+            2. Buscar al cliente<br>
+            3. Pulsar en el <b>icono de Santander Key</b><br>
+            4. El color indicará el estado actual<br><br>
+            <b>Además, pulsando en el icono accedemos a la consola de SK</b> donde podemos ampliar más información del cliente.
+        </div>
+        <button class="btn-back" onclick="show('sk-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="sk-activar" class="section">
+        <h3>🔓 Activar Santander Key</h3>
+        <div class="step-list">
+            <b>📌 Requisitos:</b> App instalada, biometría activa (huella/Face ID), conocer PIN de alguna tarjeta<br><br>
+            <b>🔹 Para clientes que ya estaban registrados en dispositivo seguro:</b> Migración automática y transparente a Santander Key. No necesitan hacer nada.<br><br>
+            <b>🔹 Para altas nuevas (dos formas):</b><br>
+            <b>Opción A:</b> Menú App (esquina superior derecha) → <b>Seguridad</b> → Santander Key → seguir pasos.<br>
+            <b>Opción B:</b> Pantalla de inicio de la App → buscar el <b>icono de Santander Key</b> → seguir pasos.<br><br>
+            <b>🔹 Proceso detallado:</b><br>
+            1. Ingresar a <b>Seguridad y claves</b> → Santander Key → "Tus operaciones más seguras"<br>
+            2. <b>Vincular este dispositivo</b><br>
+            3. Seleccionar una tarjeta de la que <b>conozca el PIN</b><br>
+            4. Introducir el <b>PIN</b> de la tarjeta<br>
+            5. Llegará un <b>SMS al móvil principal</b> → darle continuar<br>
+            6. Activar <b>notificaciones</b> (opcional pero recomendado)<br>
+            7. Finalizar el proceso
+        </div>
+        <div class="script-box">🗣️ "Te voy a guiar para que actives Santander Key. Es un método más seguro, podrás firmar todas las operaciones desde el móvil usando solo tu huella o Face ID, sin necesidad de recordar códigos ni validar SMS."</div>
+        <div class="info-box">📸 <b>Escaneo de DNI:</b> En ocasiones, al activar o actualizar Santander Key, se le pedirá al cliente escanear su documento de identidad. Es una <b>medida antifraude legítima</b>, no es phishing. Transmitir seguridad al cliente: "Es un paso adicional de seguridad para proteger tu cuenta."</div>
+        <button class="btn-back" onclick="show('sk-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="sk-autorizar" class="section">
+        <h3>✅ Autorizar / Cancelar operaciones pendientes con SK</h3>
+        <div class="step-list">
+            <b>El cliente cuenta con 3 formas distintas de acceder a las operaciones pendientes de firma:</b><br><br>
+            <b>1. Notificación push</b><br>
+            Pulsando en la notificación enviada desde la App para validar la operativa (sin necesidad de iniciar sesión en la App).<br><br>
+            <b>2. Candado de Santander Key</b><br>
+            Situado en la parte inferior de la pantalla de inicio de sesión de la App. Se le abrirá automáticamente la última operativa pendiente de validar. No necesita iniciar sesión.<br><br>
+            <b>3. Desde el buzón dentro de la App</b><br>
+            Iniciando sesión → buzón → Santander Key → listado de operativas pendientes de firma, pudiendo escoger cuál validar en cada momento.<br><br>
+            <b>📌 Cancelar o denunciar una operación:</b><br>
+            El cliente puede cancelar o denunciar una operación. Iniciada una operación, el cliente deberá entrar en la aplicación para poder autorizarla. En la pantalla previa a la firma, podrá pulsar en <b>"Cancelar operación"</b>. Esto le redirigirá a una segunda pantalla donde tendrá la posibilidad de cancelar la operación, o en caso de que el cliente no haya iniciado esa operación, <b>denunciarla</b>.
+        </div>
+        <div class="script-box">🧾 "Si ves una compra que no reconoces, puedes cancelar o denunciar directamente desde la notificación antes de firmar. No es necesario que entres a la App si no quieres, el candado de SK te da acceso directo."</div>
+        <button class="btn-back" onclick="show('sk-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="sk-desistimiento" class="section">
+        <h3>🚫 Desistimiento / Baja de Santander Key</h3>
+        <div class="alert-box">⚠️ IMPORTANTE: Una vez dado de alta, el cliente <b>no podrá darse de baja</b>, pues es su nuevo método de firma para todas las operaciones integradas con Santander Key.</div>
+        <div class="step-list">
+            <b>📌 Solo se podrá dar de baja en caso de FRAUDE confirmado.</b><br><br>
+            <b>Si el cliente no quiere Santander Key:</b> No podrá operar por la banca a distancia, ya que SK reemplaza a la Firma Electrónica tradicional.<br><br>
+            <b>En caso de fraude o robo del dispositivo:</b><br>
+            - El cliente debe contactar inmediatamente con el banco<br>
+            - Se procederá a bloquear el dispositivo y dar de baja SK<br>
+            - Se generará una nueva FE provisional para que el cliente pueda operar
+        </div>
+        <div class="script-box">🗣️ "Santander Key es tu nuevo método de firma obligatorio para operar por canales digitales. Si tienes alguna incidencia con tu dispositivo, podemos ayudarte a recuperar el acceso, pero no podemos darlo de baja voluntariamente por seguridad."</div>
+        <button class="btn-back" onclick="show('sk-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== CONTRATO MULTICANAL ==================== -->
+    <div id="cmc-causas" class="section">
+        <h3>📱 Gestión de Contrato Multicanal (CMC)</h3>
+        <div class="btn-grid">
+            <button onclick="show('cmc-tel')">Modificar Teléfono</button>
+            <button onclick="show('cmc-limites')">Modificar Límites</button>
+            <button onclick="show('cmc-nivel')">Cambio Nivel Acceso</button>
+            <button onclick="show('cmc-tpx')">Bloqueo TPX (9004)</button>
+        </div>
+        <div class="warning-bottom">
+            <strong>⚠️ LÍMITES CMC:</strong><br>
+            • Particulares: <b>30.000€/día</b> | Selec: 60.000€ requiere oficina | Senior cuenta como particular<br>
+            • Modificar teléfono sin SK: <b>N2 + preguntas + DNI digitalizado</b> → transferencia 2 pasos<br>
+            • Excepción extranjero sin SK/FE: <b>N1 + documento digitalizado</b>
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="cmc-tel" class="section">
+        <h3>📞 Modificar Teléfono Asociado al CMC</h3>
+        <div class="step-list">
+            <b>Con SK (recomendado):</b> APP → Área personal → Datos personales → Datos multicanal<br>
+            <b>Sin SK (en llamada):</b> N2 + preguntas reforzadas + DNI digitalizado visible + email en BBDD + conexión internet → transferencia a 2 pasos (video llamada)<br>
+            <b>Excepción extranjero (N1):</b> Cliente sin SK, sin FE, teléfono incorrecto, en el extranjero, sin posibilidad de oficina → N1 (2 posiciones clave) + documento digitalizado en vigor
+        </div>
+        <div class="script-box">⚠️ "Por tu seguridad, necesito que tengas a mano tu DNI y conexión a internet. Te voy a transferir con un compañero para verificar tus datos a través de videollamada."</div>
+        <button class="btn-back" onclick="show('cmc-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="cmc-limites" class="section">
+        <h3>💰 Modificar Límite CMC</h3>
+        <div class="step-list">
+            <b>APP:</b> Seguridad → Límite multicanal<br>
+            <b>Web (NHB):</b> Área personal → Seguridad → Modificar límite<br>
+            <b>Nivel necesario:</b> N2 + OTP/SK<br>
+            <b>Límite máximo en distancia:</b> 30.000€. Para más importe, acudir a oficina.
+        </div>
+        <button class="btn-back" onclick="show('cmc-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="cmc-nivel" class="section">
+        <h3>🔄 Cambio de Nivel de Acceso CMC</h3>
+        <div class="step-list">
+            <b>SPL (Superlínea):</b> N2 + preguntas + ANI/SK<br>
+            <b>Banca Online (NHB):</b> N2 + OTP/SK<br>
+            <b>APP:</b> N2 + OTP/SK<br>
+            <b>Requisito indispensable:</b> FE activa o SK
+        </div>
+        <button class="btn-back" onclick="show('cmc-causas')">⬅ Volver</button>
+    </div>
+
+    <div id="cmc-tpx" class="section">
+        <h3>🔒 Bloqueo TPX (Comando 9004)</h3>
+        <div class="step-list">
+            <b>Ruta:</b> 9004 → Opción 2 → Opción 3 → 1 Contratación → 1 Mantenimiento → 4 Consultar activo<br>
+            <b>Tipo documento:</b> N (DNI español) / I-T (Pasaportes/extranjeros) / PA (Particular) / AU (Autónomo)
+        </div>
+        <button class="btn-back" onclick="show('cmc-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== CITA PREVIA ==================== -->
+    <div id="cita-prev" class="section">
+        <h3>📅 Agendar Cita en Oficina</h3>
+        <div class="btn-grid">
+            <button onclick="show('cita-agendar')">Agendar Cita</button>
+        </div>
+        <div class="warning-bottom">
+            <strong>⚠️ INFORMACIÓN CITAS:</strong><br>
+            • Horario: <b>9:00 a 14:00</b> | Citas para día siguiente (no festivos)<br>
+            • Si tiene prisa: puede acudir sin cita con tiempo de espera (depende disponibilidad)<br>
+            • Se envía confirmación a correo y móvil | El cliente debe confirmar los datos
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="cita-agendar" class="section">
+        <h3>📅 Agendar Cita</h3>
+        <div class="step-list">
+            <b>Pasos:</b><br>
+            1. Santander Go → Buscador clientes → Icono calendario<br>
+            2. Seleccionar <b>"Comercial"</b> → información y contratación de productos<br>
+            3. Buscar oficina por <b>Código Postal</b> → asignar cita (siempre día siguiente hábil)<br>
+            4. <b>Recapitular toda la información</b> de la cita al cliente<br>
+            5. Enviar confirmación a correo y móvil
+        </div>
+        <div class="script-box">📢 "Te informo que Banco Santander solo usará los datos de contacto que acabas de facilitar para la gestión de tu cita. Te envío la confirmación al correo y móvil. Por favor, confírmalos."</div>
+        <button class="btn-back" onclick="show('cita-prev')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== LLAMADAS CORTADAS ==================== -->
+    <div id="llamadas-cortadas" class="section">
+        <h3>📞 Llamadas Cortadas - Protocolo Outbound</h3>
+        <div class="step-list">
+            <b>🔹 PROTOCOLO OBLIGATORIO:</b><br>
+            • Es <b>OBLIGATORIO devolver TODAS las llamadas cortadas</b><br>
+            • Mantener el <b>mismo nivel de seguridad</b> que en la llamada entrante<br>
+            • Si tras cortarse atendemos otra, finalizamos y nos ponemos en outbound<br><br>
+            <b>📞 Script de llamada saliente:</b><br>
+            "Banco Santander por motivos de calidad del servicio procederá a la grabación de esta llamada en base a un interés legítimo. Para cualquier información adicional puede consultarnos."<br><br>
+            <b>⚠️ IMPORTANTE:</b> Es el <b>ÚNICO CASO</b> donde vamos a solicitar claves en llamada saliente (con el mismo nivel que la entrante).
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <!-- ==================== OTRAS GESTIONES ==================== -->
+    <div id="otras-gestiones" class="section">
+        <h3>⚙️ Otras Gestiones y Protocolos</h3>
+        <div class="btn-grid">
+            <button onclick="show('otras-autorizacion')">Autorización a Terceros</button>
+            <button onclick="show('otras-frases')">Frases de Acompañamiento</button>
+            <button onclick="show('otras-consumo')">Protocolo Consumo / Venta</button>
+        </div>
+        <div class="warning-bottom">
+            <strong>⚠️ RECORDATORIO:</strong><br>
+            • Plan de Excepción = ENCOLADOS → ofrecer no rebatir<br>
+            • Siempre recapitular información de la cita<br>
+            • Texto legal al solicitar datos de contacto
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="otras-autorizacion" class="section">
+        <h3>👤 Autorización a Terceros</h3>
+        <div class="step-list">
+            <b>Script:</b><br>
+            "No podemos facilitar esta información a otra persona salvo que como titular nos autorices para ello. ¿Me das tu autorización (nombre) para informar en esta llamada?"<br><br>
+            <b>En caso positivo:</b> facilitar <b>nombre completo y DNI</b> de la persona autorizada.
+        </div>
+        <button class="btn-back" onclick="show('otras-gestiones')">⬅ Volver</button>
+    </div>
+
+    <div id="otras-frases" class="section">
+        <h3>💬 Frases de Acompañamiento (Excelencia)</h3>
+        <div class="step-list">
+            • "Entiendo lo que me estás comentando, lamento que estés pasando por esta situación."<br>
+            • "Voy a hacer todo lo posible para resolver este problema."<br>
+            • "Aprecio mucho que me hayas informado de esto, y me aseguraré de que se resuelva de la mejor manera."<br>
+            • "Lamento los inconvenientes, vamos a trabajar juntos para encontrar una solución."
+        </div>
+        <button class="btn-back" onclick="show('otras-gestiones')">⬅ Volver</button>
+    </div>
+
+    <div id="otras-consumo" class="section">
+        <h3>💰 Protocolo Consumo / Venta</h3>
+        <div class="alert-box">⚠️ NO OFRECER SI: ASNEF, GSI (Impago I30/I60/I90), +80 años o Lista Robinson</div>
+        <div class="step-list">
+            <b>Préstamos preconcedidos:</b> Préstamo Digital, Reinicia, Anticipo Nómina<br>
+            <b>No preconcedidos:</b> Préstamo EPO Fijo<br>
+            <b>Verificar en Sango</b> (Conversaciones) si tiene monto aprobado<br>
+            <b>Siempre ofrecer en TODAS las llamadas</b> salvo excepciones mencionadas
+        </div>
+        <button class="btn-back" onclick="show('otras-gestiones')">⬅ Volver</button>
+    </div>
+
+</div>
+
+<script>
+    function show(id) {
+        var sections = document.querySelectorAll('.section');
+        sections.forEach(function(s) { s.classList.remove('active'); });
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // Toggle NO NEGOCIABLES
+    var noNegociablesBtn = document.getElementById('noNegociablesToggle');
+    var noNegociablesPanel = document.getElementById('noNegociablesPanel');
+    if (noNegociablesBtn && noNegociablesPanel) {
+        noNegociablesBtn.addEventListener('click', function() {
+            noNegociablesPanel.classList.toggle('show');
+        });
+    }
+
+    // Toggle GLOSARIO
+    var glosarioBtn = document.getElementById('glosarioToggle');
+    var glosarioPanel = document.getElementById('glosarioPanel');
+    if (glosarioBtn && glosarioPanel) {
+        glosarioBtn.addEventListener('click', function() {
+            glosarioPanel.classList.toggle('show');
+        });
+    }
+</script>
+
+</body>
+</html>
