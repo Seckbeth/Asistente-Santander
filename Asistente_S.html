@@ -3,12 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente Santander - Luis Caceres</title>
+    <title>Asistente Santander - Lc</title>
     <style>
         :root { --santander-red: #ec1c2d; --dark-grey: #444; --light-grey: #f4f4f4; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-grey); margin: 0; padding: 10px; }
         .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); min-height: 95vh; }
         
+        /* Pantalla de bloqueo */
+        .lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: 0.3s;
+        }
+        .lock-box {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.3s ease;
+        }
+        .lock-box .santander-lock {
+            background: var(--santander-red);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .lock-box .santander-lock i {
+            font-size: 28px;
+            color: white;
+        }
+        .lock-box h2 {
+            color: var(--santander-red);
+            margin-bottom: 10px;
+        }
+        .lock-box p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .lock-box input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            outline: none;
+            transition: 0.2s;
+            box-sizing: border-box;
+        }
+        .lock-box input:focus {
+            border-color: var(--santander-red);
+        }
+        .lock-box button {
+            width: 100%;
+            padding: 12px;
+            background: var(--santander-red);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .lock-box button:hover {
+            background: #c00000;
+        }
+        .error-msg {
+            color: #d32f2f;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            display: none;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Encabezado Estilo Santander sin Imagen */
         .header { background-color: var(--santander-red); color: white; text-align: center; padding: 20px; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px; }
         .header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
@@ -38,6 +132,29 @@
         /* Advertencia abajo de las opciones */
         .warning-bottom { background: #fff8e7; border: 1px solid #f0c674; border-radius: 10px; padding: 14px 18px; margin-top: 25px; font-size: 0.85rem; color: #5a4a1a; }
         .warning-bottom strong { color: #c62828; font-weight: 700; }
+        
+        /* Texto pequeño para la descripción de CA */
+        .ca-descripcion {
+            font-size: 0.8rem;
+            color: #5a6e7a;
+            margin: 8px 0 15px 0;
+            padding: 8px 12px;
+            background: #fef8e7;
+            border-left: 3px solid #f0c674;
+            border-radius: 6px;
+        }
+
+        /* Tarjeta de colores en inicio */
+        .colores-tarjetas {
+            background: #f0f0f0;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin: 20px 0 10px 0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        .color-naranja { display: inline-block; width: 20px; height: 20px; background: #f5a623; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
+        .color-negro { display: inline-block; width: 20px; height: 20px; background: #2c2c2c; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
 
         /* Estado de colores SK */
         .sk-status { display: flex; gap: 20px; flex-wrap: wrap; margin: 15px 0; }
@@ -63,10 +180,44 @@
         .glosario-item strong { color: var(--santander-red); min-width: 85px; display: inline-block; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Contenido principal oculto hasta desbloquear */
+        .main-content-wrapper {
+            display: none;
+        }
+        .main-content-wrapper.unlocked {
+            display: block;
+        }
+        
+        .requisitos-list {
+            margin: 8px 0 8px 20px;
+            line-height: 1.4;
+        }
+        .requisitos-list li {
+            margin: 4px 0;
+        }
     </style>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
+<!-- Pantalla de bloqueo -->
+<div id="lockScreen" class="lock-screen">
+    <div class="lock-box">
+        <div class="santander-lock">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h2>Acceso Restringido</h2>
+        <p>Ingrese la contraseña para acceder al Asistente Operativo</p>
+        <input type="password" id="passwordInput" placeholder="Contraseña" autofocus>
+        <button id="unlockBtn">Desbloquear <i class="fas fa-arrow-right"></i></button>
+        <div id="errorMsg" class="error-msg"><i class="fas fa-exclamation-circle"></i> Contraseña incorrecta</div>
+    </div>
+</div>
+
+<!-- Contenido principal (todo el asistente) -->
+<div id="mainContent" class="main-content-wrapper">
 <div class="container">
     <div class="header">
         <h1>Santander</h1>
@@ -88,7 +239,15 @@
             <button onclick="show('cmc-causas')">📱 CONTRATO MULTICANAL</button>
             <button onclick="show('cita-prev')">📅 CITA PREVIA / OFICINA</button>
             <button onclick="show('llamadas-cortadas')">📞 LLAMADAS CORTADAS</button>
+            <button onclick="show('consumo')">💰 PROTOCOLO CONSUMO / VENTA</button>
             <button onclick="show('otras-gestiones')">⚙️ OTRAS GESTIONES</button>
+        </div>
+
+        <!-- Color de tarjetas (naranja débito / negro crédito) -->
+        <div class="colores-tarjetas">
+            <i class="fas fa-credit-card"></i> <strong>Identificación visual de tarjetas:</strong>
+            <span style="margin-left: 12px;"><span class="color-naranja"></span> <b>Naranja</b> = Tarjeta de Débito</span>
+            <span style="margin-left: 16px;"><span class="color-negro"></span> <b>Negro</b> = Tarjeta de Crédito</span>
         </div>
 
         <!-- Botones amarillos debajo del menú -->
@@ -154,18 +313,42 @@
     <!-- ==================== CLAVE DE ACCESO ==================== -->
     <div id="ca-causas" class="section">
         <h3>🔑 Clave de Acceso (CA) - 8 dígitos numéricos</h3>
+        
+        <div class="ca-descripcion">
+            <i class="fas fa-info-circle"></i> <b>¿Qué es?</b> La Clave de acceso (CA) da acceso consultivo a los productos contratados, ya sea en Web, App o Superlínea. Es imprescindible que el cliente tenga <b>CMC y teléfono asociado</b> para tener una CA. Está compuesta por <b>8 dígitos numéricos</b>.
+        </div>
+
         <div class="btn-grid">
             <button onclick="show('ca-digital')">Recuperar vía App/Web</button>
             <button onclick="show('ca-ivr')">Recuperar vía IVR (Quiz)</button>
             <button onclick="show('ca-bloqueo')">Bloqueos y Normas</button>
         </div>
+
         <div class="warning-bottom">
-            <strong>⚠️ CONSEJOS Y NORMAS:</strong><br>
-            • La CA tiene <b>8 dígitos numéricos</b><br>
-            • No puede ser igual a las <b>6 anteriores</b> | No 12345678 / 11111111 | No DNI/fecha nacimiento<br>
-            • Se bloquea tras <b>5 intentos fallidos</b><br>
-            • <b>NUNCA pedir la clave completa</b> al cliente, solo posiciones aleatorias (2 para N1)
+            <strong><i class="fas fa-lightbulb"></i> 📝 RECOMENDACIONES PARA CAMBIO DE CLAVE DE ACCESO:</strong><br>
+            • La nueva CA debe ser <b>fácil de recordar para el cliente</b> pero difícil de adivinar<br>
+            • <b>Evitar fechas de nacimiento</b> o números de teléfono<br>
+            • <b>No usar secuencias lógicas</b> como 12345678 o 87654321<br>
+            • <b>No repetir el mismo dígito</b> (11111111, 22222222)<br>
+            • <b>Combinar números aleatorios</b> que no tengan relación con datos personales<br>
+            • Recordar al cliente que <b>nunca debe compartir su clave</b> con nadie<br>
+            • El banco <b>NUNCA solicitará la clave completa</b>, solo posiciones aleatorias<br>
+            • Si el cliente tiene dudas, puede cambiar su clave <b>cuantas veces quiera</b> desde la App o Web<br>
+            • <b>Recomendar activar Santander Key</b> para no tener que recordar claves<br><br>
+            <strong>🔒 Causas de bloqueo de la CA:</strong><br>
+            • Introducirla de forma errónea en <b>5 ocasiones</b><br>
+            • Por inactividad tras <b>12 meses sin usarla</b><br>
+            • Por motivos de seguridad, si no cumple con los requisitos establecidos<br><br>
+            <strong>✅ Requisitos que debe cumplir una nueva CA:</strong><br>
+            • No puede coincidir con ninguna de las <b>6 anteriores</b><br>
+            • No puede coincidir con la <b>Firma Electrónica</b><br>
+            • No puede ser el mismo número repetido (ej: <b>11111111</b>)<br>
+            • No puede ser una serie numérica (ej: <b>12345678, 98765432</b>)<br>
+            • No puede incluir series de 3 números consecutivos (ej: XXX012XX)<br>
+            • No puede coincidir con el <b>documento de identidad o fecha de nacimiento</b><br>
+            • No puede coincidir con el <b>teléfono CMC o en Base de Datos</b>
         </div>
+        
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
@@ -177,7 +360,7 @@
             1. "Olvidé mis credenciales" en Web/App<br>
             2. Introducir <b>documento completo (16 dígitos)</b><br>
             3. Ingresar el <b>PIN</b> (4 últimos dígitos + PIN)<br>
-            4. Definir <b>nueva clave de 8 dígitos</b>
+            4. Definir <b>nueva clave de 8 dígitos</b> cumpliendo los requisitos
         </div>
         <div class="script-box">"Por tu seguridad, nunca debes facilitar tu clave completa. Solo te solicitaré posiciones aleatorias."</div>
         <div class="warning-bottom">
@@ -465,13 +648,25 @@
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
+    <!-- ==================== PROTOCOLO CONSUMO / VENTA ==================== -->
+    <div id="consumo" class="section">
+        <h3>💰 Protocolo Consumo / Venta</h3>
+        <div class="alert-box">⚠️ NO OFRECER SI: ASNEF, GSI (Impago I30/I60/I90), +80 años o Lista Robinson</div>
+        <div class="step-list">
+            <b>Préstamos preconcedidos:</b> Préstamo Digital, Reinicia, Anticipo Nómina<br>
+            <b>No preconcedidos:</b> Préstamo EPO Fijo<br>
+            <b>Verificar en Sango</b> (Conversaciones) si tiene monto aprobado<br>
+            <b>Siempre ofrecer en TODAS las llamadas</b> salvo excepciones mencionadas
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
     <!-- ==================== OTRAS GESTIONES ==================== -->
     <div id="otras-gestiones" class="section">
         <h3>⚙️ Otras Gestiones y Protocolos</h3>
         <div class="btn-grid">
             <button onclick="show('otras-autorizacion')">Autorización a Terceros</button>
             <button onclick="show('otras-frases')">Frases de Acompañamiento</button>
-            <button onclick="show('otras-consumo')">Protocolo Consumo / Venta</button>
         </div>
         <div class="warning-bottom">
             <strong>⚠️ RECORDATORIO:</strong><br>
@@ -503,21 +698,41 @@
         <button class="btn-back" onclick="show('otras-gestiones')">⬅ Volver</button>
     </div>
 
-    <div id="otras-consumo" class="section">
-        <h3>💰 Protocolo Consumo / Venta</h3>
-        <div class="alert-box">⚠️ NO OFRECER SI: ASNEF, GSI (Impago I30/I60/I90), +80 años o Lista Robinson</div>
-        <div class="step-list">
-            <b>Préstamos preconcedidos:</b> Préstamo Digital, Reinicia, Anticipo Nómina<br>
-            <b>No preconcedidos:</b> Préstamo EPO Fijo<br>
-            <b>Verificar en Sango</b> (Conversaciones) si tiene monto aprobado<br>
-            <b>Siempre ofrecer en TODAS las llamadas</b> salvo excepciones mencionadas
-        </div>
-        <button class="btn-back" onclick="show('otras-gestiones')">⬅ Volver</button>
-    </div>
-
+</div>
 </div>
 
 <script>
+    // ==================== SISTEMA DE BLOQUEO POR CONTRASEÑA ====================
+    const PASSWORD = "santander2026";
+    
+    const lockScreen = document.getElementById('lockScreen');
+    const mainContent = document.getElementById('mainContent');
+    const passwordInput = document.getElementById('passwordInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    
+    function unlockApp() {
+        if (passwordInput.value === PASSWORD) {
+            lockScreen.style.display = 'none';
+            mainContent.classList.add('unlocked');
+            document.body.style.overflow = 'auto';
+        } else {
+            errorMsg.style.display = 'block';
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+    }
+    
+    unlockBtn.addEventListener('click', unlockApp);
+    passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            unlockApp();
+        }
+    });
+    
+    document.body.style.overflow = 'hidden';
+    
+    // ==================== FUNCIONES DEL ASISTENTE ====================
     function show(id) {
         var sections = document.querySelectorAll('.section');
         sections.forEach(function(s) { s.classList.remove('active'); });
