@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente Santander - Lc</title>
+    <title>Asistente Santander - Luis Caceres</title>
     <style>
         :root { --santander-red: #ec1c2d; --dark-grey: #444; --light-grey: #f4f4f4; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-grey); margin: 0; padding: 10px; }
@@ -240,6 +240,7 @@
             <button onclick="show('cita-prev')">📅 CITA PREVIA / OFICINA</button>
             <button onclick="show('llamadas-cortadas')">📞 LLAMADAS CORTADAS</button>
             <button onclick="show('consumo')">💰 PROTOCOLO CONSUMO / VENTA</button>
+            <button onclick="show('scripts-llamada')">📝 SCRIPTS DE LLAMADA</button>
             <button onclick="show('otras-gestiones')">⚙️ OTRAS GESTIONES</button>
         </div>
 
@@ -652,21 +653,226 @@
     <div id="consumo" class="section">
         <h3>💰 Protocolo Consumo / Venta</h3>
         <div class="alert-box">⚠️ NO OFRECER SI: ASNEF, GSI (Impago I30/I60/I90), +80 años o Lista Robinson</div>
-        <div class="step-list">
-            <b>Préstamos preconcedidos:</b> Préstamo Digital, Reinicia, Anticipo Nómina<br>
-            <b>No preconcedidos:</b> Préstamo EPO Fijo<br>
-            <b>Verificar en Sango</b> (Conversaciones) si tiene monto aprobado<br>
-            <b>Siempre ofrecer en TODAS las llamadas</b> salvo excepciones mencionadas
+        
+        <div class="btn-grid">
+            <button onclick="show('consumo-prestamos')">📋 TIPOS DE PRÉSTAMOS</button>
+            <button onclick="show('consumo-pasos')">📌 PASO A PASO</button>
+        </div>
+        
+        <div class="warning-bottom">
+            <strong>📌 RECORDATORIO:</strong><br>
+            • Verificar en Sango (Conversaciones) si tiene monto aprobado<br>
+            • Siempre ofrecer en TODAS las llamadas salvo excepciones<br>
+            • Toda oferta debe cumplir 5 requisitos: Nombre, Importe, Plazo, TIN/TAE, Cuota mensual
         </div>
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="consumo-prestamos" class="section">
+        <h3>📋 Tipos de Préstamos - Descripciones</h3>
+        
+        <div class="btn-grid">
+            <button onclick="show('prestamo-preconcedido')">🏦 PRÉSTAMO PRECONCEDIDO</button>
+            <button onclick="show('prestamo-no-preconcedido')">📄 PRÉSTAMO NO PRECONCEDIDO</button>
+            <button onclick="show('prestamo-reinicia')">🔄 PRÉSTAMO REINICIA</button>
+            <button onclick="show('prestamo-anticipo')">💰 ANTICIPO DE NÓMINA</button>
+            <button onclick="show('prestamo-sostenible')">🌱 PRÉSTAMO SOSTENIBLE</button>
+            <button onclick="show('prestamo-digital')">📱 PRÉSTAMO DIGITAL GENÉRICO</button>
+        </div>
+        <button class="btn-back" onclick="show('consumo')">⬅ Volver</button>
+    </div>
+
+    <div id="prestamo-preconcedido" class="section">
+        <h3>🏦 Préstamo Preconcedido</h3>
+        <div class="step-list">
+            <b>✅ Ventajas:</b><br>
+            • Interés más bajo<br>
+            • Sin comisión de apertura<br>
+            • Sencillo y ágil, se firma sin necesidad de documentos por App/Web con FE o SK<br>
+            • Vida del préstamo más de 7 años<br><br>
+            <b>📌 Características:</b><br>
+            • El banco preconcede a clientes con buen perfil y trayectoria<br>
+            • Importe mínimo 3.000€, máximo 50.000€ (o lo que tenga preconcedido)<br>
+            • Plazos desde 48 a 84 meses (hasta 8 años)<br>
+            • Sin comisión, con intereses fijos
+        </div>
+        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+    </div>
+
+    <div id="prestamo-no-preconcedido" class="section">
+        <h3>📄 Préstamo No Preconcedido (EPO Fijo)</h3>
+        <div class="step-list">
+            <b>✅ Características:</b><br>
+            • Requiere estudio previo por parte del banco<br>
+            • Tipo de interés: mensual, anual, fijo<br>
+            • Tiempo de vida: 4 a 7 años<br>
+            • Comisión de Apertura Financiera entre 1% y 2% según perfil crediticio<br>
+            • Importe máximo de 100.000€ con seguro asociado<br><br>
+            <b>📌 Requisitos para estudio (Tasa de esfuerzo):</b><br>
+            • 2 años de recurrencia laboral<br>
+            • Ingresos superiores a 860€ mensuales<br>
+            • Triat debe estar en "bueno" o "muy bueno"<br><br>
+            <b>📝 Documentación para oficina:</b> DNI, última nómina, declaración de renta (si aplica), justificante de ingresos, recibos de deudas (últimos 3)
+        </div>
+        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+    </div>
+
+    <div id="prestamo-reinicia" class="section">
+        <h3>🔄 Préstamo Reinicia / Reinicia Digital</h3>
+        <div class="step-list">
+            <b>✅ Características:</b><br>
+            • Único préstamo para <b>refinanciar deuda</b> con condiciones preaprobadas<br>
+            • Debe gestionarse en oficina (versión estándar)<br>
+            • Versión Digital disponible por canales digitales u oficina<br>
+            • Con comisión por cancelación y apertura (solo disponible para cancelación en oficina)<br>
+            • Precio personalizado<br><br>
+            <b>📌 Versión Digital:</b><br>
+            • Sin comisión por apertura y cancelación<br>
+            • Disponible solo para contratar online<br>
+            • Precio personalizado
+        </div>
+        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+    </div>
+
+    <div id="prestamo-anticipo" class="section">
+        <h3>💰 Anticipo de Nómina</h3>
+        <div class="step-list">
+            <b>✅ Características:</b><br>
+            • Préstamo de hasta <b>2 nóminas</b> para gastos imprevistos<br>
+            • Importe máximo: <b>9.000€</b><br>
+            • Plazo de devolución: 1 a 12 meses<br>
+            • Tipo de interés nominal anual: 0.4% a 7.37% (TAE)<br>
+            • Comisión de Apertura: 1.3% a 4% según plazo<br>
+            • No tiene TIN, pero sí TAE<br><br>
+            <b>📌 Requisitos:</b><br>
+            • Puede estar preconcedido. En caso de NO, gestionar en oficina<br>
+            • Mínimo 500€, máximo 9.000€<br>
+            • Mínimo 6 meses de antigüedad (clientes nuevos no pueden)
+        </div>
+        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+    </div>
+
+    <div id="prestamo-sostenible" class="section">
+        <h3>🌱 Préstamo Sostenible (Green)</h3>
+        <div class="step-list">
+            <b>✅ Finalidad:</b> Proyectos sostenibles (hogar: movilidad, energía, eficiencia; autos ecológicos)<br><br>
+            <b>📌 Condiciones principales:</b><br>
+            • Contratación online u oficina<br>
+            • Importe: 1.000€ a 100.000€<br>
+            • Plazo: 1 a 84 meses<br>
+            • Comisión de apertura y cancelación anticipada: <b>0%</b><br>
+            • Intereses personalizados por cliente<br>
+            • Bonificación de 100 puntos de TIN por finalidad green<br>
+            • Penalización si no se justifica: menos 100 puntos de TAE<br><br>
+            <b>🌍 Usos Green elegibles:</b><br>
+            • Calefacción, refrigeración y agua caliente<br>
+            • Aislamiento en fachadas<br>
+            • Control y automatización<br>
+            • Autos con menos de 50 gramos de CO2/km<br>
+            • 50% o más debe usarse en finalidad Green
+        </div>
+        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+    </div>
+
+    <div id="prestamo-digital" class="section">
+        <h3>📱 Préstamo Digital Genérico</h3>
+        <div class="step-list">
+            <b>✅ Características:</b><br>
+            • Préstamo personal de 4 a 7 años<br>
+            • Mínimo 3.000€, máximo 50.000€ (o lo que tenga preconcedido)<br>
+            • Plazos desde 48 a 84 meses (hasta 8 años)<br>
+            • Sin comisión, con intereses fijos<br>
+            • Se contrata directamente por App o Web con FE o SK
+        </div>
+        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+    </div>
+
+    <div id="consumo-pasos" class="section">
+        <h3>📌 Paso a paso para validar préstamos</h3>
+        <div class="step-list">
+            <b>1. Validar riesgos (NO OFRECER si):</b><br>
+            • Clientes en ASNEF<br>
+            • GSI (situación de impago I30/I60/I90)<br>
+            • 80 años o más<br>
+            • Cliente menciona refinanciar deuda<br>
+            • Clientes en lista Robinson<br><br>
+            <b>2. Revisar si tiene préstamos preconcedidos en el Triat</b><br><br>
+            <b>3. Simulador de consumo:</b><br>
+            • Ir al ADN del cliente → Triat → Validar riesgos<br>
+            • Ver préstamos, si no tiene información usar el simulador<br><br>
+            <b>4. Para preconcedido - Guiar al cliente en la App:</b><br>
+            • Menú → Contratar → Seleccionar el préstamo<br><br>
+            <b>5. Para No preconcedido:</b><br>
+            • Revisar Triat (bueno o muy bueno)<br>
+            • Simulador → Tasa de esfuerzo<br>
+            • Si es viable, indicar condiciones y texto legal de oficinas<br>
+            • Agendar cita (calendario en perfil cliente → seleccionar oficina)<br>
+            • Leer texto legal de envío de información
+        </div>
+        <div class="warning-bottom">
+            <strong>⏱️ Tiempos de seguimiento:</strong><br>
+            • Agendado / Preconcedido: volver a llamar en <b>10 días</b><br>
+            • Derivado a oficina / No preconcedido: <b>30 días</b>
+        </div>
+        <button class="btn-back" onclick="show('consumo')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== SCRIPTS DE LLAMADA ==================== -->
+    <div id="scripts-llamada" class="section">
+        <h3>📝 Scripts de Llamada</h3>
+        <div class="btn-grid">
+            <button onclick="show('script-grabacion')">🎙️ GRABACIÓN DE LLAMADAS</button>
+            <button onclick="show('script-datos-contacto')">📞 DATOS DE CONTACTO</button>
+            <button onclick="show('script-seguridad')">🔐 SCRIPT DE SEGURIDAD (CLAVES)</button>
+            <button onclick="show('script-autorizacion')">👥 AUTORIZACIÓN A TERCEROS</button>
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <div id="script-grabacion" class="section">
+        <h3>🎙️ Script de Grabación de Llamadas</h3>
+        <div class="step-list">
+            <b>📞 Emisión de llamadas - Grabación (saliente):</b><br>
+            "Te informamos que Banco Santander S.A. graba esta llamada para verificar la calidad de nuestros servicios en base al interés legítimo y, en tu caso, para cumplimiento de obligaciones legales que resulten exigibles. Para ejercer tus derechos y obtener más información sobre protección de datos, puedes acceder a nuestra web o consultarnos."<br><br>
+            <b>❌ Si el cliente se niega a la grabación:</b><br>
+            "Conforme al Reglamento General de Protección de Datos, tenemos la obligación de informarte de que la conversación va a ser grabada. En caso de no estar de acuerdo, no podemos atender tu llamada. Te rogamos que contactes con el banco a través de otro canal."
+        </div>
+        <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
+    </div>
+
+    <div id="script-datos-contacto" class="section">
+        <h3>📞 Script de Datos de Contacto</h3>
+        <div class="step-list">
+            <b>📌 Indicamos Script cuando solicitamos datos de contacto como direcciones, números de teléfono o emails:</b><br><br>
+            "Te informo que Banco Santander solo usará los datos de contacto que acabas de facilitar para la gestión de tu caso."
+        </div>
+        <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
+    </div>
+
+    <div id="script-seguridad" class="section">
+        <h3>🔐 Script de Seguridad (Claves)</h3>
+        <div class="step-list">
+            <b>📌 Si el cliente facilita su clave completa o da pistas:</b><br><br>
+            "(Nombre del cliente), por tu seguridad nunca debes facilitar tu clave de acceso ni firma electrónica completa. Cada vez que llames a Superlínea, sólo te vamos a solicitar posiciones aleatorias de esta clave o firma. Te recomiendo que modifiques tu (clave o firma) a través de la web o bien en esta misma llamada."
+        </div>
+        <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
+    </div>
+
+    <div id="script-autorizacion" class="section">
+        <h3>👥 Autorización a Terceros</h3>
+        <div class="step-list">
+            <b>📌 Script de autorización:</b><br><br>
+            "No podemos facilitar esta información a otra persona salvo que como titular nos autorices para ello. ¿Me das tu autorización (nombre del cliente) para informar en esta llamada?"<br><br>
+            <b>✅ En caso positivo:</b> "Facilítame el nombre completo y DNI de la persona a la que autorizas."
+        </div>
+        <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
     </div>
 
     <!-- ==================== OTRAS GESTIONES ==================== -->
     <div id="otras-gestiones" class="section">
         <h3>⚙️ Otras Gestiones y Protocolos</h3>
         <div class="btn-grid">
-            <button onclick="show('otras-autorizacion')">Autorización a Terceros</button>
-            <button onclick="show('otras-frases')">Frases de Acompañamiento</button>
+            <button onclick="show('otras-frases')">💬 Frases de Acompañamiento</button>
         </div>
         <div class="warning-bottom">
             <strong>⚠️ RECORDATORIO:</strong><br>
@@ -675,16 +881,6 @@
             • Texto legal al solicitar datos de contacto
         </div>
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
-    </div>
-
-    <div id="otras-autorizacion" class="section">
-        <h3>👤 Autorización a Terceros</h3>
-        <div class="step-list">
-            <b>Script:</b><br>
-            "No podemos facilitar esta información a otra persona salvo que como titular nos autorices para ello. ¿Me das tu autorización (nombre) para informar en esta llamada?"<br><br>
-            <b>En caso positivo:</b> facilitar <b>nombre completo y DNI</b> de la persona autorizada.
-        </div>
-        <button class="btn-back" onclick="show('otras-gestiones')">⬅ Volver</button>
     </div>
 
     <div id="otras-frases" class="section">
