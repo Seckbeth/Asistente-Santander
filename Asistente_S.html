@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente Santander - Luis Caceres</title>
+    <title>Asistente Santander - Lc</title>
     <style>
         :root { --santander-red: #ec1c2d; --dark-grey: #444; --light-grey: #f4f4f4; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-grey); margin: 0; padding: 10px; }
@@ -123,6 +123,10 @@
         .btn-yellow:hover { background: #e6b800; color: #3d2a00; border-color: #cc9900; }
         .btn-grid-yellow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
 
+        /* Botón especial Sondeo (color verde/azul) */
+        .btn-sondeo { background: #1e6f5c; border: 2px solid #0f4c3a; color: white; }
+        .btn-sondeo:hover { background: #0f4c3a; color: white; }
+
         /* Cajas de Información */
         .script-box { background: #fffde7; border-left: 5px solid #fbc02d; padding: 15px; margin: 15px 0; font-style: italic; font-size: 0.95rem; }
         .alert-box { background: #ffebee; border-left: 5px solid #d32f2f; padding: 15px; margin: 10px 0; color: #b71c1c; font-weight: bold; }
@@ -233,6 +237,7 @@
 
         <h3>Menú de Gestiones:</h3>
         <div class="btn-grid">
+            <button class="btn-sondeo" onclick="show('sondeo')">🎯 SONDEO / DIAGNÓSTICO INICIAL</button>
             <button onclick="show('ca-causas')">🔑 CLAVE DE ACCESO (CA)</button>
             <button onclick="show('fe-causas')">✍️ FIRMA ELECTRÓNICA (FE)</button>
             <button onclick="show('sk-causas')">🛡️ SANTANDER KEY (SK)</button>
@@ -246,7 +251,7 @@
 
         <!-- Color de tarjetas (naranja débito / negro crédito) -->
         <div class="colores-tarjetas">
-            <i class="fas fa-credit-card"></i> <strong>Identificación visual de tarjetas:</strong>
+            <i class="fas fa-credit-card"></i> <strong>Visual de Tarjetas:</strong>
             <span style="margin-left: 12px;"><span class="color-naranja"></span> <b>Naranja</b> = Tarjeta de Débito</span>
             <span style="margin-left: 16px;"><span class="color-negro"></span> <b>Negro</b> = Tarjeta de Crédito</span>
         </div>
@@ -307,8 +312,76 @@
         </div>
 
         <div class="script-box" style="margin-top: 20px;">
-            <strong>DESPEDIDA NPS:</strong> "Te recuerdo que recibirás una encuesta por mi atención, mi nombre es Luis Caceres y te doy un 10 por tu tiempo."
+            <strong>DESPEDIDA NPS:</strong> "XXXX agradecerte tu disposición eres un cliente de 10 con tu ayuda lo hemos solucionado muy rápido.
+posiblemente recibirás un correo con el  nombre de Santander te escucha. donde evaluaras mi gestión y si se soluciono tu consulta"
         </div>
+    </div>
+
+    <!-- ==================== SONDEO / DIAGNÓSTICO INICIAL ==================== -->
+    <div id="sondeo" class="section">
+        <h3>🎯 Sondeo / Diagnóstico Inicial</h3>
+        
+        <div class="info-box">
+            <b><i class="fas fa-question-circle"></i> Preguntas clave al cliente:</b><br>
+            • ¿Qué problema tienes exactamente? ¿No puedes acceder a la app/web?<br>
+            • ¿Has intentado recuperar tu contraseña? ¿Cuántas veces?<br>
+            • ¿Te aparece algún mensaje de error o bloqueo?<br>
+            • ¿Tienes Santander Key activo en tu móvil?<br>
+            • ¿Recuerdas tu PIN de alguna tarjeta?
+        </div>
+
+        <div class="step-list">
+            <b>🔍 SONDEO - Verificar situación del cliente:</b><br><br>
+            <b>1. Problemas con CLAVE DE ACCESO (CA):</b><br>
+            • ¿Intentó recuperarla? ¿Le sale que ya agotó los intentos?<br>
+            • Si la ha puesto mal 5 veces → <b>CA bloqueada</b> → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('ca-causas')">Clave de Acceso (CA)</button><br>
+            • Si no la ha bloqueado pero no la recuerda → <b>Recuperar vía App/Web con PIN</b><br><br>
+            
+            <b>2. Problemas con SANTANDER KEY (SK):</b><br>
+            • ¿Tienes SK activo? ¿Qué color ves en el icono?<br>
+            • Si no puede firmar operaciones → verificar estado SK<br>
+            • Si no está activo → guiar para activación → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('sk-causas')">Santander Key (SK)</button><br><br>
+            
+            <b>3. Problemas con FIRMA ELECTRÓNICA (FE):</b><br>
+            • ¿Necesitas firmar una operación y no puedes?<br>
+            • ¿Has olvidado tu firma o está bloqueada?<br>
+            • Si está bloqueada tras 3 fallos → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('fe-causas')">Firma Electrónica (FE)</button><br><br>
+            
+            <b>4. Problemas con PRÉSTAMOS / CONSUMO:</b><br>
+            • ¿Quieres información sobre préstamos o financiación?<br>
+            • ¿Te ha salido una oferta preconcedida en la app?<br>
+            • Si quiere contratar un préstamo → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('consumo')">Protocolo Consumo / Venta</button><br><br>
+            
+            <b>5. Problemas con CONTRATO MULTICANAL (CMC):</b><br>
+            • ¿Quieres cambiar tu límite de transferencias?<br>
+            • ¿Necesitas modificar tu teléfono asociado?<br>
+            • Ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('cmc-causas')">Contrato Multicanal (CMC)</button><br><br>
+            
+            <b>6. CITA PREVIA / OFICINA:</b><br>
+            • ¿Necesitas agendar una cita en oficina?<br>
+            • Ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('cita-prev')">Cita Previa / Oficina</button>
+        </div>
+
+        <div class="alert-box">
+            <b>⚠️ RECORDATORIO SONDEO:</b><br>
+            • Si el cliente ya agotó los intentos de recuperación → derivar a IVR/Quiz<br>
+            • Si el cliente tiene SK activo (verde) → puede firmar operaciones sin códigos<br>
+            • Si el cliente está en el extranjero → aplicar excepciones (N1 + documento digitalizado)<br>
+            • <b>NUNCA pedir clave completa</b>, solo posiciones aleatorias
+        </div>
+
+        <div class="warning-bottom">
+            <strong><i class="fas fa-lightbulb"></i> FLUJO RECOMENDADO SEGÚN CASUÍSTICA:</strong><br>
+            • <b>CA bloqueada (5 fallos)</b> → Recuperación por preguntas de seguridad + IVR<br>
+            • <b>CA no bloqueada pero olvidada</b> → Recuperar vía App/Web con PIN/PAN<br>
+            • <b>FE bloqueada (3 fallos)</b> → Envío de nueva firma por Partenón<br>
+            • <b>SK no activo</b> → Guiar al cliente para activación desde App<br>
+            • <b>SK activo pero no funciona</b> → Verificar estado (verde/blanco/gris) y consola SK<br>
+            • <b>Préstamo preconcedido</b> → Guiar en App, mencionar 5 requisitos<br>
+            • <b>Préstamo no preconcedido</b> → Derivar a oficina con documentación
+        </div>
+        
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
     <!-- ==================== CLAVE DE ACCESO ==================== -->
@@ -759,7 +832,7 @@
             <b>📌 Condiciones principales:</b><br>
             • Contratación online u oficina<br>
             • Importe: 1.000€ a 100.000€<br>
-            • Plazo: 1 a 84 meses<br>
+            • Plazo: 3 a 84 meses<br>
             • Comisión de apertura y cancelación anticipada: <b>0%</b><br>
             • Intereses personalizados por cliente<br>
             • Bonificación de 100 puntos de TIN por finalidad green<br>
