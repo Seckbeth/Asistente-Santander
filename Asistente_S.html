@@ -196,6 +196,41 @@
             color: #1565c0;
         }
 
+        /* Tabla de seguridad para CA y FE */
+        .seguridad-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.75rem;
+            background: #f8f9fc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .seguridad-tabla th {
+            background-color: var(--santander-red);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .seguridad-tabla td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            vertical-align: top;
+        }
+        .seguridad-tabla tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .nivel-badge {
+            display: inline-block;
+            background: #1e6f5c;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
         h3 { color: var(--santander-red); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
         b { color: #000; }
         
@@ -330,7 +365,6 @@
                 <div class="glosario-item"><strong>Ficha INE:</strong> Información. Para indicar el importe diario por impago.</div>
                 <div class="glosario-item"><strong>Proactivo:</strong> Oferta realizada por el banco (cliente no la solicitó).</div>
                 <div class="glosario-item"><strong>Reactivo:</strong> Oferta que el cliente solicita expresamente.</div>
-                <div class="glosario-item"><strong>Bizum:</strong> sistema de pagos instantáneos,No es una aplicación independiente, sino una función integrada directamente dentro de la app de casi todos los bancos españoles,permite enviar o recibir dinero en tiempo real conociendo solo el número de teléfono de la otra persona, sin necesidad de saber su IBAN o número de cuenta.</div>
                 <div class="glosario-item"><strong>ASNEF:</strong> Lista de morosos. Cliente con impagos → no ofrecer préstamos.</div>
                 <div class="glosario-item"><strong>GSI:</strong> Situación de impago. I-30 (30 días), I-60 (60 días), I-90 (90 días).</div>
                 <div class="glosario-item"><strong>Lista Robinson:</strong> Lista de exclusión publicitaria. No ofrecer productos sin autorizacion del cliente.</div>
@@ -432,6 +466,26 @@
             <i class="fas fa-info-circle"></i> <b>La Clave de acceso (CA) </b> da acceso consultivo a los productos contratados, ya sea en Web, App o Superlínea. Es imprescindible que el cliente tenga <b>CMC y teléfono asociado</b> para tener una CA. Está compuesta por <b>8 dígitos numéricos</b>.
         </div>
 
+        <!-- TABLA DE SEGURIDAD PARA CA - ARRIBA DEL MENÚ -->
+        <div class="info-box" style="margin-bottom: 15px;">
+            <strong><i class="fas fa-shield-alt"></i> 📋 PASO A PASO Y NIVELES DE SEGURIDAD - CA:</strong>
+            <table class="seguridad-tabla">
+                <thead>
+                    <tr><th>Situación</th><th>Nivel Seguridad</th><th>Qué se pide al cliente</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Recuperar CA vía App/Web con PIN/PAN (tarjeta activa)</td><td><span class="nivel-badge">ID + CMC activo</span></td><td>Documento completo (16 dígitos) + PIN de la tarjeta</td></tr>
+                    <tr><td>Recuperar CA vía App/Web con tarjeta bloqueada + FE activa</td><td><span class="nivel-badge">CMC + N1 + ANI</span></td><td>Fecha nacimiento + Saldo aproximado + 4 posiciones FE (2,4,7,8)</td></tr>
+                    <tr><td>Recuperar CA vía App/Web con SK activo</td><td><span class="nivel-badge">CMC + N1 + SK</span></td><td>Autenticar con Santander Key (huella/Face ID)</td></tr>
+                    <tr><td>Recuperar CA vía IVR (Quiz) - Clave bloqueada (5 fallos)</td><td><span class="nivel-badge">CMC + N1 + ANI</span></td><td>Fecha nacimiento + 4 últimos dígitos cuenta + Saldo + Préstamo/Tarjeta</td></tr>
+                    <tr><td>Excepción extranjero (sin SK, sin FE)</td><td><span class="nivel-badge">N1 + Doc digitalizado</span></td><td>2 posiciones de la clave de acceso + DNI digitalizado en vigor</td></tr>
+                </tbody>
+            </table>
+            <div class="warning-bottom" style="margin-top: 8px; padding: 8px;">
+                <strong>⚠️ NUNCA pedir la clave completa</strong> → Solo posiciones aleatorias (2 para N1)
+            </div>
+        </div>
+
         <div class="btn-grid">
             <button onclick="show('ca-digital')">📱 Recuperar vía App/Web</button>
             <button onclick="show('ca-ivr')">🎧 Recuperar vía IVR (Quiz)</button>
@@ -473,12 +527,14 @@
         
         <div class="step-list">
             <b>🔹 PASO A PASO CON PIN/PAN (tarjeta activa):</b><br>
+            <span class="nivel-badge">Nivel: ID + CMC activo</span><br>
             1. "Olvidé mis credenciales" en Web/App<br>
             2. Introducir <b>documento completo (16 dígitos)</b><br>
             3. Ingresar el <b>PIN</b> (4 últimos dígitos + PIN)<br>
             4. Definir <b>nueva clave de 8 dígitos</b> cumpliendo los requisitos<br><br>
             
             <b>🔹 PASO A PASO CON TARJETA BLOQUEADA + FE activa:</b><br>
+            <span class="nivel-badge">Nivel: CMC + N1 + ANI</span><br>
             1. "Olvidé mis credenciales"<br>
             2. Introducir documento completo<br>
             3. Seleccionar <b>"preguntas de seguridad"</b><br>
@@ -488,6 +544,7 @@
             7. Definir nueva clave de acceso<br><br>
             
             <b>🔹 PASO A PASO CON SANTANDER KEY ACTIVO:</b><br>
+            <span class="nivel-badge">Nivel: CMC + N1 + SK</span><br>
             1. "Olvidé mis credenciales"<br>
             2. Introducir documento completo<br>
             3. Seleccionar <b>"con Santander Key"</b><br>
@@ -508,7 +565,8 @@
     <div id="ca-ivr" class="section">
         <h3>🎧 Reasignación vía IVR (Quiz)</h3>
         <div class="step-list">
-            <b>Nivel:</b> CMC activo + N1 + ANI. Cliente con clave bloqueada (5 fallos).<br><br>
+            <span class="nivel-badge">Nivel: CMC activo + N1 + ANI</span><br>
+            Cliente con clave bloqueada (5 fallos).<br><br>
             <b>Preguntas del Quiz:</b><br>
             • Fecha de nacimiento<br>
             • 4 últimos dígitos de una cuenta<br>
@@ -525,6 +583,7 @@
     <div id="ca-tarjeta-activa" class="section">
         <h3>💳 Recuperar CA con tarjeta activa</h3>
         <div class="step-list">
+            <span class="nivel-badge">Nivel: ID + CMC activo</span><br>
             <b>📌 Script para el cliente:</b><br>
             "¿No recuerdas tu clave? Por tu seguridad, tenemos que pedirte los siguientes datos:"<br><br>
             <b>Paso a paso:</b><br>
@@ -539,6 +598,7 @@
     <div id="ca-sin-tarjeta" class="section">
         <h3>📄 Recuperar CA sin tarjeta activa (con FE)</h3>
         <div class="step-list">
+            <span class="nivel-badge">Nivel: CMC + N1 + ANI + FE activa</span><br>
             <b>📌 Script para el cliente:</b><br>
             "¿No recuerdas tu clave? Por tu seguridad, tenemos que pedirte los siguientes datos:"<br><br>
             <b>Paso a paso:</b><br>
@@ -553,12 +613,35 @@
     <!-- ==================== FIRMA ELECTRÓNICA ==================== -->
     <div id="fe-causas" class="section">
         <h3>✍️ Firma Electrónica (FE) - 8 caracteres alfanuméricos</h3>
+        
+        <!-- TABLA DE SEGURIDAD PARA FE - ARRIBA DEL MENÚ -->
+        <div class="info-box" style="margin-bottom: 15px;">
+            <strong><i class="fas fa-shield-alt"></i> 📋 PASO A PASO Y NIVELES DE SEGURIDAD - FE:</strong>
+            <table class="seguridad-tabla">
+                <thead>
+                    <tr><th>Situación</th><th>Nivel Seguridad</th><th>Qué se pide al cliente</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Envío de FE provisional por Partenón (sin SK)</td><td><span class="nivel-badge">CMC + N1 + ANI + PREG.SEG</span></td><td>Con DNI: fecha nacimiento + fecha vencimiento DNI<br>Sin DNI: fecha nacimiento + nacionalidad + domicilio completo</td></tr>
+                    <tr><td>Activar FE por Gestor 1 (remite a Agente ciego)</td><td><span class="nivel-badge">N1 + CMC activo</span></td><td>Confirmar 4 posiciones de la firma recibida por SMS/carta</td></tr>
+                    <tr><td>Activar FE por Gestor 2 (Agente ciego que recibe)</td><td><span class="nivel-badge">N1 + CMC + ANI + PREG.SEG</span></td><td>El cliente elige nueva FE de 8 caracteres alfanuméricos</td></tr>
+                    <tr><td>Recuperar FE vía Web + SK</td><td><span class="nivel-badge">SK activo</span></td><td>Autenticar con Santander Key (huella/Face ID)</td></tr>
+                    <tr><td>Recuperar FE en APP con SK</td><td><span class="nivel-badge">SK activo</span></td><td>Autorizar con SK + Ingresar nueva FE de 8 caracteres</td></tr>
+                    <tr><td>Si sale mensaje de bloqueo en Partenón</td><td><span class="nivel-badge">N1</span></td><td>DNI + fecha de vencimiento del DNI (sistema da código seguridad)</td></tr>
+                </tbody>
+            </table>
+            <div class="warning-bottom" style="margin-top: 8px; padding: 8px;">
+                <strong>⚠️ NUNCA pedir la firma completa</strong> → Solo posiciones aleatorias (4 para N2)
+            </div>
+        </div>
+
         <div class="btn-grid">
             <button onclick="show('fe-partenon')">📨 Envío Provisional (Partenón)</button>
             <button onclick="show('fe-agente-ciego')">👤 Agente Ciego (Gestor 1 y 2)</button>
             <button onclick="show('fe-recuperar-web-sk')">🌐 Recuperar FE vía Web + SK</button>
             <button onclick="show('fe-recuperar-app-sk')">📱 Recuperar FE en APP con SK</button>
         </div>
+        
         <div class="warning-bottom">
             <strong>⚠️ NORMAS DE LA FE:</strong><br>
             • <b>8 caracteres alfanuméricos</b> | No igual a las 6 anteriores | No igual a CA<br>
@@ -572,7 +655,7 @@
     <!-- FE - Partenón completado -->
     <div id="fe-partenon" class="section">
         <h3>📨 Envío de FE Provisional (Partenón)</h3>
-        <div class="alert-box">Nivel: CMC Activo + N1 + ANI + Preguntas Seguridad</div>
+        <div class="alert-box"><span class="nivel-badge">Nivel: CMC Activo + N1 + ANI + Preguntas Seguridad</span></div>
         <div class="step-list">
             <b>Preguntas de seguridad:</b><br>
             • Con DNI: Fecha nacimiento + Fecha vencimiento DNI<br>
@@ -594,6 +677,7 @@
         <div class="alert-box"><i class="fas fa-info-circle"></i> Cliente que no tiene app ni usa medios digitales</div>
         <div class="step-list">
             <b>🔹 GESTOR 1 (remite al Agente ciego):</b><br>
+            <span class="nivel-badge">Nivel: N1 + CMC activo</span><br>
             • Verificar que tenga la FE pendiente de activar (pestaña "Datos cliente")<br>
             • Menú Cliente → Canales Remotos → Activar FE (siempre con el cliente en N1)<br>
             • Confirmar las <b>4 posiciones de la firma</b> que solicita el sistema (la recibida por SMS o carta)<br>
@@ -601,6 +685,7 @@
             • Transferir por agenda a "Activación de Firma Electrónica"<br><br>
             
             <b>🔹 GESTOR 2 (Agente ciego que recibe):</b><br>
+            <span class="nivel-badge">Nivel: N1 + CMC + ANI + PREG.SEG</span><br>
             • Script de recepción: <i>"Te han transferido conmigo porque deseas activar tu firma electrónica. Es muy importante que recuerdes qué firma vas a elegir, ya que no recibirás ninguna confirmación por escrito. Por favor, indícame la firma electrónica que deseas utilizar, teniendo en cuenta que debe tener <b>8 caracteres</b>, formado por una combinación de <b>letras y números</b>."</i><br>
             • Introducir la nueva FE y repetir para confirmar<br>
             • Recordar: <b>"El Banco NUNCA te va a solicitar todas las posiciones de esta nueva Firma, sino solo posiciones aleatorias"</b>
@@ -612,6 +697,7 @@
     <div id="fe-recuperar-web-sk" class="section">
         <h3>🌐 Recuperar FE mediante Web + SK</h3>
         <div class="step-list">
+            <span class="nivel-badge">Nivel: SK activo</span><br>
             <b>📌 Guiar al cliente con estos pasos:</b><br><br>
             <b>Paso 1:</b> Área personal<br>
             <b>Paso 2:</b> Seguridad<br>
@@ -627,6 +713,7 @@
     <div id="fe-recuperar-app-sk" class="section">
         <h3>📱 Recuperar FE en APP con Santander Key</h3>
         <div class="step-list">
+            <span class="nivel-badge">Nivel: SK activo</span><br>
             <b>📌 Guiar al cliente con estos pasos:</b><br><br>
             <b>Paso 1:</b> Ingresar a la APP<br>
             <b>Paso 2:</b> Seleccionar Menú<br>
@@ -931,7 +1018,7 @@
 
     <!-- PRÉSTAMO NO PRECONCEDIDO con acceso a subtipos -->
     <div id="prestamo-no-preconcedido" class="section">
-        <h3>📄 Préstamo No Preconcedido (Tipo Fijo)</h3>
+        <h3>📄 Préstamo No Preconcedido (EPO Fijo)</h3>
         <div class="step-list">
             <b>✅ Características generales:</b><br>
             • Requiere estudio previo por parte del banco<br>
