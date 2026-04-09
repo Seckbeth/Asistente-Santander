@@ -391,52 +391,110 @@
         </div>
     </div>
 
-    <!-- ==================== SONDEO / DIAGNÓSTICO INICIAL ==================== -->
+    <!-- ==================== SONDEO / DIAGNÓSTICO INICIAL - REDISEÑADO ==================== -->
     <div id="sondeo" class="section">
         <h3>🎯 Sondeo / Diagnóstico Inicial</h3>
         
-        <div class="info-box">
-            <b><i class="fas fa-question-circle"></i> Preguntas clave al cliente:</b><br>
-            • ¿Qué problema tienes exactamente? ¿No puedes acceder a la app/web?<br>
+        <!-- Preguntas clave en formato destacado -->
+        <div class="info-box" style="background: #1e6f5c; color: white; border-left: none; margin-bottom: 20px;">
+            <b><i class="fas fa-microphone-alt"></i> PREGUNTAS CLAVE AL CLIENTE:</b><br>
+            <span style="font-size: 0.9rem;">• ¿Qué problema tienes exactamente? ¿No puedes acceder a la app/web?<br>
             • ¿Has intentado recuperar tu contraseña? ¿Cuántas veces?<br>
             • ¿Te aparece algún mensaje de error o bloqueo?<br>
             • ¿Tienes Santander Key activo en tu móvil?<br>
-            • ¿Recuerdas tu PIN de alguna tarjeta?
+            • ¿Recuerdas tu PIN de alguna tarjeta?</span>
         </div>
 
-        <div class="step-list">
-            <b>🔍 SONDEO - Verificar situación del cliente:</b><br><br>
-            <b>1. Problemas con CLAVE DE ACCESO (CA):</b><br>
-            • ¿Intentó recuperarla? ¿Le sale que ya agotó los intentos?<br>
-            • Si la ha puesto mal 5 veces → <b>CA bloqueada</b> → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('ca-causas')">Clave de Acceso (CA)</button><br>
-            • Si no la ha bloqueado pero no la recuerda → <b>Recuperar vía App/Web con PIN</b><br><br>
+        <!-- Grid de tarjetas para cada caso -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
             
-            <b>2. Problemas con SANTANDER KEY (SK):</b><br>
-            • ¿Tienes SK activo? ¿Qué color ves en el icono?<br>
-            • Si no puede firmar operaciones → verificar estado SK<br>
-            • Si no está activo → guiar para activación → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('sk-causas')">Santander Key (SK)</button><br><br>
-            
-            <b>3. Problemas con FIRMA ELECTRÓNICA (FE):</b><br>
-            • ¿Necesitas firmar una operación y no puedes?<br>
-            • ¿Has olvidado tu firma o está bloqueada?<br>
-            • Si está bloqueada tras 3 fallos → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('fe-causas')">Firma Electrónica (FE)</button><br><br>
-            
-            <b>4. Problemas con PRÉSTAMOS / CONSUMO:</b><br>
-            • ¿Quieres información sobre préstamos o financiación?<br>
-            • ¿Te ha salido una oferta preconcedida en la app?<br>
-            • Si quiere contratar un préstamo → ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('consumo')">Protocolo Consumo / Venta</button><br><br>
-            
-            <b>5. Problemas con CONTRATO MULTICANAL (CMC):</b><br>
-            • ¿Quieres cambiar tu límite de transferencias?<br>
-            • ¿Necesitas modificar tu teléfono asociado?<br>
-            • Ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('cmc-causas')">Contrato Multicanal (CMC)</button><br><br>
-            
-            <b>6. CITA PREVIA / OFICINA:</b><br>
-            • ¿Necesitas agendar una cita en oficina?<br>
-            • Ir a <button class="btn-back" style="display:inline-block; width:auto; padding:5px 10px; margin:0;" onclick="show('cita-prev')">Cita Previa / Oficina</button>
+            <!-- Tarjeta 1: CLAVE DE ACCESO -->
+            <div style="background: white; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <div style="background: #ec1c2d; padding: 10px 15px; color: white;">
+                    <i class="fas fa-key"></i> <strong>CLAVE DE ACCESO (CA)</strong>
+                </div>
+                <div style="padding: 15px;">
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Intentó recuperarla? ¿Le sale que ya agotó los intentos?</p>
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• Si la ha puesto mal <b>5 veces</b> → <b>CA bloqueada</b></p>
+                    <p style="margin: 0 0 15px 0; font-size: 0.85rem;">• Si no la ha bloqueado pero no la recuerda → <b>Recuperar vía App/Web con PIN</b></p>
+                    <button class="btn-back" style="margin-top: 0; width: 100%; background: #ec1c2d; font-size: 0.8rem; padding: 8px;" onclick="show('ca-causas')">🔑 Ir a Clave de Acceso →</button>
+                    <div style="margin-top: 10px;"><span class="nivel-badge">Nivel N1</span></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: SANTANDER KEY -->
+            <div style="background: white; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <div style="background: #1e6f5c; padding: 10px 15px; color: white;">
+                    <i class="fas fa-mobile-alt"></i> <strong>SANTANDER KEY (SK)</strong>
+                </div>
+                <div style="padding: 15px;">
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Tienes SK activo? ¿Qué color ves en el icono?</p>
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• Si no puede firmar operaciones → verificar estado SK</p>
+                    <p style="margin: 0 0 15px 0; font-size: 0.85rem;">• Si no está activo → guiar para activación</p>
+                    <button class="btn-back" style="margin-top: 0; width: 100%; background: #1e6f5c; font-size: 0.8rem; padding: 8px;" onclick="show('sk-causas')">🛡️ Ir a Santander Key →</button>
+                    <div style="margin-top: 10px;"><span class="nivel-badge">Verde/Blanco/Gris</span></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3: FIRMA ELECTRÓNICA -->
+            <div style="background: white; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <div style="background: #2c6e9e; padding: 10px 15px; color: white;">
+                    <i class="fas fa-signature"></i> <strong>FIRMA ELECTRÓNICA (FE)</strong>
+                </div>
+                <div style="padding: 15px;">
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Necesitas firmar una operación y no puedes?</p>
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Has olvidado tu firma o está bloqueada?</p>
+                    <p style="margin: 0 0 15px 0; font-size: 0.85rem;">• Si está bloqueada tras <b>3 fallos</b> → nueva firma por Partenón</p>
+                    <button class="btn-back" style="margin-top: 0; width: 100%; background: #2c6e9e; font-size: 0.8rem; padding: 8px;" onclick="show('fe-causas')">✍️ Ir a Firma Electrónica →</button>
+                    <div style="margin-top: 10px;"><span class="nivel-badge">Nivel N2</span></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 4: PRÉSTAMOS / CONSUMO -->
+            <div style="background: white; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <div style="background: #e6a800; padding: 10px 15px; color: #3d2a00;">
+                    <i class="fas fa-coins"></i> <strong>PRÉSTAMOS / CONSUMO</strong>
+                </div>
+                <div style="padding: 15px;">
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Quieres información sobre préstamos o financiación?</p>
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Te ha salido una oferta preconcedida en la app?</p>
+                    <p style="margin: 0 0 15px 0; font-size: 0.85rem;">• Si quiere contratar un préstamo</p>
+                    <button class="btn-back" style="margin-top: 0; width: 100%; background: #e6a800; color: #3d2a00; font-size: 0.8rem; padding: 8px;" onclick="show('consumo')">💰 Ir a Protocolo Consumo →</button>
+                    <div style="margin-top: 10px;"><span class="nivel-badge" style="background: #e6a800; color: #3d2a00;">5 requisitos</span></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 5: CONTRATO MULTICANAL -->
+            <div style="background: white; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <div style="background: #6c3483; padding: 10px 15px; color: white;">
+                    <i class="fas fa-file-contract"></i> <strong>CONTRATO MULTICANAL (CMC)</strong>
+                </div>
+                <div style="padding: 15px;">
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Quieres cambiar tu límite de transferencias?</p>
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Necesitas modificar tu teléfono asociado?</p>
+                    <p style="margin: 0 0 15px 0; font-size: 0.85rem;">• Límite particulares: 30.000€/día</p>
+                    <button class="btn-back" style="margin-top: 0; width: 100%; background: #6c3483; font-size: 0.8rem; padding: 8px;" onclick="show('cmc-causas')">📱 Ir a Contrato Multicanal →</button>
+                    <div style="margin-top: 10px;"><span class="nivel-badge">N2 + preguntas</span></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 6: CITA PREVIA -->
+            <div style="background: white; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <div style="background: #d35400; padding: 10px 15px; color: white;">
+                    <i class="fas fa-calendar-alt"></i> <strong>CITA PREVIA / OFICINA</strong>
+                </div>
+                <div style="padding: 15px;">
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• ¿Necesitas agendar una cita en oficina?</p>
+                    <p style="margin: 0 0 8px 0; font-size: 0.85rem;">• Horario: 9:00 a 14:00</p>
+                    <p style="margin: 0 0 15px 0; font-size: 0.85rem;">• Citas para día siguiente (no festivos)</p>
+                    <button class="btn-back" style="margin-top: 0; width: 100%; background: #d35400; font-size: 0.8rem; padding: 8px;" onclick="show('cita-prev')">📅 Ir a Cita Previa →</button>
+                    <div style="margin-top: 10px;"><span class="nivel-badge">Confirmación SMS/Email</span></div>
+                </div>
+            </div>
         </div>
 
-        <div class="alert-box">
+        <!-- RECORDATORIOS IMPORTANTES -->
+        <div class="alert-box" style="margin-top: 10px;">
             <b>⚠️ RECORDATORIO SONDEO:</b><br>
             • Si el cliente ya agotó los intentos de recuperación → derivar a IVR/Quiz<br>
             • Si el cliente tiene SK activo (verde) → puede firmar operaciones sin códigos<br>
@@ -965,8 +1023,8 @@
                 <tr><th colspan="2">TIPO DE PRÉSTAMOS</th></tr>
             </thead>
             <tbody>
-                <tr><td><strong>PRECONCEDIDO</strong></td><td>Préstamo Digital Genérico | Reinicia | Préstamo Sostenible | Anticipo de Nómina</td> </tr>
-                <tr><td><strong>NO PRECONCEDIDO</strong></td><td>Préstamo Personal Tipo Fijo | Préstamo Sostenible | Anticipo de Nómina</td> </tr>
+                <tr><td style="background:#f0f0f0;"><strong>PRECONCEDIDO</strong></td><td>Préstamo Digital Genérico | Reinicia | Préstamo Sostenible | Anticipo de Nómina</td></tr>
+                <tr><td style="background:#f0f0f0;"><strong>NO PRECONCEDIDO</strong></td><td>Préstamo Personal Tipo Fijo | Préstamo Sostenible | Anticipo de Nómina</td></tr>
             </tbody>
         </table>
 
