@@ -7,7 +7,7 @@
     <style>
         :root { --santander-red: #ec1c2d; --dark-grey: #444; --light-grey: #f4f4f4; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-grey); margin: 0; padding: 10px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); min-height: 95vh; }
+        .container { max-width: 950px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); min-height: 95vh; }
         
         /* Pantalla de bloqueo */
         .lock-screen {
@@ -148,7 +148,7 @@
             border-radius: 6px;
         }
 
-        /* Tarjeta de colores en inicio */
+        /* Tarjeta de colores en inicio - color naranja actualizado */
         .colores-tarjetas {
             background: #f0f0f0;
             border-radius: 12px;
@@ -157,7 +157,7 @@
             text-align: center;
             font-size: 0.85rem;
         }
-        .color-naranja { display: inline-block; width: 20px; height: 20px; background: #f5a623; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
+        .color-naranja { display: inline-block; width: 20px; height: 20px; background: #ff4000; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
         .color-negro { display: inline-block; width: 20px; height: 20px; background: #2c2c2c; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
 
         /* Estado de colores SK */
@@ -166,6 +166,35 @@
         .status-green { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .status-white { background: #f0f0f0; color: #333; border: 1px solid #ccc; }
         .status-grey { background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+
+        /* Tabla de tipos de préstamos */
+        .tabla-prestamos {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.8rem;
+        }
+        .tabla-prestamos th, .tabla-prestamos td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .tabla-prestamos th {
+            background-color: var(--santander-red);
+            color: white;
+        }
+
+        /* 5 requisitos destacados */
+        .requisitos-destacados {
+            background: #e8f0fe;
+            border-left: 5px solid #2196f3;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .requisitos-destacados strong {
+            color: #1565c0;
+        }
 
         h3 { color: var(--santander-red); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
         b { color: #000; }
@@ -178,10 +207,10 @@
         .no-negociables-list { margin: 0; padding-left: 20px; line-height: 1.6; }
         .no-negociables-list li { margin: 5px 0; font-size: 0.85rem; }
 
-        /* Glosario grid */
-        .glosario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
-        .glosario-item { font-size: 0.85rem; padding: 6px 0; border-bottom: 1px dotted #ddd; }
-        .glosario-item strong { color: var(--santander-red); min-width: 85px; display: inline-block; }
+        /* Glosario grid - mejorado */
+        .glosario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+        .glosario-item { font-size: 0.8rem; padding: 6px 0; border-bottom: 1px dotted #ddd; }
+        .glosario-item strong { color: var(--santander-red); min-width: 110px; display: inline-block; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
@@ -225,7 +254,7 @@
 <div class="container">
     <div class="header">
         <h1>Santander</h1>
-        <p>ASISTENTE OPERATIVO - LUIS CACERES</p>
+        <p>ASISTENTE OPERATIVO - Lc</p>
     </div>
 
     <!-- INICIO -->
@@ -285,35 +314,46 @@
             </ol>
         </div>
 
-        <!-- Panel Glosario -->
+        <!-- Panel Glosario mejorado con nuevos términos -->
         <div id="glosarioPanel" class="toggle-panel">
             <h4 style="margin-top:0; color:var(--santander-red);">📚 Glosario Santander</h4>
             <div class="glosario-grid">
-                <div class="glosario-item"><strong>CA:</strong> Clave de Acceso (8 dígitos numéricos, nivel consultivo N1)</div>
-                <div class="glosario-item"><strong>FE:</strong> Firma Electrónica (8 alfanumérica, nivel operativo N2)</div>
-                <div class="glosario-item"><strong>SK:</strong> Santander Key (firma biométrica con huella/Face ID)</div>
-                <div class="glosario-item"><strong>CMC:</strong> Contrato Multicanal (acceso a canales a distancia)</div>
-                <div class="glosario-item"><strong>N1:</strong> Nivel consultivo (solo piden 2 posiciones de la clave)</div>
-                <div class="glosario-item"><strong>N2:</strong> Nivel operativo (piden 4 posiciones de la firma)</div>
-                <div class="glosario-item"><strong>PIN/PAN:</strong> 4 últimos dígitos de la tarjeta + PIN</div>
-                <div class="glosario-item"><strong>Partenón:</strong> Herramienta para envío de FE provisional por SMS</div>
-                <div class="glosario-item"><strong>ANI:</strong> Número de teléfono registrado en BBDD del cliente</div>
-                <div class="glosario-item"><strong>IVR:</strong> Sistema automático de reasignación de claves</div>
-                <div class="glosario-item"><strong>Superlínea:</strong> Teléfono de atención al cliente</div>
-                <div class="glosario-item"><strong>NHB:</strong> Banca Online (versión web)</div>
-                <div class="glosario-item"><strong>OTP:</strong> Contraseña de un solo uso</div>
-                <div class="glosario-item"><strong>Agente ciego:</strong> Gestor que activa FE sin ver datos completos</div>
-                <div class="glosario-item"><strong>Sango:</strong> Asistente interno para búsqueda de temas y clientes</div>
-                <div class="glosario-item"><strong>TPX:</strong> Comando 9004 para bloqueo/consulta de CMC</div>
-                <div class="glosario-item"><strong>GSI:</strong> Situación de impago (I30, I60, I90)</div>
-                <div class="glosario-item"><strong>C2C:</strong> Cliente que llama por segunda vez</div>
-                <div class="glosario-item"><strong>AHT:</strong> Tiempo promedio de atención</div>
+                <div class="glosario-item"><strong>CA:</strong> Clave de Acceso. 8 dígitos numéricos. Nivel consultivo N1. Requiere CMC y teléfono asociado.</div>
+                <div class="glosario-item"><strong>FE:</strong> Firma Electrónica. 8 caracteres alfanuméricos. Nivel operativo N2.</div>
+                <div class="glosario-item"><strong>SK:</strong> Santander Key. Firma biométrica con huella/Face ID. Reemplaza a la FE.</div>
+                <div class="glosario-item"><strong>CMC:</strong> Contrato Multicanal. Acceso a canales a distancia (App, Web, Superlínea).</div>
+                <div class="glosario-item"><strong>N1:</strong> Nivel consultivo. Solo se piden 2 posiciones de la clave de acceso.</div>
+                <div class="glosario-item"><strong>N2:</strong> Nivel operativo. Se piden 4 posiciones de la firma electrónica.</div>
+                <div class="glosario-item"><strong>TIN:</strong> Tipo de Interés Nominal. Solo refleja los intereses, sin comisiones ni gastos.</div>
+                <div class="glosario-item"><strong>TAE:</strong> Tasa Anual Equivalente. Incluye intereses + comisiones + gastos. Más realista que el TIN.</div>
+                <div class="glosario-item"><strong>Tasa de esfuerzo:</strong> Porcentaje de ingresos destinado al pago de deudas. Máximo recomendado 35-40%.</div>
+                <div class="glosario-item"><strong>Ficha INE:</strong> Información. Para indicar el importe diario por impago.</div>
+                <div class="glosario-item"><strong>Proactivo:</strong> Oferta realizada por el banco (cliente no la solicitó).</div>
+                <div class="glosario-item"><strong>Reactivo:</strong> Oferta que el cliente solicita expresamente.</div>
+                <div class="glosario-item"><strong>Bizum:</strong> sistema de pagos instantáneos,No es una aplicación independiente, sino una función integrada directamente dentro de la app de casi todos los bancos españoles,permite enviar o recibir dinero en tiempo real conociendo solo el número de teléfono de la otra persona, sin necesidad de saber su IBAN o número de cuenta.</div>
+                <div class="glosario-item"><strong>ASNEF:</strong> Lista de morosos. Cliente con impagos → no ofrecer préstamos.</div>
+                <div class="glosario-item"><strong>GSI:</strong> Situación de impago. I-30 (30 días), I-60 (60 días), I-90 (90 días).</div>
+                <div class="glosario-item"><strong>Lista Robinson:</strong> Lista de exclusión publicitaria. No ofrecer productos sin autorizacion del cliente.</div>
+                <div class="glosario-item"><strong>FIN:</strong> Ficha de Información Normalizada. Documento con condiciones del préstamo (importe diario por impago).</div>
+                <div class="glosario-item"><strong>PIN/PAN:</strong> 4 últimos dígitos de la tarjeta + PIN para recuperar clave.</div>
+                <div class="glosario-item"><strong>Partenón:</strong> Herramienta para envío de FE provisional por SMS.</div>
+                <div class="glosario-item"><strong>ANI:</strong> Número del cliente registrado en la Base de datos del Banco.</div>
+                <div class="glosario-item"><strong>IVR:</strong> Sistema telefónico automatizado que permite a sus clientes elegir entre las opciones del menú de voz e interactuar mediante la voz y el teclado numérico.</div>
+                <div class="glosario-item"><strong>Superlínea:</strong> Teléfono de atención al cliente.</div>
+                <div class="glosario-item"><strong>NHB:</strong> Banca Online (versión web).</div>
+                <div class="glosario-item"><strong>OTP:</strong> Contraseña de un solo uso (One Time Password).</div>
+                <div class="glosario-item"><strong>Agente ciego:</strong> Gestor que activa FE sin ver datos completos del cliente.</div>
+                <div class="glosario-item"><strong>Sango:</strong> Asistente interno para búsqueda de temas y clientes.</div>
+                <div class="glosario-item"><strong>TPX:</strong> Comando 9004 para bloqueo/consulta de CMC.</div>
+                <div class="glosario-item"><strong>C2C:</strong> Cliente que llama por segunda vez (Customer to Customer).</div>
+                <div class="glosario-item"><strong>AHT:</strong> Tiempo promedio de atención (Average Handling Time).</div>
+                <div class="glosario-item"><strong>Triat:</strong> Herramienta de validación de riesgos y perfil del cliente.</div>
+                <div class="glosario-item"><strong>Nimbus:</strong> Sistema de tipificación de gestiones y campañas.</div>
             </div>
         </div>
 
         <div class="script-box" style="margin-top: 20px;">
-            <strong>DESPEDIDA NPS:</strong> "XXXX agradecerte tu disposición eres un cliente de 10 con tu ayuda lo hemos solucionado muy rápido.
-posiblemente recibirás un correo con el  nombre de Santander te escucha. donde evaluaras mi gestión y si se soluciono tu consulta"
+            <strong>DESPEDIDA NPS:</strong> "XXXX agradecerte tu disposición eres un cliente de 10 con tu ayuda lo hemos solucionado muy rápido. Posiblemente recibirás un correo con el nombre de Santander te escucha, donde evaluarás mi gestión y si se solucionó tu consulta."
         </div>
     </div>
 
@@ -389,13 +429,14 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
         <h3>🔑 Clave de Acceso (CA) - 8 dígitos numéricos</h3>
         
         <div class="ca-descripcion">
-            <i class="fas fa-info-circle"></i> <b>¿Qué es?</b> La Clave de acceso (CA) da acceso consultivo a los productos contratados, ya sea en Web, App o Superlínea. Es imprescindible que el cliente tenga <b>CMC y teléfono asociado</b> para tener una CA. Está compuesta por <b>8 dígitos numéricos</b>.
+            <i class="fas fa-info-circle"></i> <b>La Clave de acceso (CA) </b> da acceso consultivo a los productos contratados, ya sea en Web, App o Superlínea. Es imprescindible que el cliente tenga <b>CMC y teléfono asociado</b> para tener una CA. Está compuesta por <b>8 dígitos numéricos</b>.
         </div>
 
         <div class="btn-grid">
-            <button onclick="show('ca-digital')">Recuperar vía App/Web</button>
-            <button onclick="show('ca-ivr')">Recuperar vía IVR (Quiz)</button>
-            <button onclick="show('ca-bloqueo')">Bloqueos y Normas</button>
+            <button onclick="show('ca-digital')">📱 Recuperar vía App/Web</button>
+            <button onclick="show('ca-ivr')">🎧 Recuperar vía IVR (Quiz)</button>
+            <button onclick="show('ca-tarjeta-activa')">💳 Recuperar CA con tarjeta activa</button>
+            <button onclick="show('ca-sin-tarjeta')">📄 Recuperar CA sin tarjeta activa (con FE)</button>
         </div>
 
         <div class="warning-bottom">
@@ -426,23 +467,44 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
+    <!-- CA - Recuperar vía App/Web (detallado) -->
     <div id="ca-digital" class="section">
         <h3>📱 Recuperar Clave vía App / Web</h3>
+        
         <div class="step-list">
-            <b>Requisitos:</b> CMC activo + Nivel N1. Cliente debe recordar el <b>PIN de la tarjeta</b>.<br><br>
-            <b>Paso a paso:</b><br>
+            <b>🔹 PASO A PASO CON PIN/PAN (tarjeta activa):</b><br>
             1. "Olvidé mis credenciales" en Web/App<br>
             2. Introducir <b>documento completo (16 dígitos)</b><br>
             3. Ingresar el <b>PIN</b> (4 últimos dígitos + PIN)<br>
-            4. Definir <b>nueva clave de 8 dígitos</b> cumpliendo los requisitos
+            4. Definir <b>nueva clave de 8 dígitos</b> cumpliendo los requisitos<br><br>
+            
+            <b>🔹 PASO A PASO CON TARJETA BLOQUEADA + FE activa:</b><br>
+            1. "Olvidé mis credenciales"<br>
+            2. Introducir documento completo<br>
+            3. Seleccionar <b>"preguntas de seguridad"</b><br>
+            4. Ingresar <b>fecha de nacimiento</b><br>
+            5. Ingresar <b>saldo aproximado de todas las cuentas</b><br>
+            6. Ingresar <b>4 posiciones de la FE</b><br>
+            7. Definir nueva clave de acceso<br><br>
+            
+            <b>🔹 PASO A PASO CON SANTANDER KEY ACTIVO:</b><br>
+            1. "Olvidé mis credenciales"<br>
+            2. Introducir documento completo<br>
+            3. Seleccionar <b>"con Santander Key"</b><br>
+            4. <b>Autenticar con SK</b> (huella/Face ID)<br>
+            5. Ingresar nueva clave de acceso
         </div>
+        
         <div class="script-box">"Por tu seguridad, nunca debes facilitar tu clave completa. Solo te solicitaré posiciones aleatorias."</div>
+        
         <div class="warning-bottom">
             <strong>⚠️ Si el cliente no recuerda el PIN:</strong> derivar a recuperación por preguntas de seguridad (IVR/Quiz).
         </div>
+        
         <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
     </div>
 
+    <!-- CA - IVR Quiz -->
     <div id="ca-ivr" class="section">
         <h3>🎧 Reasignación vía IVR (Quiz)</h3>
         <div class="step-list">
@@ -459,17 +521,31 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
         <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
     </div>
 
-    <div id="ca-bloqueo" class="section">
-        <h3>📜 Bloqueos y Normas de CA</h3>
+    <!-- CA - Recuperar con tarjeta activa -->
+    <div id="ca-tarjeta-activa" class="section">
+        <h3>💳 Recuperar CA con tarjeta activa</h3>
         <div class="step-list">
-            <b>¿Cuándo se bloquea?</b><br>
-            • 5 intentos fallidos | 12 meses sin uso | Por motivos de seguridad<br><br>
-            <b>Requisitos de la nueva CA:</b><br>
-            • No igual a las 6 anteriores<br>
-            • No igual a la FE<br>
-            • No 11111111 / 12345678<br>
-            • No series consecutivas (XXX012XX)<br>
-            • No DNI/fecha nacimiento/teléfono CMC
+            <b>📌 Script para el cliente:</b><br>
+            "¿No recuerdas tu clave? Por tu seguridad, tenemos que pedirte los siguientes datos:"<br><br>
+            <b>Paso a paso:</b><br>
+            1. "A continuación, escribe los <b>16 dígitos de una de tus tarjetas</b>"<br>
+            2. "Por último, introduce el <b>código PIN de la tarjeta</b>"<br>
+            3. Definir nueva clave de acceso de 8 dígitos cumpliendo los requisitos
+        </div>
+        <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- CA - Recuperar sin tarjeta activa -->
+    <div id="ca-sin-tarjeta" class="section">
+        <h3>📄 Recuperar CA sin tarjeta activa (con FE)</h3>
+        <div class="step-list">
+            <b>📌 Script para el cliente:</b><br>
+            "¿No recuerdas tu clave? Por tu seguridad, tenemos que pedirte los siguientes datos:"<br><br>
+            <b>Paso a paso:</b><br>
+            1. "Indícanos tu <b>fecha de nacimiento</b>"<br>
+            2. "A continuación, el <b>saldo aproximado de todas tus cuentas</b>"<br>
+            3. "Por último, introduce las posiciones <b>2, 4, 7 y 8 de tu firma electrónica</b>"<br>
+            4. Definir nueva clave de acceso
         </div>
         <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
     </div>
@@ -478,8 +554,10 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
     <div id="fe-causas" class="section">
         <h3>✍️ Firma Electrónica (FE) - 8 caracteres alfanuméricos</h3>
         <div class="btn-grid">
-            <button onclick="show('fe-partenon')">Envío Provisional (Partenón)</button>
-            <button onclick="show('fe-agente-ciego')">Agente Ciego (Gestor 1 y 2)</button>
+            <button onclick="show('fe-partenon')">📨 Envío Provisional (Partenón)</button>
+            <button onclick="show('fe-agente-ciego')">👤 Agente Ciego (Gestor 1 y 2)</button>
+            <button onclick="show('fe-recuperar-web-sk')">🌐 Recuperar FE vía Web + SK</button>
+            <button onclick="show('fe-recuperar-app-sk')">📱 Recuperar FE en APP con SK</button>
         </div>
         <div class="warning-bottom">
             <strong>⚠️ NORMAS DE LA FE:</strong><br>
@@ -491,6 +569,7 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
+    <!-- FE - Partenón completado -->
     <div id="fe-partenon" class="section">
         <h3>📨 Envío de FE Provisional (Partenón)</h3>
         <div class="alert-box">Nivel: CMC Activo + N1 + ANI + Preguntas Seguridad</div>
@@ -499,24 +578,63 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
             • Con DNI: Fecha nacimiento + Fecha vencimiento DNI<br>
             • Sin DNI: Fecha nacimiento + Nacionalidad + Domicilio completo<br><br>
             <b>Pasos en Partenón:</b><br>
-            1. Partenón → Contratación → Mantenimiento de contratos<br>
-            2. Buscar por DNI → "Contratos Multicanal"<br>
-            3. Botón "Envío firma electrónica" → SMS provisional
+            1. Ingresa a Partenón → Contratación → Mantenimiento y consulta de contratos<br>
+            2. Buscar el contrato por DNI o F del cliente → Seleccionar "Contratos Multicanal"<br>
+            3. Botón "Envío firma electrónica" → SMS provisional (vigencia 24h)<br>
+            4. Guiar al cliente en la APP para activar la nueva firma
         </div>
-        <div class="script-box">"¿Me autorizas a enviar por SMS tu firma electrónica provisional al móvil finalizado en XXX?"</div>
+        <div class="script-box">"¿XXXX Me autorizas a enviarte por SMS tu firma electrónica provisional al móvil finalizado en XXX?"</div>
+        <div class="info-box">⚠️ Si sale mensaje de bloqueo: ir con los datos de DNI y vencimiento, el sistema arrojará un código de seguridad.</div>
         <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
     </div>
 
+    <!-- FE - Agente Ciego completado -->
     <div id="fe-agente-ciego" class="section">
         <h3>👤 Protocolo Agente Ciego</h3>
+        <div class="alert-box"><i class="fas fa-info-circle"></i> Cliente que no tiene app ni usa medios digitales</div>
         <div class="step-list">
-            <b>Gestor 1:</b><br>
-            - Verificar estado FE pendiente<br>
-            - Menú Cliente → Canales Remotos → Activar FE<br>
-            - Confirmar 4 posiciones de la firma SMS<br><br>
-            <b>Gestor 2 (agente ciego):</b><br>
-            - "Indíqueme la nueva firma de 8 caracteres alfanuméricos"<br>
-            - Confirmar y recordar que NUNCA se pide completa
+            <b>🔹 GESTOR 1 (remite al Agente ciego):</b><br>
+            • Verificar que tenga la FE pendiente de activar (pestaña "Datos cliente")<br>
+            • Menú Cliente → Canales Remotos → Activar FE (siempre con el cliente en N1)<br>
+            • Confirmar las <b>4 posiciones de la firma</b> que solicita el sistema (la recibida por SMS o carta)<br>
+            • Script de transferencia: <i>"Voy a transferir tu llamada con un responsable del servicio para que proceda a activar tu Firma Electrónica. Te informo que este, por tu seguridad, solo dispondrá de tu apellido para poder dirigirse a ti"</i><br>
+            • Transferir por agenda a "Activación de Firma Electrónica"<br><br>
+            
+            <b>🔹 GESTOR 2 (Agente ciego que recibe):</b><br>
+            • Script de recepción: <i>"Te han transferido conmigo porque deseas activar tu firma electrónica. Es muy importante que recuerdes qué firma vas a elegir, ya que no recibirás ninguna confirmación por escrito. Por favor, indícame la firma electrónica que deseas utilizar, teniendo en cuenta que debe tener <b>8 caracteres</b>, formado por una combinación de <b>letras y números</b>."</i><br>
+            • Introducir la nueva FE y repetir para confirmar<br>
+            • Recordar: <b>"El Banco NUNCA te va a solicitar todas las posiciones de esta nueva Firma, sino solo posiciones aleatorias"</b>
+        </div>
+        <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- FE - Recuperar mediante Web + SK -->
+    <div id="fe-recuperar-web-sk" class="section">
+        <h3>🌐 Recuperar FE mediante Web + SK</h3>
+        <div class="step-list">
+            <b>📌 Guiar al cliente con estos pasos:</b><br><br>
+            <b>Paso 1:</b> Área personal<br>
+            <b>Paso 2:</b> Seguridad<br>
+            <b>Paso 3:</b> Recuperar firma<br>
+            <b>Paso 4:</b> Validamos la operación desde la APP, ya sea con CA o con nuestra huella. Una vez validado, automáticamente aparece el mensaje de <b>"¡Operación Autorizada!"</b><br>
+            <b>Paso 5:</b> El cliente elige una <b>nueva FE de 8 caracteres</b> que debe validar dos veces.<br><br>
+            <b>⚠️ Importante:</b> No puede elegir la misma que tenía. No será necesario que el cliente active esta firma ya que es el cliente el que la escoge.
+        </div>
+        <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- FE - Recuperar en APP con SK -->
+    <div id="fe-recuperar-app-sk" class="section">
+        <h3>📱 Recuperar FE en APP con Santander Key</h3>
+        <div class="step-list">
+            <b>📌 Guiar al cliente con estos pasos:</b><br><br>
+            <b>Paso 1:</b> Ingresar a la APP<br>
+            <b>Paso 2:</b> Seleccionar Menú<br>
+            <b>Paso 3:</b> Seleccionar <b>"Seguridad y claves"</b><br>
+            <b>Paso 4:</b> Seleccionar <b>"Configurar claves, firmas y permisos de la APP"</b><br>
+            <b>Paso 5:</b> Seleccionar <b>"Recuperar firma multicanal"</b><br>
+            <b>Paso 6:</b> Autorizar con el <b>Santander Key</b> (huella/Face ID)<br>
+            <b>Paso 7:</b> Ingresar <b>nueva FE de 8 caracteres alfanuméricos</b>
         </div>
         <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
     </div>
@@ -725,18 +843,28 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
     <!-- ==================== PROTOCOLO CONSUMO / VENTA ==================== -->
     <div id="consumo" class="section">
         <h3>💰 Protocolo Consumo / Venta</h3>
-        <div class="alert-box">⚠️ NO OFRECER SI: ASNEF, GSI (Impago I30/I60/I90), +80 años o Lista Robinson</div>
+        <div class="alert-box">⚠️ NO OFRECER SI: ASNEF, GSI (Impago I30/I60/I90), +80 años, refinanciar deuda, o Lista Robinson</div>
         
+        <!-- 5 requisitos destacados -->
+        <div class="requisitos-destacados">
+            <strong><i class="fas fa-clipboard-list"></i> 📋 5 REQUISITOS PARA HACER UNA OFERTA (obligatorio mencionar al cliente):</strong><br>
+            1️⃣ <strong>Nombre del préstamo</strong><br>
+            2️⃣ <strong>Importe del préstamo</strong><br>
+            3️⃣ <strong>Plazo del préstamo</strong><br>
+            4️⃣ <strong>TIN y TAE</strong><br>
+            5️⃣ <strong>Cuota mensual del préstamo</strong>
+        </div>
+
         <div class="btn-grid">
             <button onclick="show('consumo-prestamos')">📋 TIPOS DE PRÉSTAMOS</button>
-            <button onclick="show('consumo-pasos')">📌 PASO A PASO</button>
         </div>
         
         <div class="warning-bottom">
             <strong>📌 RECORDATORIO:</strong><br>
             • Verificar en Sango (Conversaciones) si tiene monto aprobado<br>
             • Siempre ofrecer en TODAS las llamadas salvo excepciones<br>
-            • Toda oferta debe cumplir 5 requisitos: Nombre, Importe, Plazo, TIN/TAE, Cuota mensual
+            • <b>Toda oferta debe cumplir los 5 requisitos</b>: Nombre, Importe, Plazo, TIN/TAE, Cuota mensual<br>
+            • <b>Proactivo</b>: ofrecido por nosotros / <b>Reactivo</b>: lo solicita el cliente
         </div>
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
@@ -744,17 +872,42 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
     <div id="consumo-prestamos" class="section">
         <h3>📋 Tipos de Préstamos - Descripciones</h3>
         
+        <!-- Tabla de tipos de préstamos -->
+        <table class="tabla-prestamos">
+            <thead>
+                <tr><th colspan="2">TIPO DE PRÉSTAMOS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>PRECONCEDIDO</strong></td><td>Préstamo Digital Genérico | Reinicia | Préstamo Sostenible | Anticipo de Nómina</td> </tr>
+                <tr><td><strong>NO PRECONCEDIDO</strong></td><td>Préstamo Personal Tipo Fijo | Préstamo Sostenible | Anticipo de Nómina</td> </tr>
+            </tbody>
+        </table>
+
         <div class="btn-grid">
             <button onclick="show('prestamo-preconcedido')">🏦 PRÉSTAMO PRECONCEDIDO</button>
             <button onclick="show('prestamo-no-preconcedido')">📄 PRÉSTAMO NO PRECONCEDIDO</button>
-            <button onclick="show('prestamo-reinicia')">🔄 PRÉSTAMO REINICIA</button>
-            <button onclick="show('prestamo-anticipo')">💰 ANTICIPO DE NÓMINA</button>
-            <button onclick="show('prestamo-sostenible')">🌱 PRÉSTAMO SOSTENIBLE</button>
-            <button onclick="show('prestamo-digital')">📱 PRÉSTAMO DIGITAL GENÉRICO</button>
         </div>
+
+        <!-- PASO A PASO GENERAL - COMO NOTAS DEBAJO DEL MENÚ -->
+        <div class="step-list" style="margin-top: 20px;">
+            <strong>📌 NOTAS - PASO A PASO GENERAL PARA VALIDAR PRÉSTAMOS:</strong><br><br>
+            <b>1. Validar riesgos (NO OFRECER si):</b> ASNEF, GSI (I30/I60/I90), +80 años, refinanciar deuda, Lista Robinson<br><br>
+            <b>2. Revisar si tiene préstamos preconcedidos en el Triat</b><br><br>
+            <b>3. Simulador de consumo:</b> ADN del cliente → Triat → Validar riesgos<br><br>
+            <b>4. Para preconcedido:</b> Guiar al cliente en la App (Menú → Contratar)<br><br>
+            <b>5. Para No preconcedido:</b> Triat bueno/muy bueno → Simulador → Tasa de esfuerzo → Agendar cita
+        </div>
+        
+        <div class="warning-bottom">
+            <strong>⏱️ Tiempos de seguimiento:</strong><br>
+            • Agendado / Preconcedido: volver a llamar en <b>10 días</b><br>
+            • Derivado a oficina / No preconcedido: <b>30 días</b>
+        </div>
+        
         <button class="btn-back" onclick="show('consumo')">⬅ Volver</button>
     </div>
 
+    <!-- PRÉSTAMO PRECONCEDIDO con acceso a subtipos -->
     <div id="prestamo-preconcedido" class="section">
         <h3>🏦 Préstamo Preconcedido</h3>
         <div class="step-list">
@@ -763,19 +916,24 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
             • Sin comisión de apertura<br>
             • Sencillo y ágil, se firma sin necesidad de documentos por App/Web con FE o SK<br>
             • Vida del préstamo más de 7 años<br><br>
-            <b>📌 Características:</b><br>
+            <b>📌 Características generales:</b><br>
             • El banco preconcede a clientes con buen perfil y trayectoria<br>
-            • Importe mínimo 3.000€, máximo 50.000€ (o lo que tenga preconcedido)<br>
-            • Plazos desde 48 a 84 meses (hasta 8 años)<br>
             • Sin comisión, con intereses fijos
+        </div>
+        <div class="btn-grid">
+            <button onclick="show('prestamo-digital')">📱 Préstamo Digital Genérico</button>
+            <button onclick="show('prestamo-reinicia')">🔄 Préstamo Reinicia</button>
+            <button onclick="show('prestamo-sostenible-precon')">🌱 Préstamo Sostenible</button>
+            <button onclick="show('prestamo-anticipo-precon')">💰 Anticipo de Nómina</button>
         </div>
         <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
     </div>
 
+    <!-- PRÉSTAMO NO PRECONCEDIDO con acceso a subtipos -->
     <div id="prestamo-no-preconcedido" class="section">
         <h3>📄 Préstamo No Preconcedido (EPO Fijo)</h3>
         <div class="step-list">
-            <b>✅ Características:</b><br>
+            <b>✅ Características generales:</b><br>
             • Requiere estudio previo por parte del banco<br>
             • Tipo de interés: mensual, anual, fijo<br>
             • Tiempo de vida: 4 a 7 años<br>
@@ -787,14 +945,81 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
             • Triat debe estar en "bueno" o "muy bueno"<br><br>
             <b>📝 Documentación para oficina:</b> DNI, última nómina, declaración de renta (si aplica), justificante de ingresos, recibos de deudas (últimos 3)
         </div>
+        
+        <div class="btn-grid">
+            <button onclick="show('prestamo-fijo')">📄 Préstamo Personal Tipo Fijo</button>
+            <button onclick="show('prestamo-sostenible-no-precon')">🌱 Préstamo Sostenible</button>
+            <button onclick="show('prestamo-anticipo-no-precon')">💰 Anticipo de Nómina</button>
+        </div>
+        
+        <!-- 9 PASOS para No preconcedido -->
+        <div class="warning-bottom">
+            <strong><i class="fas fa-clipboard-list"></i> 📋 9 PASOS A SEGUIR SI NO TIENE PRECONCEDIDO:</strong><br><br>
+            <b>PASO 1:</b> Mirar si tiene alerta. Si tiene alerta, continuo. Si no, no ofrezco.<br>
+            <b>PASO 2:</b> En ADN mirar Robinson / GSI / ASNEF / +80 años. Si tiene, no ofrezco.<br>
+            <b>PASO 3:</b> (Sin irregularidades) Entrar en TRIAD para ver si tiene preconcedido.<br>
+            <b>PASO 4:</b> Como no tiene preconcedido, abro simulador, tiro la caña con 6.000€ (cuota + TIN).<br>
+            <b>PASO 5:</b> Si está interesado, hacer <b>tasa de esfuerzo</b> (nómina + 2 años cotizados).<br>
+            <b>PASO 6:</b> <b>Tasa de esfuerzo verde</b> → leer condiciones completas del préstamo.<br>
+            <b>PASO 7:</b> <b>Cita en oficina</b> y compromiso de seguimiento.<br>
+            <b>PASO 8:</b> Nueva conversación → <b>NO VENTA - NO DE MOMENTO</b> + observaciones derivación a oficina.<br>
+            <b>PASO 9:</b> <b>Componente comercial derivado a oficina.</b>
+        </div>
+        
         <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
     </div>
 
+    <!-- PRÉSTAMO DIGITAL GENÉRICO -->
+    <div id="prestamo-digital" class="section">
+        <h3>📱 Préstamo Digital Genérico</h3>
+        <div class="step-list">
+            <b>✅ Características:</b><br>
+            • Préstamo personal de 4 a 7 años<br>
+            • <b>Importe mínimo: 3.000€</b> | <b>Importe máximo: 50.000€</b><br>
+            • <b>Plazo mínimo: 48 meses (4 años)</b> | <b>Plazo máximo: 84 meses (7 años)</b><br>
+            • <b>Estado: PRECONCEDIDO</b><br>
+            • <b>Contratación:</b> APP / WEB<br>
+            • <b>Texto legal:</b> CONTRATADO ON LINE<br>
+            • Sin comisión, con intereses fijos<br>
+            • Se contrata directamente por App o Web con FE o SK
+        </div>
+        <button class="btn-back" onclick="show('prestamo-preconcedido')">⬅ Volver</button>
+    </div>
+
+    <!-- PRÉSTAMO PERSONAL TIPO FIJO -->
+    <div id="prestamo-fijo" class="section">
+        <h3>📄 Préstamo Personal Tipo Fijo</h3>
+        <div class="step-list">
+            <b>✅ Características:</b><br>
+            • Préstamo personal de 4 a 7 años<br>
+            • <b>Importe mínimo: -</b> | <b>Importe máximo: -</b><br>
+            • <b>Plazo mínimo: -</b> | <b>Plazo máximo: -</b><br>
+            • <b>Estado: NO PRECONCEDIDO</b><br>
+            • <b>Contratación:</b> OFICINA<br>
+            • <b>Texto legal:</b> OFICINA<br>
+            • Tipo de interés: mensual, anual, fijo<br>
+            • Comisión de Apertura Financiera entre 1% y 2% según perfil crediticio<br>
+            • Importe máximo de 100.000€ con seguro asociado<br>
+            • Requiere estudio previo por parte del banco<br><br>
+            <b>📌 Requisitos (Tasa de esfuerzo):</b><br>
+            • 2 años de recurrencia laboral<br>
+            • Ingresos superiores a 860€ mensuales<br>
+            • Triat: "bueno" o "muy bueno"
+        </div>
+        <button class="btn-back" onclick="show('prestamo-no-preconcedido')">⬅ Volver</button>
+    </div>
+
+    <!-- PRÉSTAMO REINICIA -->
     <div id="prestamo-reinicia" class="section">
         <h3>🔄 Préstamo Reinicia / Reinicia Digital</h3>
         <div class="step-list">
             <b>✅ Características:</b><br>
             • Único préstamo para <b>refinanciar deuda</b> con condiciones preaprobadas<br>
+            • <b>Importe mínimo: 3.000€</b> | <b>Importe máximo: 50.000€</b><br>
+            • <b>Plazo mínimo: 48 meses (4 años)</b> | <b>Plazo máximo: 84 meses (7 años)</b><br>
+            • <b>Estado: PRECONCEDIDO</b><br>
+            • <b>Contratación:</b> OFICINA<br>
+            • <b>Texto legal:</b> OFICINA<br>
             • Debe gestionarse en oficina (versión estándar)<br>
             • Versión Digital disponible por canales digitales u oficina<br>
             • Con comisión por cancelación y apertura (solo disponible para cancelación en oficina)<br>
@@ -804,35 +1029,20 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
             • Disponible solo para contratar online<br>
             • Precio personalizado
         </div>
-        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+        <button class="btn-back" onclick="show('prestamo-preconcedido')">⬅ Volver</button>
     </div>
 
-    <div id="prestamo-anticipo" class="section">
-        <h3>💰 Anticipo de Nómina</h3>
-        <div class="step-list">
-            <b>✅ Características:</b><br>
-            • Préstamo de hasta <b>2 nóminas</b> para gastos imprevistos<br>
-            • Importe máximo: <b>9.000€</b><br>
-            • Plazo de devolución: 1 a 12 meses<br>
-            • Tipo de interés nominal anual: 0.4% a 7.37% (TAE)<br>
-            • Comisión de Apertura: 1.3% a 4% según plazo<br>
-            • No tiene TIN, pero sí TAE<br><br>
-            <b>📌 Requisitos:</b><br>
-            • Puede estar preconcedido. En caso de NO, gestionar en oficina<br>
-            • Mínimo 500€, máximo 9.000€<br>
-            • Mínimo 6 meses de antigüedad (clientes nuevos no pueden)
-        </div>
-        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
-    </div>
-
-    <div id="prestamo-sostenible" class="section">
-        <h3>🌱 Préstamo Sostenible (Green)</h3>
+    <!-- PRÉSTAMO SOSTENIBLE (Preconcedido) -->
+    <div id="prestamo-sostenible-precon" class="section">
+        <h3>🌱 Préstamo Sostenible (Green) - Preconcedido</h3>
         <div class="step-list">
             <b>✅ Finalidad:</b> Proyectos sostenibles (hogar: movilidad, energía, eficiencia; autos ecológicos)<br><br>
             <b>📌 Condiciones principales:</b><br>
-            • Contratación online u oficina<br>
-            • Importe: 1.000€ a 100.000€<br>
-            • Plazo: 3 a 84 meses<br>
+            • <b>Importe: 1.000€ a 100.000€</b><br>
+            • <b>Plazo: 3 a 84 meses</b><br>
+            • <b>Estado: PRECONCEDIDO</b><br>
+            • <b>Contratación:</b> APP/WEB U OFICINA<br>
+            • <b>Texto legal:</b> CONTRATADO ON LINE / OFICINA<br>
             • Comisión de apertura y cancelación anticipada: <b>0%</b><br>
             • Intereses personalizados por cliente<br>
             • Bonificación de 100 puntos de TIN por finalidad green<br>
@@ -844,50 +1054,71 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
             • Autos con menos de 50 gramos de CO2/km<br>
             • 50% o más debe usarse en finalidad Green
         </div>
-        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+        <button class="btn-back" onclick="show('prestamo-preconcedido')">⬅ Volver</button>
     </div>
 
-    <div id="prestamo-digital" class="section">
-        <h3>📱 Préstamo Digital Genérico</h3>
+    <!-- PRÉSTAMO SOSTENIBLE (No preconcedido) -->
+    <div id="prestamo-sostenible-no-precon" class="section">
+        <h3>🌱 Préstamo Sostenible (Green) - No Preconcedido</h3>
+        <div class="step-list">
+            <b>✅ Finalidad:</b> Proyectos sostenibles (hogar: movilidad, energía, eficiencia; autos ecológicos)<br><br>
+            <b>📌 Condiciones principales:</b><br>
+            • <b>Importe: 1.000€ a 100.000€</b><br>
+            • <b>Plazo: 3 a 84 meses</b><br>
+            • <b>Estado: NO PRECONCEDIDO</b><br>
+            • <b>Contratación:</b> APP/WEB U OFICINA<br>
+            • <b>Texto legal:</b> CONTRATADO ON LINE / OFICINA<br>
+            • Comisión de apertura y cancelación anticipada: <b>0%</b><br>
+            • Intereses personalizados por cliente<br>
+            • Requiere estudio previo y verificación de finalidad green<br><br>
+            <b>🌍 Usos Green elegibles:</b><br>
+            • Calefacción, refrigeración y agua caliente<br>
+            • Aislamiento en fachadas<br>
+            • Control y automatización<br>
+            • Autos con menos de 50 gramos de CO2/km<br>
+            • 50% o más debe usarse en finalidad Green
+        </div>
+        <button class="btn-back" onclick="show('prestamo-no-preconcedido')">⬅ Volver</button>
+    </div>
+
+    <!-- ANTICIPO DE NÓMINA (Preconcedido) -->
+    <div id="prestamo-anticipo-precon" class="section">
+        <h3>💰 Anticipo de Nómina - Preconcedido</h3>
         <div class="step-list">
             <b>✅ Características:</b><br>
-            • Préstamo personal de 4 a 7 años<br>
-            • Mínimo 3.000€, máximo 50.000€ (o lo que tenga preconcedido)<br>
-            • Plazos desde 48 a 84 meses (hasta 8 años)<br>
-            • Sin comisión, con intereses fijos<br>
-            • Se contrata directamente por App o Web con FE o SK
+            • Préstamo de hasta <b>2 nóminas</b> para gastos imprevistos<br>
+            • <b>Importe mínimo: 500€</b> | <b>Importe máximo: 9.000€</b><br>
+            • <b>Plazo mínimo: 2 meses</b> | <b>Plazo máximo: 12 meses</b><br>
+            • <b>Estado: PRECONCEDIDO Y NO PRECONCEDIDO</b><br>
+            • <b>Contratación:</b> APP/WEB U OFICINA<br>
+            • <b>Texto legal:</b> CONTRATADO ON LINE / OFICINA<br>
+            • Tipo de interés nominal anual: 0.4% a 7.37% (TAE)<br>
+            • Comisión de Apertura: 1.3% a 4% según plazo<br>
+            • No tiene TIN, pero sí TAE<br><br>
+            <b>📌 Requisitos:</b><br>
+            • Mínimo 6 meses de antigüedad (clientes nuevos no pueden)
         </div>
-        <button class="btn-back" onclick="show('consumo-prestamos')">⬅ Volver</button>
+        <button class="btn-back" onclick="show('prestamo-preconcedido')">⬅ Volver</button>
     </div>
 
-    <div id="consumo-pasos" class="section">
-        <h3>📌 Paso a paso para validar préstamos</h3>
+    <!-- ANTICIPO DE NÓMINA (No preconcedido) -->
+    <div id="prestamo-anticipo-no-precon" class="section">
+        <h3>💰 Anticipo de Nómina - No Preconcedido</h3>
         <div class="step-list">
-            <b>1. Validar riesgos (NO OFRECER si):</b><br>
-            • Clientes en ASNEF<br>
-            • GSI (situación de impago I30/I60/I90)<br>
-            • 80 años o más<br>
-            • Cliente menciona refinanciar deuda<br>
-            • Clientes en lista Robinson<br><br>
-            <b>2. Revisar si tiene préstamos preconcedidos en el Triat</b><br><br>
-            <b>3. Simulador de consumo:</b><br>
-            • Ir al ADN del cliente → Triat → Validar riesgos<br>
-            • Ver préstamos, si no tiene información usar el simulador<br><br>
-            <b>4. Para preconcedido - Guiar al cliente en la App:</b><br>
-            • Menú → Contratar → Seleccionar el préstamo<br><br>
-            <b>5. Para No preconcedido:</b><br>
-            • Revisar Triat (bueno o muy bueno)<br>
-            • Simulador → Tasa de esfuerzo<br>
-            • Si es viable, indicar condiciones y texto legal de oficinas<br>
-            • Agendar cita (calendario en perfil cliente → seleccionar oficina)<br>
-            • Leer texto legal de envío de información
+            <b>✅ Características:</b><br>
+            • Préstamo de hasta <b>2 nóminas</b> para gastos imprevistos<br>
+            • <b>Importe mínimo: 500€</b> | <b>Importe máximo: 9.000€</b><br>
+            • <b>Plazo mínimo: 2 meses</b> | <b>Plazo máximo: 12 meses</b><br>
+            • <b>Estado: PRECONCEDIDO Y NO PRECONCEDIDO</b><br>
+            • <b>Contratación:</b> APP/WEB U OFICINA<br>
+            • <b>Texto legal:</b> CONTRATADO ON LINE / OFICINA<br>
+            • Tipo de interés nominal anual: 0.4% a 7.37% (TAE)<br>
+            • Comisión de Apertura: 1.3% a 4% según plazo<br><br>
+            <b>📌 Requisitos:</b><br>
+            • Gestionar en oficina (no está preconcedido)<br>
+            • Mínimo 6 meses de antigüedad
         </div>
-        <div class="warning-bottom">
-            <strong>⏱️ Tiempos de seguimiento:</strong><br>
-            • Agendado / Preconcedido: volver a llamar en <b>10 días</b><br>
-            • Derivado a oficina / No preconcedido: <b>30 días</b>
-        </div>
-        <button class="btn-back" onclick="show('consumo')">⬅ Volver</button>
+        <button class="btn-back" onclick="show('prestamo-no-preconcedido')">⬅ Volver</button>
     </div>
 
     <!-- ==================== SCRIPTS DE LLAMADA ==================== -->
@@ -898,6 +1129,7 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
             <button onclick="show('script-datos-contacto')">📞 DATOS DE CONTACTO</button>
             <button onclick="show('script-seguridad')">🔐 SCRIPT DE SEGURIDAD (CLAVES)</button>
             <button onclick="show('script-autorizacion')">👥 AUTORIZACIÓN A TERCEROS</button>
+            <button onclick="show('script-frases')">💬 FRASES DE ACOMPAÑAMIENTO</button>
         </div>
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
@@ -941,22 +1173,7 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
         <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
     </div>
 
-    <!-- ==================== OTRAS GESTIONES ==================== -->
-    <div id="otras-gestiones" class="section">
-        <h3>⚙️ Otras Gestiones y Protocolos</h3>
-        <div class="btn-grid">
-            <button onclick="show('otras-frases')">💬 Frases de Acompañamiento</button>
-        </div>
-        <div class="warning-bottom">
-            <strong>⚠️ RECORDATORIO:</strong><br>
-            • Plan de Excepción = ENCOLADOS → ofrecer no rebatir<br>
-            • Siempre recapitular información de la cita<br>
-            • Texto legal al solicitar datos de contacto
-        </div>
-        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
-    </div>
-
-    <div id="otras-frases" class="section">
+    <div id="script-frases" class="section">
         <h3>💬 Frases de Acompañamiento (Excelencia)</h3>
         <div class="step-list">
             • "Entiendo lo que me estás comentando, lamento que estés pasando por esta situación."<br>
@@ -964,7 +1181,20 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
             • "Aprecio mucho que me hayas informado de esto, y me aseguraré de que se resuelva de la mejor manera."<br>
             • "Lamento los inconvenientes, vamos a trabajar juntos para encontrar una solución."
         </div>
-        <button class="btn-back" onclick="show('otras-gestiones')">⬅ Volver</button>
+        <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== OTRAS GESTIONES ==================== -->
+    <div id="otras-gestiones" class="section">
+        <h3>⚙️ Otras Gestiones y Protocolos</h3>
+        <div class="warning-bottom">
+            <strong>⚠️ RECORDATORIO:</strong><br>
+            • Plan de Excepción = ENCOLADOS → ofrecer no rebatir<br>
+            • Siempre recapitular información de la cita<br>
+            • Texto legal al solicitar datos de contacto<br>
+            • Estructura de llamada: Acogida → Escucha Activa → Sondeo → Predisposición → Solución → Ofrecimiento/Venta → Despedida NPS
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
 </div>
@@ -972,7 +1202,7 @@ posiblemente recibirás un correo con el  nombre de Santander te escucha. donde 
 
 <script>
     // ==================== SISTEMA DE BLOQUEO POR CONTRASEÑA ====================
-    const PASSWORD = "santander2026";
+    const PASSWORD = "";
     
     const lockScreen = document.getElementById('lockScreen');
     const mainContent = document.getElementById('mainContent');
