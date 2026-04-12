@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Asistente Santander - Lc</title>
     <style>
         :root { --santander-red: #ec1c2d; --dark-grey: #444; --light-grey: #f4f4f4; }
@@ -184,6 +184,81 @@
             color: white;
         }
 
+        /* Tabla de cuentas estilo transferencias */
+        .cuentas-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.75rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .cuentas-tabla th {
+            background-color: var(--santander-red);
+            color: white;
+            padding: 10px 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .cuentas-tabla td {
+            border: 1px solid #dee2e6;
+            padding: 10px 8px;
+            vertical-align: top;
+            background-color: white;
+        }
+        .cuentas-tabla tr:nth-child(even) td {
+            background-color: #f8f9fa;
+        }
+
+        /* Tabla de límites Bizum */
+        .limites-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.75rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .limites-tabla th {
+            background-color: #1e6f5c;
+            color: white;
+            padding: 8px;
+            text-align: center;
+        }
+        .limites-tabla td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+        }
+
+        /* Paises disponibles */
+        .paises-disponibles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 10px 0;
+            justify-content: center;
+        }
+        .pais-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .pais-item i {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+        .pais-item .espana { color: #c00000; }
+        .pais-item .italia { color: #009246; }
+        .pais-item .portugal { color: #006600; }
+        .pais-item .andorra { color: #ffcc00; }
+
         /* 5 requisitos destacados */
         .requisitos-destacados {
             background: #e8f0fe;
@@ -242,7 +317,7 @@
         .no-negociables-list { margin: 0; padding-left: 20px; line-height: 1.6; }
         .no-negociables-list li { margin: 5px 0; font-size: 0.85rem; }
 
-        /* Glosario grid - mejorado */
+        /* Glosario grid - COMPLETO */
         .glosario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
         .glosario-item { font-size: 0.8rem; padding: 6px 0; border-bottom: 1px dotted #ddd; }
         .glosario-item strong { color: var(--santander-red); min-width: 110px; display: inline-block; }
@@ -263,6 +338,116 @@
         }
         .requisitos-list li {
             margin: 4px 0;
+        }
+        
+        /* Estilo para frases de cortesía */
+        .frase-cortesia {
+            background: #f0f8ff;
+            border-left: 4px solid #1e6f5c;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #2c3e50;
+        }
+        .frase-cortesia i {
+            color: #1e6f5c;
+            margin-right: 8px;
+        }
+        
+        /* Estilo para formulario de preguntas - REDISEÑADO pequeño y elegante */
+        .quiz-form {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 15px 0;
+            border: 1px solid #e9ecef;
+        }
+        .quiz-form label {
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+            color: #495057;
+        }
+        .quiz-form input, .quiz-form select {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            box-sizing: border-box;
+            background: white;
+        }
+        .quiz-form .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 4px;
+        }
+        .quiz-form .radio-group label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: normal;
+            margin-top: 0;
+            font-size: 0.8rem;
+        }
+        .quiz-form hr {
+            margin: 12px 0;
+        }
+        .quiz-note {
+            background: #fff8e7;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.75rem;
+            border-left: 3px solid #f0c674;
+        }
+        
+        /* Tabla de transferencias responsive */
+        .transferencias-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.7rem;
+            background: white;
+            border-radius: 10px;
+            overflow-x: auto;
+            display: block;
+        }
+        .transferencias-tabla th, .transferencias-tabla td {
+            border: 1px solid #dee2e6;
+            padding: 8px 6px;
+            text-align: center;
+            vertical-align: top;
+        }
+        .transferencias-tabla th {
+            background-color: var(--santander-red);
+            color: white;
+            font-weight: 600;
+        }
+        .transferencias-tabla td {
+            background-color: white;
+        }
+        .transferencias-tabla tr:nth-child(even) td {
+            background-color: #f8f9fa;
+        }
+        
+        /* Para móvil - tabla responsive */
+        @media (max-width: 700px) {
+            .transferencias-tabla {
+                font-size: 0.65rem;
+            }
+            .transferencias-tabla th, .transferencias-tabla td {
+                padding: 6px 4px;
+            }
+            .cuentas-tabla {
+                font-size: 0.65rem;
+            }
+            .limites-tabla {
+                font-size: 0.65rem;
+            }
         }
     </style>
     <!-- Font Awesome para iconos -->
@@ -296,7 +481,7 @@
     <div id="inicio" class="section active">
         <div class="script-box">
             <strong>BIENVENIDA (Excelencia):</strong><br>
-            "Buen día, mi nombre es <b>XXXXX</b> de Banco Santander. Quiero disculparme por el tiempo de espera. Dime (Nombre Cliente), ¿Cómo puedo ayudarte con tu consulta de <b>(Etiqueta)</b>?"<br>En caso de que la llamada no entre con etiqueta, preguntar ¿Cómo te puedo ayudar el día de hoy?"
+            "Buen día, mi nombre es <b>Luis Caceres</b> de Banco Santander. Quiero disculparme por el tiempo de espera. Dime (Nombre Cliente), ¿Cómo puedo ayudarte con tu consulta de <b>(Etiqueta)</b>?"<br>En caso de que la llamada no entre con etiqueta, preguntar ¿Cómo te puedo ayudar el día de hoy?"
         </div>
 
         <h3>Menú de Gestiones:</h3>
@@ -306,10 +491,12 @@
             <button onclick="show('fe-causas')">✍️ FIRMA ELECTRÓNICA (FE)</button>
             <button onclick="show('sk-causas')">🛡️ SANTANDER KEY (SK)</button>
             <button onclick="show('cmc-causas')">📱 CONTRATO MULTICANAL</button>
+            <button onclick="show('transferencias')">💸 TRANSFERENCIAS</button>
+            <button onclick="show('cuentas')">🏦 CUENTAS</button>
             <button onclick="show('cita-prev')">📅 CITA PREVIA / OFICINA</button>
             <button onclick="show('llamadas-cortadas')">📞 LLAMADAS CORTADAS</button>
             <button onclick="show('consumo')">💰 PROTOCOLO CONSUMO / VENTA</button>
-            <button onclick="show('scripts-llamada')">📝 SCRIPTS DE LLAMADA</button>
+            <button onclick="show('scripts-llamada')">📝 SCRIPTS Y FRASES</button>
             <button onclick="show('otras-gestiones')">⚙️ OTRAS GESTIONES</button>
         </div>
 
@@ -349,7 +536,7 @@
             </ol>
         </div>
 
-        <!-- Panel Glosario mejorado con nuevos términos -->
+        <!-- Panel Glosario COMPLETO -->
         <div id="glosarioPanel" class="toggle-panel">
             <h4 style="margin-top:0; color:var(--santander-red);">📚 Glosario Santander</h4>
             <div class="glosario-grid">
@@ -373,7 +560,7 @@
                 <div class="glosario-item"><strong>Partenón:</strong> Herramienta para envío de FE provisional por SMS.</div>
                 <div class="glosario-item"><strong>ANI:</strong> Número del cliente registrado en la Base de datos del Banco.</div>
                 <div class="glosario-item"><strong>IVR:</strong> Sistema telefónico automatizado que permite a sus clientes elegir entre las opciones del menú de voz e interactuar mediante la voz y el teclado numérico.</div>
-                <div class="glosario-item"><strong>Superlínea:</strong> Teléfono de atención al cliente.</div>
+                <div class="glosario-item"><strong>Spl:</strong> Superlínea, Teléfono de atención al cliente.</div>
                 <div class="glosario-item"><strong>NHB:</strong> Banca Online (versión web).</div>
                 <div class="glosario-item"><strong>OTP:</strong> Contraseña de un solo uso (One Time Password).</div>
                 <div class="glosario-item"><strong>Agente ciego:</strong> Gestor que activa FE sin ver datos completos del cliente.</div>
@@ -383,6 +570,15 @@
                 <div class="glosario-item"><strong>AHT:</strong> Tiempo promedio de atención (Average Handling Time).</div>
                 <div class="glosario-item"><strong>Triat:</strong> Herramienta de validación de riesgos y perfil del cliente.</div>
                 <div class="glosario-item"><strong>Nimbus:</strong> Sistema de tipificación de gestiones y campañas.</div>
+                <div class="glosario-item"><strong>Bancomat:</strong> Solución de pagos de Italia, similar a Bizum.</div>
+                <div class="glosario-item"><strong>MB WAY:</strong> Solución de pagos de Portugal, similar a Bizum.</div>
+                <div class="glosario-item"><strong>CL00308:</strong> Código de error de Bizum por seguridad (LINX).</div>
+                <div class="glosario-item"><strong>LINX:</strong> Bloqueo de seguridad por posible fraude (código CL00308).</div>
+                <div class="glosario-item"><strong>AERO:</strong> Expediente por manipulación del ordenante (fraude/estafa).</div>
+                <div class="glosario-item"><strong>UETR:</strong> Código único para rastrear transferencias internacionales.</div>
+                <div class="glosario-item"><strong>ABBA:</strong> Código de 9 dígitos para transferencias a EE.UU.</div>
+                <div class="glosario-item"><strong>FIOC:</strong> Formulario de Información Obligatoria del Cliente.</div>
+                <div class="glosario-item"><strong>FATCA/CRS:</strong> Información fiscal internacional.</div>
             </div>
         </div>
 
@@ -391,11 +587,10 @@
         </div>
     </div>
 
-    <!-- ==================== SONDEO / DIAGNÓSTICO INICIAL - REDISEÑADO ==================== -->
+    <!-- ==================== SONDEO / DIAGNÓSTICO INICIAL ==================== -->
     <div id="sondeo" class="section">
         <h3>🎯 Sondeo / Diagnóstico Inicial</h3>
         
-        <!-- Preguntas clave en formato destacado -->
         <div class="info-box" style="background: #1e6f5c; color: white; border-left: none; margin-bottom: 20px;">
             <b><i class="fas fa-microphone-alt"></i> PREGUNTAS CLAVE AL CLIENTE:</b><br>
             <span style="font-size: 0.9rem;">• ¿Qué problema tienes exactamente? ¿No puedes acceder a la app/web?<br>
@@ -516,41 +711,24 @@
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
-    <!-- ==================== CLAVE DE ACCESO ==================== -->
+    <!-- ==================== CLAVE DE ACCESO (CA) ==================== -->
     <div id="ca-causas" class="section">
-        <h3>🔑 Clave de Acceso (CA) - 8 dígitos numéricos</h3>
+        <h3>🔑 Recuperar Clave de Acceso (CA)</h3>
         
         <div class="ca-descripcion">
             <i class="fas fa-info-circle"></i> <b>La Clave de acceso (CA) </b> da acceso consultivo a los productos contratados, ya sea en Web, App o Superlínea. Es imprescindible que el cliente tenga <b>CMC y teléfono asociado</b> para tener una CA. Está compuesta por <b>8 dígitos numéricos</b>.
         </div>
 
-        <!-- TABLA DE SEGURIDAD PARA CA - ARRIBA DEL MENÚ -->
-        <div class="info-box" style="margin-bottom: 15px;">
-            <strong><i class="fas fa-shield-alt"></i> 📋 PASO A PASO Y NIVELES DE SEGURIDAD - CA:</strong>
-            <table class="seguridad-tabla">
-                <thead>
-                    <tr><th>Situación</th><th>Nivel Seguridad</th><th>Qué se pide al cliente</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Recuperar CA vía App/Web con PIN/PAN (tarjeta activa)</td><td><span class="nivel-badge">ID + CMC activo</span></td><td>Documento completo (16 dígitos) + PIN de la tarjeta</td></tr>
-                    <tr><td>Recuperar CA vía App/Web con tarjeta bloqueada + FE activa</td><td><span class="nivel-badge">CMC + N1 + ANI</span></td><td>Fecha nacimiento + Saldo aproximado + 4 posiciones FE (2,4,7,8)</td></tr>
-                    <tr><td>Recuperar CA vía App/Web con SK activo</td><td><span class="nivel-badge">CMC + N1 + SK</span></td><td>Autenticar con Santander Key (huella/Face ID)</td></tr>
-                    <tr><td>Recuperar CA vía IVR (Quiz) - Clave bloqueada (5 fallos)</td><td><span class="nivel-badge">CMC + N1 + ANI</span></td><td>Fecha nacimiento + 4 últimos dígitos cuenta + Saldo + Préstamo/Tarjeta</td></tr>
-                    <tr><td>Excepción extranjero (sin SK, sin FE)</td><td><span class="nivel-badge">N1 + Doc digitalizado</span></td><td>2 posiciones de la clave de acceso + DNI digitalizado en vigor</td></tr>
-                </tbody>
-            </table>
-            <div class="warning-bottom" style="margin-top: 8px; padding: 8px;">
-                <strong>⚠️ NUNCA pedir la clave completa</strong> → Solo posiciones aleatorias (2 para N1)
-            </div>
-        </div>
-
+        <!-- Menú principal de CA -->
         <div class="btn-grid">
-            <button onclick="show('ca-digital')">📱 Recuperar vía App/Web</button>
-            <button onclick="show('ca-ivr')">🎧 Recuperar vía IVR (Quiz)</button>
-            <button onclick="show('ca-tarjeta-activa')">💳 Recuperar CA con tarjeta activa</button>
-            <button onclick="show('ca-sin-tarjeta')">📄 Recuperar CA sin tarjeta activa (con FE)</button>
+            <button onclick="show('ca-app-pinpan')">📱 APP/WEB - PIN/PAN</button>
+            <button onclick="show('ca-sk')">🔒 APP/WEB - Con SK</button>
+            <button onclick="show('ca-tarjeta-bloqueada')">💳 Tarjeta Bloqueada + FE</button>
+            <button onclick="show('ca-ivr-pinpan')">📞 IVR - PAN/PIN</button>
+            <button onclick="show('ca-ivr-preguntas')">📋 IVR - Preguntas Control</button>
         </div>
 
+        <!-- RECOMENDACIONES DE CA (siempre visibles) -->
         <div class="warning-bottom">
             <strong><i class="fas fa-lightbulb"></i> 📝 RECOMENDACIONES PARA CAMBIO DE CLAVE DE ACCESO:</strong><br>
             • La nueva CA debe ser <b>fácil de recordar para el cliente</b> pero difícil de adivinar<br>
@@ -579,207 +757,312 @@
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
-    <!-- CA - Recuperar vía App/Web (detallado) -->
-    <div id="ca-digital" class="section">
-        <h3>📱 Recuperar Clave vía App / Web</h3>
-        
+    <!-- CA - APP/WEB PIN/PAN -->
+    <div id="ca-app-pinpan" class="section">
+        <h3>📱 Clave de Acceso (CA) - APP/WEB PIN/PAN</h3>
+        <div class="alert-box"><i class="fas fa-info-circle"></i> <b>Recuerda:</b> El cliente debe conocer el PIN de su tarjeta</div>
         <div class="step-list">
-            <b>🔹 PASO A PASO CON PIN/PAN (tarjeta activa):</b><br>
-            <span class="nivel-badge">Nivel: ID + CMC activo</span><br>
-            1. "Olvidé mis credenciales" en Web/App<br>
-            2. Introducir <b>documento completo (16 dígitos)</b><br>
-            3. Ingresar el <b>PIN</b> (4 últimos dígitos + PIN)<br>
-            4. Definir <b>nueva clave de 8 dígitos</b> cumpliendo los requisitos<br><br>
-            
-            <b>🔹 PASO A PASO CON TARJETA BLOQUEADA + FE activa:</b><br>
-            <span class="nivel-badge">Nivel: CMC + N1 + ANI</span><br>
-            1. "Olvidé mis credenciales"<br>
-            2. Introducir documento completo<br>
-            3. Seleccionar <b>"preguntas de seguridad"</b><br>
-            4. Ingresar <b>fecha de nacimiento</b><br>
-            5. Ingresar <b>saldo aproximado de todas las cuentas</b><br>
-            6. Ingresar <b>4 posiciones de la FE</b><br>
-            7. Definir nueva clave de acceso<br><br>
-            
-            <b>🔹 PASO A PASO CON SANTANDER KEY ACTIVO:</b><br>
-            <span class="nivel-badge">Nivel: CMC + N1 + SK</span><br>
-            1. "Olvidé mis credenciales"<br>
-            2. Introducir documento completo<br>
-            3. Seleccionar <b>"con Santander Key"</b><br>
-            4. <b>Autenticar con SK</b> (huella/Face ID)<br>
-            5. Ingresar nueva clave de acceso
-        </div>
-        
-        <div class="script-box">"Por tu seguridad, nunca debes facilitar tu clave completa. Solo te solicitaré posiciones aleatorias."</div>
-        
-        <div class="warning-bottom">
-            <strong>⚠️ Si el cliente no recuerda el PIN:</strong> derivar a recuperación por preguntas de seguridad (IVR/Quiz).
-        </div>
-        
-        <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
-    </div>
-
-    <!-- CA - IVR Quiz -->
-    <div id="ca-ivr" class="section">
-        <h3>🎧 Reasignación vía IVR (Quiz)</h3>
-        <div class="step-list">
-            <span class="nivel-badge">Nivel: CMC activo + N1 + ANI</span><br>
-            Cliente con clave bloqueada (5 fallos).<br><br>
-            <b>Preguntas del Quiz:</b><br>
-            • Fecha de nacimiento<br>
-            • 4 últimos dígitos de una cuenta<br>
-            • Saldo aproximado<br>
-            • ¿Tiene préstamo? (cuota) / ¿Tarjeta? (6 últimas cifras)
+            <b>📌 PASO A PASO:</b><br>
+            <i class="fas fa-mobile-alt"></i> <b>1.</b> Ingresar a la APP de Banco Santander<br>
+            <i class="fas fa-bars"></i> <b>2.</b> Pinchar en "Menú ☰ (arriba a la derecha en las 3 líneas ☰)"<br>
+            <i class="fas fa-lock"></i> <b>3.</b> Pinchar en "🔒 recuperar claves (Seguridad y claves)"<br>
+            <i class="fas fa-robot"></i> <b>4.</b> Marcamos el CAPTCHA "Soy Humano"<br>
+            <i class="fas fa-id-card"></i> <b>5.</b> Ingresar Tipo de documento y Número de documento<br>
+            <i class="fas fa-credit-card"></i> <b>6.</b> Seleccionar "con datos de tu tarjeta"<br>
+            <i class="fas fa-qrcode"></i> <b>7.</b> Ingresar <b>16 dígitos</b> de la tarjeta<br>
+            <i class="fas fa-key"></i> <b>8.</b> Ingresar <b>PIN/OTP</b> de la tarjeta<br>
+            <i class="fas fa-pen"></i> <b>9.</b> Ingresar <b>Nueva clave de acceso</b>
         </div>
         <div class="warning-bottom">
-            <strong>🌍 Excepción extranjero:</strong> documento digitalizado + preguntas reforzadas. Nivel N1.
+            <strong>📌 Dar recomendaciones de la nueva CA:</strong><br>
+            • No puede coincidir con ninguna de las <b>6 anteriores</b><br>
+            • No puede coincidir con la <b>Firma Electrónica</b><br>
+            • No puede ser el mismo número repetido (ej: <b>11111111</b>)<br>
+            • No puede ser una serie numérica (ej: <b>12345678, 98765432</b>)<br>
+            • No puede incluir series de 3 números consecutivos (ej: XXX012XX)<br>
+            • No puede coincidir con el <b>documento de identidad o fecha de nacimiento</b><br>
+            • No puede coincidir con el <b>teléfono CMC o en Base de Datos</b>
         </div>
         <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
     </div>
 
-    <!-- CA - Recuperar con tarjeta activa -->
-    <div id="ca-tarjeta-activa" class="section">
-        <h3>💳 Recuperar CA con tarjeta activa</h3>
+    <!-- CA - APP/WEB con SK -->
+    <div id="ca-sk" class="section">
+        <h3>🔒 Clave de Acceso (CA) - APP/WEB con Santander Key</h3>
+        <div class="alert-box"><i class="fas fa-info-circle"></i> <b>Recuerda:</b> El cliente debe tener Santander Key activo (icono verde)</div>
         <div class="step-list">
-            <span class="nivel-badge">Nivel: ID + CMC activo</span><br>
-            <b>📌 Script para el cliente:</b><br>
-            "¿No recuerdas tu clave? Por tu seguridad, tenemos que pedirte los siguientes datos:"<br><br>
-            <b>Paso a paso:</b><br>
-            1. "A continuación, escribe los <b>16 dígitos de una de tus tarjetas</b>"<br>
-            2. "Por último, introduce el <b>código PIN de la tarjeta</b>"<br>
-            3. Definir nueva clave de acceso de 8 dígitos cumpliendo los requisitos
+            <b>📌 PASO A PASO:</b><br>
+            <i class="fas fa-mobile-alt"></i> <b>1.</b> Ingresar a la APP de Banco Santander<br>
+            <i class="fas fa-bars"></i> <b>2.</b> Pinchar en "Menú ☰ (arriba a la derecha en las 3 líneas ☰)"<br>
+            <i class="fas fa-lock"></i> <b>3.</b> Pinchar en "🔒 recuperar claves (Seguridad y claves)"<br>
+            <i class="fas fa-robot"></i> <b>4.</b> Marcamos el CAPTCHA "Soy Humano"<br>
+            <i class="fas fa-id-card"></i> <b>5.</b> Ingresar Tipo de documento y Número de documento<br>
+            <i class="fas fa-fingerprint"></i> <b>6.</b> Seleccionar "con la biometría 🔒"<br>
+            <i class="fas fa-smile"></i> <b>7.</b> Usar mi rostro / huella<br>
+            <i class="fas fa-pen"></i> <b>8.</b> Ingresar <b>Nueva clave de acceso</b>
+        </div>
+        <div class="warning-bottom">
+            <strong>📌 Dar recomendaciones de la nueva CA:</strong><br>
+            • No puede coincidir con ninguna de las <b>6 anteriores</b><br>
+            • No puede coincidir con la <b>Firma Electrónica</b><br>
+            • No puede ser el mismo número repetido (ej: <b>11111111</b>)<br>
+            • No puede ser una serie numérica (ej: <b>12345678, 98765432</b>)<br>
+            • No puede incluir series de 3 números consecutivos (ej: XXX012XX)<br>
+            • No puede coincidir con el <b>documento de identidad o fecha de nacimiento</b><br>
+            • No puede coincidir con el <b>teléfono CMC o en Base de Datos</b>
         </div>
         <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
     </div>
 
-    <!-- CA - Recuperar sin tarjeta activa -->
-    <div id="ca-sin-tarjeta" class="section">
-        <h3>📄 Recuperar CA sin tarjeta activa (con FE)</h3>
+    <!-- CA - Tarjeta Bloqueada + FE activa -->
+    <div id="ca-tarjeta-bloqueada" class="section">
+        <h3>💳 Clave de Acceso (CA) - Tarjeta Bloqueada + FE activa</h3>
+        <div class="alert-box"><i class="fas fa-info-circle"></i> <b>Recuerda:</b> El cliente debe tener Firma Electrónica activa</div>
         <div class="step-list">
-            <span class="nivel-badge">Nivel: CMC + N1 + ANI + FE activa</span><br>
-            <b>📌 Script para el cliente:</b><br>
-            "¿No recuerdas tu clave? Por tu seguridad, tenemos que pedirte los siguientes datos:"<br><br>
-            <b>Paso a paso:</b><br>
-            1. "Indícanos tu <b>fecha de nacimiento</b>"<br>
-            2. "A continuación, el <b>saldo aproximado de todas tus cuentas</b>"<br>
-            3. "Por último, introduce las posiciones <b>2, 4, 7 y 8 de tu firma electrónica</b>"<br>
-            4. Definir nueva clave de acceso
+            <b>📌 PASO A PASO:</b><br>
+            <i class="fas fa-mobile-alt"></i> <b>1.</b> Ingresar a la APP de Banco Santander<br>
+            <i class="fas fa-bars"></i> <b>2.</b> Pinchar en "Menú ☰ (arriba a la derecha en las 3 líneas ☰)"<br>
+            <i class="fas fa-lock"></i> <b>3.</b> Pinchar en "🔒 recuperar claves (Seguridad y claves)"<br>
+            <i class="fas fa-robot"></i> <b>4.</b> Marcamos el CAPTCHA "Soy Humano"<br>
+            <i class="fas fa-id-card"></i> <b>5.</b> Ingresar Tipo de documento y Número de documento<br>
+            <i class="fas fa-question-circle"></i> <b>6.</b> Seleccionar "con datos de la tarjeta o preguntas de seguridad"<br>
+            <i class="fas fa-calendar"></i> <b>7.</b> Fecha nacimiento, Saldo aproximado de sus cuentas y <b>4 posiciones de su FE</b><br>
+            <i class="fas fa-envelope"></i> <b>8.</b> Mensaje OTP<br>
+            <i class="fas fa-pen"></i> <b>9.</b> Ingresar <b>Nueva clave de acceso</b>
+        </div>
+        <div class="warning-bottom">
+            <strong>📌 Dar recomendaciones de la nueva CA:</strong><br>
+            • No puede coincidir con ninguna de las <b>6 anteriores</b><br>
+            • No puede coincidir con la <b>Firma Electrónica</b><br>
+            • No puede ser el mismo número repetido (ej: <b>11111111</b>)<br>
+            • No puede ser una serie numérica (ej: <b>12345678, 98765432</b>)<br>
+            • No puede incluir series de 3 números consecutivos (ej: XXX012XX)<br>
+            • No puede coincidir con el <b>documento de identidad o fecha de nacimiento</b><br>
+            • No puede coincidir con el <b>teléfono CMC o en Base de Datos</b>
         </div>
         <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
     </div>
 
-    <!-- ==================== FIRMA ELECTRÓNICA ==================== -->
-    <div id="fe-causas" class="section">
-        <h3>✍️ Firma Electrónica (FE) - 8 caracteres alfanuméricos</h3>
+    <!-- CA - IVR PAN/PIN -->
+    <div id="ca-ivr-pinpan" class="section">
+        <h3>📞 Clave de Acceso (CA) - IVR PAN/PIN (Tarjeta con PIN)</h3>
+        <div class="step-list">
+            <b>📌 PASO A PASO:</b><br>
+            <i class="fas fa-credit-card"></i> <b>1.</b> <b>4 Últimos dígitos de la tarjeta</b><br>
+            <i class="fas fa-microphone-alt"></i> <b>2.</b> Indicaciones - IVR pedirá:<br>
+            <i class="fas fa-key"></i> &nbsp;&nbsp;&nbsp;• PIN tarjeta<br>
+            <i class="fas fa-pen"></i> &nbsp;&nbsp;&nbsp;• Nueva clave de acceso<br>
+            <i class="fas fa-star"></i> <b>3.</b> Dar recomendaciones de CA<br>
+            <i class="fas fa-chart-line"></i> <b>4.</b> + NPS
+        </div>
+        <div class="quiz-note">
+            <i class="fas fa-info-circle"></i> <b>Nota:</b> Si tiene dudas o desea confirmar mantenerse en línea, otro agente le ayudará.
+        </div>
+        <div class="warning-bottom">
+            <strong>📌 Dar recomendaciones de la nueva CA:</strong><br>
+            • No puede coincidir con ninguna de las <b>6 anteriores</b><br>
+            • No puede coincidir con la <b>Firma Electrónica</b><br>
+            • No puede ser el mismo número repetido (ej: <b>11111111</b>)<br>
+            • No puede ser una serie numérica (ej: <b>12345678, 98765432</b>)<br>
+            • No puede incluir series de 3 números consecutivos (ej: XXX012XX)<br>
+            • No puede coincidir con el <b>documento de identidad o fecha de nacimiento</b><br>
+            • No puede coincidir con el <b>teléfono CMC o en Base de Datos</b>
+        </div>
+        <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- CA - IVR Preguntas de Control (REDISEÑADO - MÁS PEQUEÑO) -->
+    <div id="ca-ivr-preguntas" class="section">
+        <h3>📋 Clave de Acceso (CA) - IVR con Preguntas de Control</h3>
+        <div class="alert-box"><i class="fas fa-info-circle"></i> <b>Recuerda:</b> Cliente con CA bloqueada (5 fallos) - Nivel: CMC activo + N1 + ANI</div>
+        <div class="step-list" style="margin-bottom: 10px;">
+            <b>📌 PASO A PASO:</b><br>
+            <i class="fas fa-chalkboard-user"></i> <b>1.</b> Ingresamos los datos desde <b>Santander Go</b><br>
+            <i class="fas fa-list"></i> <b>2.</b> Menú de autenticación → <b>Texto legal e IVR alta reasignación</b>
+        </div>
         
-        <!-- TABLA DE SEGURIDAD PARA FE - ARRIBA DEL MENÚ -->
-        <div class="info-box" style="margin-bottom: 15px;">
-            <strong><i class="fas fa-shield-alt"></i> 📋 PASO A PASO Y NIVELES DE SEGURIDAD - FE:</strong>
-            <table class="seguridad-tabla">
-                <thead>
-                    <tr><th>Situación</th><th>Nivel Seguridad</th><th>Qué se pide al cliente</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Envío de FE provisional por Partenón (sin SK)</td><td><span class="nivel-badge">CMC + N1 + ANI + PREG.SEG</span></td><td>Con DNI: fecha nacimiento + fecha vencimiento DNI<br>Sin DNI: fecha nacimiento + nacionalidad + domicilio completo</td></tr>
-                    <tr><td>Activar FE por Gestor 1 (remite a Agente ciego)</td><td><span class="nivel-badge">N1 + CMC activo</span></td><td>Confirmar 4 posiciones de la firma recibida por SMS/carta</td></tr>
-                    <tr><td>Activar FE por Gestor 2 (Agente ciego que recibe)</td><td><span class="nivel-badge">N1 + CMC + ANI + PREG.SEG</span></td><td>El cliente elige nueva FE de 8 caracteres alfanuméricos</td></tr>
-                    <tr><td>Recuperar FE vía Web + SK</td><td><span class="nivel-badge">SK activo</span></td><td>Autenticar con Santander Key (huella/Face ID)</td></tr>
-                    <tr><td>Recuperar FE en APP con SK</td><td><span class="nivel-badge">SK activo</span></td><td>Autorizar con SK + Ingresar nueva FE de 8 caracteres</td></tr>
-                    <tr><td>Si sale mensaje de bloqueo en Partenón</td><td><span class="nivel-badge">N1</span></td><td>DNI + fecha de vencimiento del DNI (sistema da código seguridad)</td></tr>
-                </tbody>
-            </table>
-            <div class="warning-bottom" style="margin-top: 8px; padding: 8px;">
-                <strong>⚠️ NUNCA pedir la firma completa</strong> → Solo posiciones aleatorias (4 para N2)
+        <!-- FORMULARIO REDISEÑADO - MÁS PEQUEÑO -->
+        <div class="quiz-form">
+            <div class="script-box" style="margin-bottom: 10px; padding: 8px; font-size: 0.8rem;">
+                <i class="fas fa-quote-left"></i> "Por favor, para continuar: ¿Puede indicarme los siguientes datos?"
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>📅 Fecha de nacimiento:</label>
+                <input type="text" placeholder="DD/MM/AAAA" disabled style="font-size: 0.75rem; padding: 5px 8px;">
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>💳 4 últimos dígitos de una cuenta:</label>
+                <input type="text" placeholder="XXXX" disabled style="font-size: 0.75rem; padding: 5px 8px;">
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>💰 Saldo aproximado de la cuenta:</label>
+                <input type="text" placeholder="Ej: 1.500€" disabled style="font-size: 0.75rem; padding: 5px 8px;">
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>🏦 ¿Tiene algún préstamo?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="prestamo" disabled> Sí</label>
+                    <label><input type="radio" name="prestamo" disabled> No</label>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>📊 Cuota periódica del préstamo:</label>
+                <input type="text" placeholder="Ej: 200€" disabled style="font-size: 0.75rem; padding: 5px 8px;">
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>💳 ¿Tiene tarjeta de débito?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="debito" disabled> Sí</label>
+                    <label><input type="radio" name="debito" disabled> No</label>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>🔢 6 últimas cifras de la tarjeta de débito:</label>
+                <input type="text" placeholder="XXXXXX" disabled style="font-size: 0.75rem; padding: 5px 8px;">
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+                <label>💳 ¿Tiene tarjeta de crédito?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="credito" disabled> Sí</label>
+                    <label><input type="radio" name="credito" disabled> No</label>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 5px;">
+                <label>🔢 6 últimas cifras de la tarjeta de crédito:</label>
+                <input type="text" placeholder="XXXXXX" disabled style="font-size: 0.75rem; padding: 5px 8px;">
             </div>
         </div>
-
-        <div class="btn-grid">
-            <button onclick="show('fe-partenon')">📨 Envío Provisional (Partenón)</button>
-            <button onclick="show('fe-agente-ciego')">👤 Agente Ciego (Gestor 1 y 2)</button>
-            <button onclick="show('fe-recuperar-web-sk')">🌐 Recuperar FE vía Web + SK</button>
-            <button onclick="show('fe-recuperar-app-sk')">📱 Recuperar FE en APP con SK</button>
+        
+        <div class="quiz-note">
+            <i class="fas fa-info-circle"></i> Realizamos todas las preguntas del Quiz, Damos las recomendaciones de la nueva clave y damos paso al IVR. No sin antes realizar la resolución de llamada y la despedida NPS.
         </div>
         
         <div class="warning-bottom">
-            <strong>⚠️ NORMAS DE LA FE:</strong><br>
-            • <b>8 caracteres alfanuméricos</b> | No igual a las 6 anteriores | No igual a CA<br>
-            • Se bloquea tras <b>3 intentos fallidos</b><br>
-            • La <b>firma provisional vence en 24h</b><br>
-            • <b>NUNCA pedir la firma completa</b>, solo posiciones aleatorias (4 para N2)
+            <strong><i class="fas fa-lightbulb"></i> Recomendación:</strong> Piénsate la contraseña ya que en el momento de pasarte a la locución tendrás unos 30 segundos para digitarla. Puedes apuntarla en un papel y destruirlo después<br><br>
+            <strong>✅ Requisitos que debe cumplir una nueva CA:</strong><br>
+            • No puede coincidir con ninguna de las <b>6 anteriores</b><br>
+            • No puede coincidir con la <b>Firma Electrónica</b><br>
+            • No puede ser el mismo número repetido (ej: <b>11111111</b>)<br>
+            • No puede ser una serie numérica (ej: <b>12345678, 98765432</b>)<br>
+            • No puede incluir series de 3 números consecutivos (ej: XXX012XX)<br>
+            • No puede coincidir con el <b>documento de identidad o fecha de nacimiento</b><br>
+            • No puede coincidir con el <b>teléfono CMC o en Base de Datos</b>
         </div>
+        
+        <button class="btn-back" onclick="show('ca-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== FIRMA ELECTRÓNICA (FE) ==================== -->
+    <div id="fe-causas" class="section">
+        <h3>✍️ Recuperar Firma Electrónica (FE)</h3>
+        
+        <!-- Menú principal de FE - SEPARADO APP y WEB -->
+        <div class="btn-grid">
+            <button onclick="show('fe-app-sk')">📱 APP - Con Santander Key</button>
+            <button onclick="show('fe-web-sk')">🌐 WEB - Con Santander Key</button>
+            <button onclick="show('fe-partenon')">📨 Sin SK (Partenón) - FE Provisional</button>
+        </div>
+        
+        <div class="warning-bottom">
+            <strong>⚠️ NORMAS DE LA FE (RECORDATORIO):</strong><br>
+            • Es la contraseña que permite al cliente realizar operaciones por los canales a distancia.<br>
+            • Tiene <b>8 posiciones alfanuméricas</b> (Entre números y letras).<br>
+            • ✅ No puede coincidir con las <b>6 anteriores</b>.<br>
+            • ✅ No puede tener números repetidos ni consecutivos.<br>
+            • ✅ No puede incluir el n° de documento de identidad.<br>
+            • ✅ No puede ser igual que la <b>C.A.</b><br>
+            • Se bloquea al introducirla de manera incorrecta <b>3 veces</b>. No se puede desbloquear, lo que podemos es generar una nueva tantas veces sea necesario. También se bloquea si el cliente introduce de manera incorrecta la F.E. provisional.<br>
+            • La firma provisional se manda por SMS y tiene que ser activada antes de las <b>24h</b> siguientes. La activación se realiza modificando la firma por una a elección del cliente.<br>
+            • En SPL nunca pediremos la F.E. completa, siempre <b>4 posiciones</b>, al igual que en la app/web. Al cliente se le solicitará en llamada 4 posiciones de la misma de 2 en 2 para no confundirlo.
+        </div>
+        
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
-    <!-- FE - Partenón completado -->
-    <div id="fe-partenon" class="section">
-        <h3>📨 Envío de FE Provisional (Partenón)</h3>
-        <div class="alert-box"><span class="nivel-badge">Nivel: CMC Activo + N1 + ANI + Preguntas Seguridad</span></div>
-        <div class="step-list">
-            <b>Preguntas de seguridad:</b><br>
+    <!-- FE - APP con SK -->
+    <div id="fe-app-sk" class="section">
+        <h3>📱 Recuperar FE - APP con Santander Key</h3>
+        <div class="alert-box">Nivel de seguridad: CMC Activo + N1 + ANI + Preguntas Seguridad</div>
+        <div class="info-box">
+            <b>📌 Preguntas de seguridad:</b><br>
             • Con DNI: Fecha nacimiento + Fecha vencimiento DNI<br>
-            • Sin DNI: Fecha nacimiento + Nacionalidad + Domicilio completo<br><br>
-            <b>Pasos en Partenón:</b><br>
-            1. Ingresa a Partenón → Contratación → Mantenimiento y consulta de contratos<br>
-            2. Buscar el contrato por DNI o F del cliente → Seleccionar "Contratos Multicanal"<br>
-            3. Botón "Envío firma electrónica" → SMS provisional (vigencia 24h)<br>
-            4. Guiar al cliente en la APP para activar la nueva firma
+            • Sin DNI: Fecha nacimiento + Nacionalidad + Domicilio completo
         </div>
-        <div class="script-box">"¿XXXX Me autorizas a enviarte por SMS tu firma electrónica provisional al móvil finalizado en XXX?"</div>
-        <div class="info-box">⚠️ Si sale mensaje de bloqueo: ir con los datos de DNI y vencimiento, el sistema arrojará un código de seguridad.</div>
-        <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
-    </div>
-
-    <!-- FE - Agente Ciego completado -->
-    <div id="fe-agente-ciego" class="section">
-        <h3>👤 Protocolo Agente Ciego</h3>
-        <div class="alert-box"><i class="fas fa-info-circle"></i> Cliente que no tiene app ni usa medios digitales</div>
         <div class="step-list">
-            <b>🔹 GESTOR 1 (remite al Agente ciego):</b><br>
-            <span class="nivel-badge">Nivel: N1 + CMC activo</span><br>
-            • Verificar que tenga la FE pendiente de activar (pestaña "Datos cliente")<br>
-            • Menú Cliente → Canales Remotos → Activar FE (siempre con el cliente en N1)<br>
-            • Confirmar las <b>4 posiciones de la firma</b> que solicita el sistema (la recibida por SMS o carta)<br>
-            • Script de transferencia: <i>"Voy a transferir tu llamada con un responsable del servicio para que proceda a activar tu Firma Electrónica. Te informo que este, por tu seguridad, solo dispondrá de tu apellido para poder dirigirse a ti"</i><br>
-            • Transferir por agenda a "Activación de Firma Electrónica"<br><br>
-            
-            <b>🔹 GESTOR 2 (Agente ciego que recibe):</b><br>
-            <span class="nivel-badge">Nivel: N1 + CMC + ANI + PREG.SEG</span><br>
-            • Script de recepción: <i>"Te han transferido conmigo porque deseas activar tu firma electrónica. Es muy importante que recuerdes qué firma vas a elegir, ya que no recibirás ninguna confirmación por escrito. Por favor, indícame la firma electrónica que deseas utilizar, teniendo en cuenta que debe tener <b>8 caracteres</b>, formado por una combinación de <b>letras y números</b>."</i><br>
-            • Introducir la nueva FE y repetir para confirmar<br>
-            • Recordar: <b>"El Banco NUNCA te va a solicitar todas las posiciones de esta nueva Firma, sino solo posiciones aleatorias"</b>
+            <b>📌 PASO A PASO:</b><br>
+            <i class="fas fa-mobile-alt"></i> <b>1.</b> Ingresar a la APP de Banco Santander<br>
+            <i class="fas fa-bars"></i> <b>2.</b> Menú ☰ → "Seguridad y claves"<br>
+            <i class="fas fa-sliders-h"></i> <b>3.</b> "Configurar claves, firmas y permisos"<br>
+            <i class="fas fa-signature"></i> <b>4.</b> "Recuperar Firma Multicanal"<br>
+            <i class="fas fa-fingerprint"></i> <b>5.</b> Autorizar con SK<br>
+            <i class="fas fa-pen"></i> <b>6.</b> Ingresar <b>Nueva FE</b>
+        </div>
+        <div class="warning-bottom">
+            <strong>📌 Dar recomendaciones de la nueva FE:</strong><br>
+            • 8 caracteres alfanuméricos | No igual a 6 anteriores | No igual a CA
         </div>
         <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
     </div>
 
-    <!-- FE - Recuperar mediante Web + SK -->
-    <div id="fe-recuperar-web-sk" class="section">
-        <h3>🌐 Recuperar FE mediante Web + SK</h3>
+    <!-- FE - WEB con SK -->
+    <div id="fe-web-sk" class="section">
+        <h3>🌐 Recuperar FE - WEB con Santander Key</h3>
+        <div class="alert-box">Nivel de seguridad: CMC Activo + N1 + ANI + Preguntas Seguridad</div>
+        <div class="info-box">
+            <b>📌 Preguntas de seguridad:</b><br>
+            • Con DNI: Fecha nacimiento + Fecha vencimiento DNI<br>
+            • Sin DNI: Fecha nacimiento + Nacionalidad + Domicilio completo
+        </div>
         <div class="step-list">
-            <span class="nivel-badge">Nivel: SK activo</span><br>
-            <b>📌 Guiar al cliente con estos pasos:</b><br><br>
-            <b>Paso 1:</b> Área personal<br>
-            <b>Paso 2:</b> Seguridad<br>
-            <b>Paso 3:</b> Recuperar firma<br>
-            <b>Paso 4:</b> Validamos la operación desde la APP, ya sea con CA o con nuestra huella. Una vez validado, automáticamente aparece el mensaje de <b>"¡Operación Autorizada!"</b><br>
-            <b>Paso 5:</b> El cliente elige una <b>nueva FE de 8 caracteres</b> que debe validar dos veces.<br><br>
-            <b>⚠️ Importante:</b> No puede elegir la misma que tenía. No será necesario que el cliente active esta firma ya que es el cliente el que la escoge.
+            <b>📌 PASO A PASO:</b><br>
+            <i class="fas fa-globe"></i> <b>1.</b> Ingresar a <b>https://www.bancosantander.es/</b><br>
+            <i class="fas fa-user-circle"></i> <b>2.</b> Área personal<br>
+            <i class="fas fa-lock"></i> <b>3.</b> Seguridad → "Recuperar Firma"<br>
+            <i class="fas fa-mobile-alt"></i> <b>4.</b> Validar con SK desde APP<br>
+            <i class="fas fa-pen"></i> <b>5.</b> Elegir nueva FE (8 caracteres, validar 2 veces)
+        </div>
+        <div class="warning-bottom">
+            <strong>📌 Dar recomendaciones de la nueva FE:</strong><br>
+            • 8 caracteres alfanuméricos | No igual a 6 anteriores | No igual a CA
         </div>
         <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
     </div>
 
-    <!-- FE - Recuperar en APP con SK -->
-    <div id="fe-recuperar-app-sk" class="section">
-        <h3>📱 Recuperar FE en APP con Santander Key</h3>
+    <!-- FE - Partenón (Sin SK) -->
+    <div id="fe-partenon" class="section">
+        <h3>📨 Recuperar FE - Sin SK (Partenón) - FE Provisional</h3>
+        <div class="alert-box">Nivel: CMC Activo + N1 + ANI + PREG.SEG</div>
+        <div class="info-box">
+            <b>📌 Preguntas de seguridad:</b><br>
+            • Con DNI: Fecha nacimiento + Fecha vencimiento DNI<br>
+            • Sin DNI: Fecha nacimiento + Nacionalidad + Domicilio completo
+        </div>
+        <div class="script-box">
+            <i class="fas fa-quote-left"></i> <b>Script SMS:</b> "(Nombre), ¿me autorizas a enviarte por SMS tu firma electrónica provisional al móvil finalizado en XXX?"
+        </div>
         <div class="step-list">
-            <span class="nivel-badge">Nivel: SK activo</span><br>
-            <b>📌 Guiar al cliente con estos pasos:</b><br><br>
-            <b>Paso 1:</b> Ingresar a la APP<br>
-            <b>Paso 2:</b> Seleccionar Menú<br>
-            <b>Paso 3:</b> Seleccionar <b>"Seguridad y claves"</b><br>
-            <b>Paso 4:</b> Seleccionar <b>"Configurar claves, firmas y permisos de la APP"</b><br>
-            <b>Paso 5:</b> Seleccionar <b>"Recuperar firma multicanal"</b><br>
-            <b>Paso 6:</b> Autorizar con el <b>Santander Key</b> (huella/Face ID)<br>
-            <b>Paso 7:</b> Ingresar <b>nueva FE de 8 caracteres alfanuméricos</b>
+            <b>📌 PARTENÓN:</b><br>
+            <i class="fas fa-1"></i> Partenón → Contratación → Mantenimiento de contratos<br>
+            <i class="fas fa-2"></i> Buscar por DNI/F → "Contratos Multicanal"<br>
+            <i class="fas fa-3"></i> "Envío firma electrónica" → SMS (24h vigencia)<br>
+            <i class="fas fa-4"></i> Guiar al cliente en APP para activar
+        </div>
+        <div class="step-list">
+            <b>📌 ACTIVAR EN APP:</b><br>
+            • Al ingresar, puede salir aviso "Activar firma"<br>
+            • Si no sale: Menú → Seguridad y claves → Configurar claves → Recuperar Firma Multicanal → 4 posiciones FE provisional → Nueva FE
+        </div>
+        <div class="warning-bottom">
+            <strong>📌 Dar recomendaciones de la nueva FE</strong>
         </div>
         <button class="btn-back" onclick="show('fe-causas')">⬅ Volver</button>
     </div>
@@ -879,6 +1162,295 @@
         </div>
         <div class="script-box">🗣️ "Santander Key es tu nuevo método de firma obligatorio para operar por canales digitales. Si tienes alguna incidencia con tu dispositivo, podemos ayudarte a recuperar el acceso, pero no podemos darlo de baja voluntariamente por seguridad."</div>
         <button class="btn-back" onclick="show('sk-causas')">⬅ Volver</button>
+    </div>
+
+    <!-- ==================== TRANSFERENCIAS ==================== -->
+    <div id="transferencias" class="section">
+        <h3>💸 Transferencias - Tipos y Seguridad</h3>
+        
+        <!-- Tabla de tipos de transferencias (responsive) -->
+        <div style="overflow-x: auto;">
+            <table class="transferencias-tabla">
+                <thead>
+                    <tr>
+                        <th>TIPO</th>
+                        <th>NACIONALES</th>
+                        <th>INTERNACIONAL</th>
+                        <th>PERIÓDICAS</th>
+                        <th>DIFERIDAS</th>
+                        <th>TRASPASOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>¿QUIÉN?</strong></td>
+                        <td>Priorizamos su envío por Huella</td>
+                        <td>SEPA: Priorizamos guiar al cliente, sino, por Ventana operativa</td>
+                        <td>Guiamos al cliente (Huella+SK)</td>
+                        <td>Guiamos al cliente (Huella+SK)</td>
+                        <td>Lo realizamos por SAN GO (Huella+SK)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>COSTE</strong></td>
+                        <td>Gratuita</td>
+                        <td>SEPA: Gratuita / Con nosotros 6€<br>No SEPA: Depende del cambio de moneda</td>
+                        <td>Gratuita<br>Ventana Operativa: 6€</td>
+                        <td>Gratuita</td>
+                        <td>Gratuita e inmediata</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SEGURIDAD</strong></td>
+                        <td>N2+ANI+ Preguntas de seguridad</td>
+                        <td>N2+ANI+ Preguntas de seguridad</td>
+                        <td>------------------ </td>
+                        <td>------------------ </td>
+                        <td>N2+ANI+Preguntas de seguridad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GUIAR</strong></td>
+                        <td>Podemos guiar al cliente en caso de no pasar medidas (Huella+SK)</td>
+                        <td>Podemos guiar al cliente en caso de no pasar medidas (Huella+SK)</td>
+                        <td>La tiene que realizar el cliente (Huella+SK)</td>
+                        <td>La tiene que realizar el cliente (Huella+SK)</td>
+                        <td>Podemos guiar al cliente en caso de no pasar medidas (Huella+SK)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="warning-bottom">
+            <strong>📌 RECORDATORIO TRANSFERENCIAS:</strong><br>
+            • <b>N2 + ANI + Preguntas de seguridad</b> es el nivel requerido para la mayoría<br>
+            • <b>Huella + SK</b> simplifica el proceso y es más seguro<br>
+            • Las transferencias <b>periódicas y diferidas</b> las debe realizar el cliente (podemos guiar)<br>
+            • <b>Traspasos</b> entre cuentas propias son gratuitos e inmediatos vía SAN GO
+        </div>
+        
+        <!-- Submenú dentro de TRANSFERENCIAS -->
+        <div class="btn-grid" style="margin-top: 15px;">
+            <button onclick="show('bizum-detalle')">📱 BIZUM - GUÍA COMPLETA</button>
+            <button onclick="show('recibos-detalle')">📄 RECIBOS - DOMICILIACIONES</button>
+        </div>
+        
+        <!-- Cancelar transferencias por fraude/estafa -->
+        <div class="alert-box" style="margin-top: 15px;">
+            <b>🚫 NUEVO: Cancelar transferencias por fraude o estafa</b><br>
+            Se puede anular transferencia pendiente por <b>FRAUDE o ESTAFA</b>
+        </div>
+        <div class="step-list">
+            <b>📌 PASOS PARA CANCELAR:</b><br>
+            1. Revisar si operación está pendiente por fraude<br>
+            2. Si está pendiente: anular + alta expediente AERO (manipulación ordenante)<br>
+            3. Si no está pendiente: alta expediente AERO (no se puede anular)<br>
+            4. Seguridad: <b>N1</b> (si no reconoce transferencia)
+        </div>
+        <div class="step-list">
+            <b>📌 BLOQUEAR TRANSFERENCIA (Lista de tareas):</b><br>
+            Lista tareas → Tareas pendientes fraude → Operaciones pendientes particulares → Pegar referencia → Filtrar → Seleccionar "Fraude confirmado" o "No fraude"
+        </div>
+        <div class="warning-bottom">
+            <b>📌 IMPORTANTE:</b> Trasladar tranquilidad al cliente. "Vamos a hacer todo lo posible por ayudarle"<br>
+            <b>⏱️ Cancelación/Devolución:</b> Anulación (mismo día) | Devolución (días después) solo por fraude. Coste helpy 30€.
+        </div>
+        
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
+    </div>
+
+    <!-- ==================== BIZUM - GUÍA COMPLETA ==================== -->
+    <div id="bizum-detalle" class="section">
+        <h3>📱 Bizum - Guía Completa</h3>
+        
+        <!-- Países disponibles con iconos -->
+        <div class="info-box" style="text-align: center;">
+            <b>🌍 Países disponibles para enviar y recibir Bizum:</b>
+            <div class="paises-disponibles">
+                <div class="pais-item"><i class="fas fa-flag-checkered espana"></i> España</div>
+                <div class="pais-item"><i class="fas fa-flag-checkered italia" style="color:#009246;"></i> Italia</div>
+                <div class="pais-item"><i class="fas fa-flag-checkered portugal" style="color:#006600;"></i> Portugal</div>
+                <div class="pais-item"><i class="fas fa-flag-checkered andorra" style="color:#ffcc00;"></i> Andorra</div>
+            </div>
+            <div class="quiz-note" style="margin-top: 8px;">
+                <i class="fas fa-info-circle"></i> <b>Novedad:</b> Banco Santander es el primer banco en enviar dinero entre España, Italia, Portugal y Andorra con Bizum desde el móvil.<br>
+                Para Italia: <b>Bancomat</b> | Para Portugal: <b>MB WAY</b>
+            </div>
+        </div>
+        
+        <!-- Límites operacionales - tabla bonita -->
+        <div class="info-box" style="margin-top: 15px;">
+            <b>📊 LÍMITES OPERACIONALES BIZUM:</b>
+            <table class="limites-tabla">
+                <thead>
+                    <tr><th>Concepto</th><th>Límite</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Importe máximo por operación de pago</td><td><b>1.000€</b></td></tr>
+                    <tr><td>Importe mínimo por operación de pago</td><td><b>0,50€</b></td></tr>
+                    <tr><td>Importe máximo enviado en un día</td><td><b>2.000€</b></td></tr>
+                    <tr><td>Importe máximo enviado en un mes</td><td><b>5.000€</b></td></tr>
+                    <tr><td>Importe máximo recibido por día</td><td><b>2.000€</b></td></tr>
+                    <tr><td>Nº máximo de operaciones recibidas por mes</td><td><b>60</b></td></tr>
+                    <tr><td>Nº máximo de solicitudes emitidas por mes</td><td><b>60</b></td></tr>
+                    <tr><td>Máximo destinatarios en envío/solicitud múltiple</td><td><b>30</b></td></tr>
+                    <tr><td>Importe máximo por operación (particular a comercio electrónico)</td><td><b>15.000€</b></td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="step-list">
+            <b>📌 REQUISITOS:</b><br>
+            • <b>FE activa o SK</b> | Número móvil = CMC | Mismo titular
+        </div>
+        <div class="step-list">
+            <b>📌 CÓMO EMITIR BIZUM:</b><br>
+            Enviar dinero → Teléfono destinatario → Importe → Autorizar con SK
+        </div>
+        <div class="step-list">
+            <b>📌 PROBLEMAS CON BIZUM (CÓDIGO CL00308):</b><br>
+            1. Verificar FE no bloqueada → 2. Cuenta operativa → 3. Venus (Pagos Inmediatos → Módulo Administración) → 4. Si código CL00308 → Levantar <b>LYNX</b> (<b>N2+ANI+Preguntas</b>, llamada saliente, habilitar en 48h)
+        </div>
+        <div class="warning-bottom">
+            <b>⚠️ RECORDATORIO:</b><br>
+            • El número de móvil debe ser el mismo del <b>CMC</b><br>
+            • Si el cliente tenía Bizum con otra entidad, debe solicitar la <b>desvinculación</b><br>
+            • Podemos <b>reutilizar Bizum anteriores</b> (contacto o mismo importe)
+        </div>
+        
+        <button class="btn-back" onclick="show('transferencias')">⬅ Volver a Transferencias</button>
+    </div>
+
+    <!-- ==================== RECIBOS - DOMICILIACIONES ==================== -->
+    <div id="recibos-detalle" class="section">
+        <h3>📄 Recibos - Domiciliaciones Bancarias</h3>
+        
+        <div class="info-box">
+            <b><i class="fas fa-info-circle"></i> ¿Qué es una domiciliación bancaria?</b><br>
+            Es una autorización que da el cliente a una empresa para que cargue los recibos periódicamente en su cuenta (luz, agua, gas, teléfono, seguros, etc.).
+        </div>
+        
+        <div class="step-list">
+            <b>📌 CÓMO DOMICILIAR UN RECIBO:</b><br>
+            • El cliente debe facilitar a la empresa su <b>IBAN</b> (número de cuenta)<br>
+            • La empresa envía el contrato de domiciliación al banco<br>
+            • El banco lo procesa y queda activo en <b>24-48 horas</b>
+        </div>
+        
+        <div class="step-list">
+            <b>📌 CÓMO CONSULTAR RECIBOS DOMICILIADOS:</b><br>
+            • <b>APP Santander:</b> Menú → Cuentas → Seleccionar cuenta → "Recibos domiciliados"<br>
+            • <b>Web (NHB):</b> Área personal → Cuentas → Recibos → "Gestión de recibos"
+        </div>
+        
+        <div class="step-list">
+            <b>📌 CÓMO DAR DE BAJA UN RECIBO:</b><br>
+            • El cliente puede hacerlo desde la APP o Web (Nivel N1)<br>
+            • También puede comunicarlo a la empresa emisora del recibo<br>
+            • <b>Seguridad:</b> N1 + 2 posiciones de clave de acceso
+        </div>
+        
+        <div class="info-box">
+            <b>⚠️ DEVOLUCIÓN DE RECIBOS:</b><br>
+            • Si un recibo se ha cobrado sin autorización, el cliente tiene <b>8 semanas</b> para solicitar la devolución<br>
+            • Plazo para reclamar un recibo domiciliado: <b>13 meses</b> desde el cargo<br>
+            • Para devolver un recibo: App/Web → Recibos → Seleccionar recibo → "Devolver"
+        </div>
+        
+        <div class="warning-bottom">
+            <b>📌 BONIFICACIONES POR RECIBOS:</b><br>
+            • Para bonificar comisiones de cuentas, se requieren <b>3 recibos domiciliados</b> al mes<br>
+            • También se puede bonificar con <b>6 usos de tarjeta</b> al mes (competen con los recibos)<br>
+            • Cuenta Santander: 0€ comisión con <b>nómina 600€ + 3 recibos o 6 usos tarjeta</b>
+        </div>
+        
+        <div class="step-list">
+            <b>📌 PROBLEMAS COMUNES CON RECIBOS:</b><br>
+            • <b>Recibo rechazado:</b> Saldo insuficiente → informar al cliente y recomendar regularizar saldo<br>
+            • <b>Recibo duplicado:</b> Contactar con la empresa emisora (el banco no puede eliminar cargos duplicados sin autorización)<br>
+            • <b>Recibo de empresa no adherida:</b> El cliente debe solicitar a su empresa que se adhiera al sistema de domiciliación
+        </div>
+        
+        <div class="quiz-note">
+            <i class="fas fa-clock"></i> <b>Plazo de devolución de recibos:</b> El cliente tiene <b>8 semanas</b> desde el cargo para solicitar la devolución. Para recibos no autorizados, hasta <b>13 meses</b>.
+        </div>
+        
+        <button class="btn-back" onclick="show('transferencias')">⬅ Volver a Transferencias</button>
+    </div>
+
+    <!-- ==================== CUENTAS ==================== -->
+    <div id="cuentas" class="section">
+        <h3>🏦 Cuentas - Tipos y Comisiones</h3>
+        
+        <!-- Tabla de cuentas estilo transferencias -->
+        <div style="overflow-x: auto;">
+            <table class="cuentas-tabla">
+                <thead>
+                    <tr>
+                        <th>Cuenta Online</th>
+                        <th>Cuenta Mini</th>
+                        <th>Cuenta Santander</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>0€</b> comisión mantenimiento<br>Sin condiciones ni permanencia</td>
+                        <td>Para <b>menores de 18 años</b><br>Sin comisión mantenimiento</td>
+                        <td><b>Condiciones 0€:</b> 18-28 años + nómina 600€ + 3 recibos o 6 usos tarjetas</td>
+                    </tr>
+                    <tr>
+                        <td>Apertura vía <b>página web</b></td>
+                        <td>Apertura en <b>cualquier oficina</b></td>
+                        <td>Apertura: <b>Online</b> (no residentes) u <b>oficina</b> (residentes)</td>
+                    </tr>
+                    <tr>
+                        <td>Tarjeta débito <b>gratuita</b></td>
+                        <td>Tarjeta <b>prepago mini</b></td>
+                        <td><b>10€</b> mantenimiento (si cumple nómina/recibos o producto ahorro)<br><b>20€</b> comisión (si NO cumple ninguna condición)</td>
+                    </tr>
+                    <tr>
+                        <td>Bizum, retirada gratuita cajeros Santander<br>Transferencias estándar gratuitas</td>
+                        <td>Retirada gratuita en cualquier cajero Santander</td>
+                        <td>Bizum: 2.000€/día, 5.000€/mes<br>Transferencia mínima: 5€</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#f0f0f0; text-align:left;">
+                            <b>📌 RECIBOS:</b> Para bonificaciones de comisiones se requieren <b>3 recibos domiciliados</b> o <b>6 usos de tarjeta</b> al mes (según condiciones de cada cuenta)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#f0f0f0; text-align:left;">
+                            <b>📌 Al cumplir 18 años, Cuenta Mini migra a Cuenta Joven</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Bloqueos de cuenta -->
+        <div class="alert-box" style="margin-top: 15px;">
+            <b>🔒 BLOQUEOS QUE PODEMOS INFORMAR (N1):</b><br>
+            • <b>FIOC</b> (Formulario Información Obligatoria Cliente) - se comunica vía Push/Email/Banner en 90 días<br>
+            • <b>FATCA/CRS</b><br>
+            • <b>No residentes</b>
+        </div>
+        <div class="alert-box" style="background:#ffebee;">
+            <b>🚫 BLOQUEOS QUE NO PODEMOS INFORMAR (solo oficina):</b><br>
+            • Bloqueo prevención blanqueo capitales<br>
+            • UCAR/Desvinculados<br>
+            • C.P.D. (Posible blanqueo capitales)
+        </div>
+        <div class="step-list">
+            <b>📌 CÓMO CONSULTAR BLOQUEOS:</b><br>
+            1. ADN Operativo<br>
+            2. Si al lado de la cuenta hay un <b>triángulo rojo</b> → tiene aviso<br>
+            3. Pulsar triángulo rojo → visualizar motivo
+        </div>
+        
+        <div class="warning-bottom">
+            <strong>⚠️ RECORDATORIO:</strong><br>
+            • <b>NUNCA compartir credenciales</b> de la banca online<br>
+            • Las cuentas <b>se pueden ver en App y Web</b> con el mismo nivel de seguridad<br>
+            • Para operaciones no disponibles en canales digitales, <b>agendar cita en oficina</b>
+        </div>
+        <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
 
     <!-- ==================== CONTRATO MULTICANAL ==================== -->
@@ -1019,12 +1591,10 @@
         
         <!-- Tabla de tipos de préstamos -->
         <table class="tabla-prestamos">
-            <thead>
-                <tr><th colspan="2">TIPO DE PRÉSTAMOS</th></tr>
-            </thead>
+            <thead><tr><th colspan="2">TIPO DE PRÉSTAMOS</th></tr></thead>
             <tbody>
-                <tr><td style="background:#f0f0f0;"><strong>PRECONCEDIDO</strong></td><td>Préstamo Digital Genérico | Reinicia | Préstamo Sostenible | Anticipo de Nómina</td></tr>
-                <tr><td style="background:#f0f0f0;"><strong>NO PRECONCEDIDO</strong></td><td>Préstamo Personal Tipo Fijo | Préstamo Sostenible | Anticipo de Nómina</td></tr>
+                <td><td style="background:#f0f0f0;"><strong>PRECONCEDIDO</strong></td><td>Préstamo Digital Genérico | Reinicia | Préstamo Sostenible | Anticipo de Nómina</td> '</tr>
+                <tr><td style="background:#f0f0f0;"><strong>NO PRECONCEDIDO</strong></td><td>Préstamo Personal Tipo Fijo | Préstamo Sostenible | Anticipo de Nómina</td> </tr>
             </tbody>
         </table>
 
@@ -1033,7 +1603,6 @@
             <button onclick="show('prestamo-no-preconcedido')">📄 PRÉSTAMO NO PRECONCEDIDO</button>
         </div>
 
-        <!-- PASO A PASO GENERAL - COMO NOTAS DEBAJO DEL MENÚ -->
         <div class="step-list" style="margin-top: 20px;">
             <strong>📌 NOTAS - PASO A PASO GENERAL PARA VALIDAR PRÉSTAMOS:</strong><br><br>
             <b>1. Validar riesgos (NO OFRECER si):</b> ASNEF, GSI (I30/I60/I90), +80 años, refinanciar deuda, Lista Robinson<br><br>
@@ -1266,15 +1835,16 @@
         <button class="btn-back" onclick="show('prestamo-no-preconcedido')">⬅ Volver</button>
     </div>
 
-    <!-- ==================== SCRIPTS DE LLAMADA ==================== -->
+    <!-- ==================== SCRIPTS Y FRASES ==================== -->
     <div id="scripts-llamada" class="section">
-        <h3>📝 Scripts de Llamada</h3>
+        <h3>📝 Scripts y Frases</h3>
         <div class="btn-grid">
             <button onclick="show('script-grabacion')">🎙️ GRABACIÓN DE LLAMADAS</button>
             <button onclick="show('script-datos-contacto')">📞 DATOS DE CONTACTO</button>
             <button onclick="show('script-seguridad')">🔐 SCRIPT DE SEGURIDAD (CLAVES)</button>
             <button onclick="show('script-autorizacion')">👥 AUTORIZACIÓN A TERCEROS</button>
             <button onclick="show('script-frases')">💬 FRASES DE ACOMPAÑAMIENTO</button>
+            <button onclick="show('script-frases-cortesia')">💬 FRASES DE CORTESÍA</button>
         </div>
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
@@ -1325,6 +1895,29 @@
             • "Voy a hacer todo lo posible para resolver este problema."<br>
             • "Aprecio mucho que me hayas informado de esto, y me aseguraré de que se resuelva de la mejor manera."<br>
             • "Lamento los inconvenientes, vamos a trabajar juntos para encontrar una solución."
+        </div>
+        <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
+    </div>
+
+    <!-- NUEVO: FRASES DE CORTESÍA -->
+    <div id="script-frases-cortesia" class="section">
+        <h3>💬 Frases de Cortesía</h3>
+        <div class="step-list">
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "¡Excelente pregunta! Buscaré la respuesta para ti"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Gracias por tomarte el tiempo de explicarlo"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "¿Por favor avísame si entendí mal algo?"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "¿Cómo puedo ayudarte hoy?"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "¿Está bien si te dejo en la espera un momento? Si - Gracias, volveré lo más pronto"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Por lo que entiendo, el problema que está experimentando es (parafrasear) el problema."</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Entiendo lo frustrante que puede ser... ¿Te parece si te hago unas preguntas para encontrar la mejor forma de resolverlo?"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Gracias por hacérnoslo saber. Entiendo que es importante para ti."</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Lamento que estés pasando por esto. Tienes toda la razón en sentirte frustrad@."</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "A mí también me molestaría."</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Aunque no podemos hacer esto, esto es lo que sí puedo hacer"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Aquí hay una manera en la que podemos resolver este problema."</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Me aseguraré de resolver esto rápidamente."</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Aunque no podemos hacer eso, esto es lo que sí podemos hacer. (Ofrecer)"</div>
+            <div class="frase-cortesia"><i class="fas fa-comment-dots"></i> "Si tú puedes [acción], ¡yo puedo [acción]!"</div>
         </div>
         <button class="btn-back" onclick="show('scripts-llamada')">⬅ Volver</button>
     </div>
