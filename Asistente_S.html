@@ -177,11 +177,13 @@
         .tabla-prestamos th, .tabla-prestamos td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: center;
+            text-align: left;
+            vertical-align: top;
         }
         .tabla-prestamos th {
             background-color: var(--santander-red);
             color: white;
+            text-align: center;
         }
 
         /* Tabla de cuentas estilo transferencias */
@@ -434,6 +436,28 @@
             background-color: #f8f9fa;
         }
         
+        /* Tabla de tipos de tarjetas */
+        .tarjetas-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.75rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .tarjetas-tabla th {
+            background-color: #1e6f5c;
+            color: white;
+            padding: 8px;
+            text-align: center;
+        }
+        .tarjetas-tabla td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            vertical-align: top;
+        }
+        
         /* Para móvil - tabla responsive */
         @media (max-width: 700px) {
             .transferencias-tabla {
@@ -447,6 +471,9 @@
             }
             .limites-tabla {
                 font-size: 0.65rem;
+            }
+            .tarjetas-tabla {
+                font-size: 0.7rem;
             }
         }
     </style>
@@ -481,7 +508,7 @@
     <div id="inicio" class="section active">
         <div class="script-box">
             <strong>BIENVENIDA (Excelencia):</strong><br>
-            "Buen día, mi nombre es <b>XXXXX</b> de Banco Santander. Quiero disculparme por el tiempo de espera. Dime (Nombre Cliente), ¿Cómo puedo ayudarte con tu consulta de <b>(Etiqueta)</b>?"<br>En caso de que la llamada no entre con etiqueta, preguntar ¿Cómo te puedo ayudar el día de hoy?"
+            "Buen día, mi nombre es <b>XXXX</b> de Banco Santander. Quiero disculparme por el tiempo de espera. Dime (Nombre Cliente), ¿Cómo puedo ayudarte con tu consulta de <b>(Etiqueta)</b>?"<br>En caso de que la llamada no entre con etiqueta, preguntar ¿Cómo te puedo ayudar el día de hoy?"
         </div>
 
         <h3>Menú de Gestiones:</h3>
@@ -579,6 +606,11 @@
                 <div class="glosario-item"><strong>ABBA:</strong> Código de 9 dígitos para transferencias a EE.UU.</div>
                 <div class="glosario-item"><strong>FIOC:</strong> Formulario de Información Obligatoria del Cliente.</div>
                 <div class="glosario-item"><strong>FATCA/CRS:</strong> Información fiscal internacional.</div>
+                <div class="glosario-item"><strong>TPV:</strong> Terminal Punto de Venta. Datáfono en España.</div>
+                <div class="glosario-item"><strong>CES:</strong> Comercio Electrónico Seguro. Sistema de seguridad para compras por internet.</div>
+                <div class="glosario-item"><strong>Wallet:</strong> Billetera virtual (Google Wallet, Apple Pay).</div>
+                <div class="glosario-item"><strong>CVV:</strong> Código de 3 o 4 dígitos en la tarjeta para compras online.</div>
+                <div class="glosario-item"><strong>Token Manager:</strong> Sistema que gestiona la tokenización de tarjetas para pagos móviles.</div>
             </div>
         </div>
 
@@ -1202,8 +1234,8 @@
                         <td><strong>SEGURIDAD</strong></td>
                         <td>N2+ANI+ Preguntas de seguridad</td>
                         <td>N2+ANI+ Preguntas de seguridad</td>
-                        <td>------------------ </td>
-                        <td>------------------ </td>
+                        <td>------------------  </td>
+                        <td>------------------  </td>
                         <td>N2+ANI+Preguntas de seguridad</td>
                     </tr>
                     <tr>
@@ -1229,7 +1261,8 @@
         <!-- Submenú dentro de TRANSFERENCIAS -->
         <div class="btn-grid" style="margin-top: 15px;">
             <button onclick="show('bizum-detalle')">📱 BIZUM - GUÍA COMPLETA</button>
-            <button onclick="show('recibos-detalle')">📄 RECIBOS - DOMICILIACIONES</button>
+            <button onclick="show('recibos-detalle')">📄 RECIBOS</button>
+            <button onclick="show('tarjetas-detalle')">💳 TARJETAS BANCARIAS</button>
         </div>
         
         <!-- Cancelar transferencias por fraude/estafa -->
@@ -1318,7 +1351,7 @@
         <button class="btn-back" onclick="show('transferencias')">⬅ Volver a Transferencias</button>
     </div>
 
-    <!-- ==================== RECIBOS - DOMICILIACIONES ==================== -->
+    <!-- ==================== RECIBOS - DOMICILIACIONES (ACTUALIZADO) ==================== -->
     <div id="recibos-detalle" class="section">
         <h3>📄 Recibos - Domiciliaciones Bancarias</h3>
         
@@ -1336,19 +1369,41 @@
         
         <div class="step-list">
             <b>📌 CÓMO CONSULTAR RECIBOS DOMICILIADOS:</b><br>
-            • <b>APP Santander:</b> Menú → Cuentas → Seleccionar cuenta → "Recibos domiciliados"<br>
-            • <b>Web (NHB):</b> Área personal → Cuentas → Recibos → "Gestión de recibos"
+            • <b>APP Santander:</b> Menú → Cuentas → Seleccionar cuenta → Botón "Recibos"<br>
+            • <b>Web (NHB):</b> Área personal → Cuentas → Recibos → "Gestión de recibos"<br>
+            • <b>Santander Go:</b> Cliente en N1 → Ventana operativa → Recibos → Recibo SEPA → Seleccionar recibo → Consulta.
         </div>
         
         <div class="step-list">
-            <b>📌 CÓMO DAR DE BAJA UN RECIBO:</b><br>
-            • El cliente puede hacerlo desde la APP o Web (Nivel N1)<br>
-            • También puede comunicarlo a la empresa emisora del recibo<br>
-            • <b>Seguridad:</b> N1 + 2 posiciones de clave de acceso
+            <b>📌 IMPORTE DE LOS RECIBOS:</b><br>
+            El importe de los recibos se reintegra a la cuenta principal del cliente.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 ANULACIONES DE RECIBOS:</b><br>
+            Las anulaciones solo aplican el <b>mismo día</b> en que se paga el recibo.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 DEVOLUCIÓN DE RECIBOS:</b><br>
+            • <b>Con cepa:</b> 5 días<br>
+            • <b>Sin cepa:</b> 56 días
+        </div>
+        
+        <div class="step-list">
+            <b>📌 BAJA DE DOMICILIACIÓN:</b><br>
+            Se usa cuando el cliente ya no quiere pagar más recibos de una empresa. Se hace <b>por referencia</b>.<br>
+            <span class="alert-box" style="display: inline-block; padding: 5px 10px; font-size: 0.75rem;">⚠️ PRECAUCIÓN: Si una misma entidad factura varios recibos, primero se devuelve el recibo y luego se cancela.</span>
+        </div>
+        
+        <div class="step-list">
+            <b>📌 PAGO DE SEGURIDAD SOCIAL (Empleado o Empresa):</b><br>
+            Recibos → Seleccionar cuenta → Seguro social → Seleccionar actividad económica → Fecha → Domiciliarlos.<br>
+            Todo desde ventana operativa.
         </div>
         
         <div class="info-box">
-            <b>⚠️ DEVOLUCIÓN DE RECIBOS:</b><br>
+            <b>⚠️ PLAZOS IMPORTANTES:</b><br>
             • Si un recibo se ha cobrado sin autorización, el cliente tiene <b>8 semanas</b> para solicitar la devolución<br>
             • Plazo para reclamar un recibo domiciliado: <b>13 meses</b> desde el cargo<br>
             • Para devolver un recibo: App/Web → Recibos → Seleccionar recibo → "Devolver"
@@ -1370,6 +1425,132 @@
         
         <div class="quiz-note">
             <i class="fas fa-clock"></i> <b>Plazo de devolución de recibos:</b> El cliente tiene <b>8 semanas</b> desde el cargo para solicitar la devolución. Para recibos no autorizados, hasta <b>13 meses</b>.
+        </div>
+        
+        <button class="btn-back" onclick="show('transferencias')">⬅ Volver a Transferencias</button>
+    </div>
+
+    <!-- ==================== TARJETAS BANCARIAS (NUEVA SECCIÓN COMPLETA) ==================== -->
+    <div id="tarjetas-detalle" class="section">
+        <h3>💳 Tarjetas Bancarias - Guía Completa</h3>
+        
+        <div class="info-box">
+            <b><i class="fas fa-credit-card"></i> Definición general:</b><br>
+            Medio de pago emitido por una entidad bancaria a favor de un consumidor, asociado a una cuenta y aceptado mundialmente. Sirve para pagos físicos/virtuales y retirada de efectivo.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 ACCESO:</b> Desde Cuentas → Botón "Tarjetas"
+        </div>
+        
+        <div class="step-list">
+            <b>📌 TIPOS DE TARJETAS:</b> Débito, crédito, prepago.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 EMPRESA vs PARTICULAR:</b><br>
+            • <b>Empresa:</b> Titular = empresa / Beneficiario = persona física.<br>
+            • <b>Particular:</b> Titular = persona física / Beneficiario = persona física.<br>
+            • Todas las tarjetas tienen como beneficiario a una persona física.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 FAMILIAS DE TARJETAS:</b><br>
+            • <b>Tarjeta principal:</b> Titular del contrato = titular de la tarjeta.<br>
+            • <b>Tarjeta adicional:</b> Titular del contrato ≠ titular de la tarjeta.<br>
+            • <b>Tarjeta alternativa o reposición:</b> Sustituye a una principal o adicional por bloqueo.<br>
+            • El titular del contrato debe ser también titular de la cuenta(s) vinculada(s).<br>
+            • Sin límite de tarjetas por contrato.
+        </div>
+        
+        <!-- Tabla de tipos específicos -->
+        <div class="info-box">
+            <b>📊 TIPOS ESPECÍFICOS DE TARJETAS:</b>
+            <table class="tarjetas-tabla">
+                <thead>
+                    <tr><th>Tipo</th><th>Características</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><b>Prepago virtual (e-cash)</b></td><td>Solo compras online. Gratis 1er año, luego 9€/año. Gratis si hace 3 compras/año desde app/web.</td></tr>
+                    <tr><td><b>Prepago físico mini</b></td><td>Todo tipo de operaciones. Mín. 6€, máx. 1.650€. Recarga mín. 0,01€, máx. 900€.</td></tr>
+                    <tr><td><b>Débito</b></td><td>Contra saldo de cuenta. Límites: cajero 3.000€, online/comercio 600€.</td></tr>
+                    <tr><td><b>Crédito</b></td><td>Contra disponible de tarjeta.</td></tr>
+                    <tr><td><b>Prepago mini (menores)</b></td><td>Asociada a cuenta mini. Titular = menor → atendemos al representante legal.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="step-list">
+            <b>📌 LÍMITES Y MODIFICACIÓN (DÉBITO):</b><br>
+            • Si llama <b>beneficiario</b> → desde huella.<br>
+            • Si llama <b>titular del contrato</b> → Tarjetas → Modificación límites.<br>
+            • Las tarjetas españolas suelen comenzar con <b>54 o 59</b>.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 CARGA/DESCARGA DE PREPAGO (Nivel 2):</b><br>
+            Priorizar autogestión del cliente. Si no es posible:<br>
+            SPL N2 → Banca online + N2 + OTP + SK + Cajero → ADN / SK / Portales externos.<br>
+            Carga desde Portal de emisión (mismas claves de links).
+        </div>
+        
+        <div class="step-list">
+            <b>📌 SANTANDER KEY (SK) EN TARJETAS:</b><br>
+            • Activa tarjetas.<br>
+            • Añade seguridad en comercio electrónico (CES).<br>
+            • Se da de alta para: beneficiarios de empresa y prepago mini.<br>
+            • Si otro cliente solicita alta en CES → se genera SK.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 ALTA EN CES (Comercio Electrónico Seguro):</b><br>
+            Nivel de seguridad: <b>N2 + ANI + preguntas + SK</b><br>
+            El teléfono debe estar en base de datos.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 ENROLAR TARJETAS EN PAGO MÓVIL:</b><br>
+            Fitbit Pay, Garmin Pay, Google Wallet, Samsung Pay, Apple Pay.<br>
+            <b>Token Manager.</b>
+        </div>
+        
+        <div class="step-list">
+            <b>📌 ERRORES Y TOKEN MANAGER:</b><br>
+            • Tarjeta activa (ni apagada ni bloqueada).<br>
+            • Identificar que quede el "ojito" → si no, no llega OTP.<br>
+            • Ingresar 16 dígitos.<br>
+            • <b>Estatus INT:</b> Proceso iniciado pero no finalizado (no generó código de verificación con comercio).<br>
+            • <b>Enrolamiento OK:</b> 24-48h para activar en wallet.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 EMISIÓN Y ACTIVACIÓN:</b><br>
+            • Emisión: 7-10 días hábiles.<br>
+            • Activación: con primer uso (24-48h).<br>
+            • Vincular a wallet: apagar y encender.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 SEGURIDAD SIN PLÁSTICO:</b><br>
+            • Si compra >50€: contacto + PIN.<br>
+            • Si compra <50€: introducir tarjeta en TPV.<br>
+            • Si tiene clave de acceso: N1 → SanGo → Menú cliente → Canales remotos → Activación de tarjetas.
+        </div>
+        
+        <div class="step-list">
+            <b>📌 PIN (NÚMERO SECRETO):</b><br>
+            • Consulta online (web/app).<br>
+            • No se modifica en reposiciones/renovaciones.<br>
+            • Cambio solo en cajeros.<br>
+            • Se bloquea al 3er intento → resetear número seguro.<br>
+            • Desbloqueo con huella: seleccionar tarjeta → Desbloqueo PIN → autorizar con SK o firma electrónica.
+        </div>
+        
+        <div class="warning-bottom">
+            <b>⚠️ RECORDATORIO IMPORTANTE TARJETAS:</b><br>
+            • El CVV (3 o 4 dígitos) está en la parte inferior o trasera de la tarjeta. Se usa para compras online.<br>
+            • Nunca compartir el PIN de la tarjeta con nadie.<br>
+            • El banco nunca solicitará el número completo de la tarjeta ni el PIN por teléfono.
         </div>
         
         <button class="btn-back" onclick="show('transferencias')">⬅ Volver a Transferencias</button>
@@ -1412,13 +1593,13 @@
                     </tr>
                     <tr>
                         <td colspan="3" style="background:#f0f0f0; text-align:left;">
-                            <b>📌 RECIBOS:</b> Para bonificaciones de comisiones se requieren <b>3 recibos domiciliados</b> o <b>6 usos de tarjeta</b> al mes (según condiciones de cada cuenta)
+                            <b>📌 RECIBOS:</b> Para bonificaciones de comisiones se requieren <b>3 Recibos</b> o <b>6 usos de tarjeta</b> al mes (según condiciones de cada cuenta)
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3" style="background:#f0f0f0; text-align:left;">
                             <b>📌 Al cumplir 18 años, Cuenta Mini migra a Cuenta Joven</b>
-                        </td>
+                         </td>
                     </tr>
                 </tbody>
             </table>
@@ -1589,12 +1770,20 @@
     <div id="consumo-prestamos" class="section">
         <h3>📋 Tipos de Préstamos - Descripciones</h3>
         
-        <!-- Tabla de tipos de préstamos -->
+        <!-- Tabla de tipos de préstamos ACTUALIZADA según nueva información -->
         <table class="tabla-prestamos">
-            <thead><tr><th colspan="2">TIPO DE PRÉSTAMOS</th></tr></thead>
+            <thead>
+                <tr><th style="width: 30%;">TIPO DE PRÉSTAMOS</th><th>DESCRIPCIÓN</th></tr>
+            </thead>
             <tbody>
-                <td><td style="background:#f0f0f0;"><strong>PRECONCEDIDO</strong></td><td>Préstamo Digital Genérico | Reinicia | Préstamo Sostenible | Anticipo de Nómina</td> '</tr>
-                <tr><td style="background:#f0f0f0;"><strong>NO PRECONCEDIDO</strong></td><td>Préstamo Personal Tipo Fijo | Préstamo Sostenible | Anticipo de Nómina</td> </tr>
+                <tr>
+                    <td style="background:#f0f0f0; font-weight:bold;">PRECONCEDIDO</td>
+                    <td>• PRÉSTAMO PERSONAL / DIGITAL<br>• GENÉRICO REINICIA / REINICIA DIGITAL<br>• PRÉSTAMO SOSTENIBLE<br>• ANTICIPO DE NÓMINA</td>
+                </tr>
+                <tr>
+                    <td style="background:#f0f0f0; font-weight:bold;">NO PRECONCEDIDO</td>
+                    <td>• PRÉSTAMO PERSONAL EPO FIJO</td>
+                </tr>
             </tbody>
         </table>
 
@@ -1931,6 +2120,9 @@
             • Siempre recapitular información de la cita<br>
             • Texto legal al solicitar datos de contacto<br>
             • Estructura de llamada: Acogida → Escucha Activa → Sondeo → Predisposición → Solución → Ofrecimiento/Venta → Despedida NPS
+        </div>
+        <div class="btn-grid">
+            <button onclick="show('tarjetas-detalle')">💳 TARJETAS</button>
         </div>
         <button class="btn-back" onclick="show('inicio')">⬅ Volver al Inicio</button>
     </div>
